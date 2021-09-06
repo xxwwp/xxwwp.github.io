@@ -1,0 +1,25 @@
+{
+  "name": "io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "io",
+  "author": "JiaHao",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "gatsby": "^3.13.0",
+    "gatsby-plugin-emotion": "^6.13.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
