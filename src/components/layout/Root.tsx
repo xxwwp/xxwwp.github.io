@@ -21,7 +21,7 @@ export default function Root({ children, helmet = "" }: RootProps) {
   return (
     <React.Fragment>
       <Global styles={globalCss}></Global>
-      <Helmet />
+      <Helmet children={helmet} />
     </React.Fragment>
   );
 }
