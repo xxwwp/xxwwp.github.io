@@ -1,5 +1,6 @@
-const path = require("path");
-
-module.exports = {
-  docsPath: path.resolve(__dirname, "docs"),
+const config = {
+  /** 文档路径 */
+  docsPath: "docs/",
 };
+
+exports.default = config;

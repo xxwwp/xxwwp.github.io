@@ -1,4 +1,5 @@
 const path = require("path");
+const config = require("./config").default;
 
 exports.default = async function createPages({ graphql, actions, reporter }) {
   const { createPage } = actions;
@@ -16,7 +17,7 @@ exports.default = async function createPages({ graphql, actions, reporter }) {
 
   result.data.allMdx.nodes.forEach((node) => {
     createPage({
-      path: "docs/" + node.frontmatter.slug,
+      path: config.docsPath + node.frontmatter.slug,
       component: path.resolve(`./src/templates/Docs.tsx`),
       context: {
         slug: node.frontmatter.slug,

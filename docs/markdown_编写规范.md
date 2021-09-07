@@ -47,24 +47,7 @@ meta: 元数据
 | archives | string[]                | 否   |                        | 文章归档，将用于文章分类归档                                      |
 | desc     | string                  | 否   | 自动选取文章前面的文本 | 文章描述，将用于文章卡片简介文本，页面描述                        |
 
-模板如下：
-
-```yaml
----
-title:
-slug:
-nextPage:
-prevPage:
-publish: false
-version: 1.0.0
-obsolete:
-createAt:
-updateAt:
-tags:
-archives:
-desc:
----
-```
+可以复制[模板][1]快速生成新的 markdown 页面。
 
 示例：
 
@@ -268,3 +251,9 @@ git 版本提交使用 [commitizen](https://github.com/commitizen/cz-cli) 来进
 ```shell
 git cz
 ```
+
+## 参考
+
+- [markdown 模板][1]
+
+[1]: https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/markdown_template.md
