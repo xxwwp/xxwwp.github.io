@@ -1,17 +1,23 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { MDXProvider } from "@mdx-js/react";
+import { DMdx } from "../templates/Docs";
+import { Helmet } from "react-helmet";
+import React from "react";
+import styled from "styled-components";
 
-const articleStyle = css`
+const Article = styled("article")`
   line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, ui-sans-serif, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #336;
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-weight: 500;
+    font-weight: bold;
     line-height: 1.2;
     color: #212529;
     a,
@@ -65,10 +71,10 @@ const articleStyle = css`
   ol {
     padding-left: 2rem;
   }
-  .remark-highlight {
+  /* .remark-highlight {
     margin-left: -1rem;
     margin-right: -1rem;
-  }
+  } */
   pre {
     border-radius: 5px;
     box-shadow: 0 0 10px 3px #cacaca;
@@ -97,15 +103,24 @@ const articleStyle = css`
   }
 `;
 
-function MarkdownPage({ data }: { data: any }) {
+function MarkdownPage({ data }: { data: DMdx }) {
   return (
-    <article css={articleStyle}>
-      <h1>{data.mdx.frontmatter.title}</h1>
-      <hr />
-      <MDXProvider components={{}}>
-        <MDXRenderer>{data.mdx.body}</MDXRenderer>
-      </MDXProvider>
-    </article>
+    <React.Fragment>
+      <Helmet>
+        <link
+          key="prismTheme"
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.css"
+        ></link>
+      </Helmet>
+      <Article>
+        <h1>{data.frontmatter.title}</h1>
+        <hr />
+        <MDXProvider components={{}}>
+          <MDXRenderer>{data.body}</MDXRenderer>
+        </MDXProvider>
+      </Article>
+    </React.Fragment>
   );
 }
 

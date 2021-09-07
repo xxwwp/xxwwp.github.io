@@ -4,7 +4,7 @@ module.exports = {
     title: "玄晓乌屋",
   },
   plugins: [
-    "gatsby-plugin-emotion",
+    `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {

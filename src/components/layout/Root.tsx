@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
-import { Helmet } from "react-helmet";
-import { Global, css } from "@emotion/react";
+import { createGlobalStyle } from "styled-components";
 
-const globalCss = css`
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
   }
@@ -20,8 +19,8 @@ export interface RootProps {
 export default function Root({ children, helmet = "" }: RootProps) {
   return (
     <React.Fragment>
-      <Global styles={globalCss}></Global>
-      <Helmet children={helmet} />
+      <GlobalStyle />
+      {children}
     </React.Fragment>
   );
 }
