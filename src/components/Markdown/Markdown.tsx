@@ -1,8 +1,7 @@
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { MDXProvider } from "@mdx-js/react";
-import { DMdx } from "../templates/Docs";
 import { Helmet } from "react-helmet";
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
 
 const Article = styled("article")`
@@ -103,7 +102,12 @@ const Article = styled("article")`
   }
 `;
 
-function MarkdownPage({ data }: { data: DMdx }) {
+interface MarkdownProps extends ComponentPropsWithoutRef<"article"> {
+  heading?: string;
+  body?: string;
+}
+
+export default function Markdown({ heading, body, ...rest }: MarkdownProps) {
   return (
     <React.Fragment>
       <Helmet>
@@ -113,15 +117,13 @@ function MarkdownPage({ data }: { data: DMdx }) {
           href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.css"
         ></link>
       </Helmet>
-      <Article>
-        <h1>{data.frontmatter.title}</h1>
+      <Article {...rest}>
+        <h1>{heading}</h1>
         <hr />
         <MDXProvider components={{}}>
-          <MDXRenderer>{data.body}</MDXRenderer>
+          <MDXRenderer>{body}</MDXRenderer>
         </MDXProvider>
       </Article>
     </React.Fragment>
   );
 }
-
-export default MarkdownPage;

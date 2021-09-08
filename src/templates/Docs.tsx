@@ -2,28 +2,22 @@ import { PageProps } from "gatsby";
 import { graphql } from "gatsby";
 import MarkdownPage from "../components/Markdown";
 import Post from "../components/Post";
-import React from "react";
+import React, { ReactNode } from "react";
+import Blockquote from "../components/Blockquote";
 
 export const query = graphql`
   query ($slug: String!) {
     mdx(frontmatter: { slug: { eq: $slug } }) {
       body
       frontmatter {
-        createAt
         slug
         title
         publish
         archives
-        obsolete {
-          version
-          link
-        }
         desc
         nextPage
         prevPage
         tags
-        updateAt
-        version
       }
       headings {
         depth
@@ -33,15 +27,18 @@ export const query = graphql`
   }
 `;
 
-function Docs({ data }: DData) {
+export default function Docs({ data }: DData) {
+  const fm = data.mdx.frontmatter;
+
+  const unPublish = fm.publish !== true && <Blockquote>这是一篇没有正式发布的草稿，不推荐阅读。</Blockquote>;
+
   return (
     <Post>
-      <MarkdownPage data={data.mdx} />
+      {unPublish}
+      <MarkdownPage heading={fm.title} body={data.mdx.body} />
     </Post>
   );
 }
-
-export default Docs;
 
 /** 版本项类型 */
 export interface DVersion {
@@ -62,15 +59,14 @@ export interface DMdx {
     slug: string;
     title: string;
     createAt: string;
-    updateAt: string | null;
     publish: boolean;
-    version: string | null;
-    desc: string | null;
-    nextPage: string | null;
-    prevPage: string | null;
-    obsolete: DVersion[] | null;
-    tags: string[] | null;
-    archives: string[] | null;
+    version?: string;
+    desc?: string;
+    nextPage?: string;
+    prevPage?: string;
+    obsolete?: DVersion[];
+    tags?: string[];
+    archives?: string[];
   };
   headings: DHeading[];
 }

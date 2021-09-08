@@ -4,14 +4,6 @@ slug: Markdown_writing_specification
 nextPage:
 prevPage:
 publish: false
-version: v0.0.1
-obsolete:
-  - version: v0.0.1
-    link: https://v0.0.1.....
-  - version: v0.0.2
-    link: https://v0.0.2.....
-createAt: 2021-09-07T14:42:00+08:00
-updateAt:
 tags:
 archives:
   - 文章
@@ -32,20 +24,16 @@ meta: 元数据
 
 元数据提供文章的所有基础数据，这些数据将用于渲染或标识。数据列表如下：
 
-| 字段名   | 类型                    | 必填 | 默认                   | 描述                                                              |
-| -------- | ----------------------- | ---- | ---------------------- | ----------------------------------------------------------------- |
-| title    | string                  | 是   |                        | 文章标题                                                          |
-| slug     | string                  | 是   |                        | 文章路径（所有文章会有基础路径 "docs/"）                          |
-| nextPage | string                  | 否   |                        | 下一篇文章路径，基于渲染后的 url                                  |
-| prevPage | string                  | 否   |                        | 上一篇文章路径，基于渲染后的 url                                  |
-| publish  | boolean                 | 是   | false                  | 是否发布，仅在设置为 true 时文章会被发布。（默认不会发布文章）    |
-| version  | [Version](#Version)     | 否   |                        | 版本号，可用作于设置文章版本号。                                  |
-| obsolete | [Obsolete](#Obsolete)[] | 否   |                        | 历史版本链接。                                                    |
-| createAt | [Date](#Date)           | 是   |                        | 文章创建日期（该日期仅在大版本发布时进行修改，格式如 YYYY-mm-dd） |
-| updateAt | [Date](#Date)           | 否   |                        | 文章修改日期，仅作为小版本发布时的日期                            |
-| tags     | string[]                | 否   |                        | 文章的标签，将用于页面的关键字设置，文章标签分类                  |
-| archives | string[]                | 否   |                        | 文章归档，将用于文章分类归档                                      |
-| desc     | string                  | 否   | 自动选取文章前面的文本 | 文章描述，将用于文章卡片简介文本，页面描述                        |
+| 字段名   | 类型     | 必填 | 默认                   | 描述                                                           |
+| -------- | -------- | ---- | ---------------------- | -------------------------------------------------------------- |
+| title    | string   | 是   |                        | 文章标题                                                       |
+| slug     | string   | 是   |                        | 文章路径（所有文章会有基础路径 "docs/"）                       |
+| nextPage | string   | 否   |                        | 下一篇文章路径，基于渲染后的 url                               |
+| prevPage | string   | 否   |                        | 上一篇文章路径，基于渲染后的 url                               |
+| publish  | boolean  | 是   | false                  | 是否发布，仅在设置为 true 时文章会被发布。（默认不会发布文章） |
+| tags     | string[] | 否   |                        | 文章的标签，将用于页面的关键字设置，文章标签分类               |
+| archives | string[] | 否   |                        | 文章归档，将用于文章分类归档                                   |
+| desc     | string   | 否   | 自动选取文章前面的文本 | 文章描述，将用于文章卡片简介文本，页面描述                     |
 
 可以复制[模板][1]快速生成新的 markdown 页面。
 
@@ -58,14 +46,6 @@ slug: urllink
 nextPage: nextlink
 prevPage: lastlink
 publish: false
-version: 1.0.0
-obsolete:
-  - version: v0.0.1
-    link: https://v0.0.1.....
-  - version: v0.0.2
-    link: https://v0.0.2.....
-createAt: 2021-09-01
-updateAt: 2021-09-01
 tags:
   - svg
   - html
@@ -76,65 +56,6 @@ archives:
 desc: 这里是文章表述
 ---
 ```
-
-### Version
-
-版本号格式用于文章版本，这是一个可选值，仅在需要明确记录文章版本时进行添加。
-
-版本需要满足以下格式：
-
-```
-vxx.xx.xx
-```
-
-最开始的 "v" 字符标记为字符串，其中 xx 为 0 到 99 的自然数，不需要前导零。三组数字依次为大中小三个版本：
-
-- 大版本仅在文章大范围修改时更新。
-- 中版本仅在文章不影响大意的修改下更新。
-- 小版本仅在不影响意思的情况下，或者元数据修改是更新。
-
-示例：
-
-```yaml
-version : v1.0.0
-version : v0.0.0
-version : v23.23.99
-```
-
-### Obsolete
-
-Obsolete 为陈旧版本记录，它是一个键值列表，使用 yaml 按照一下格式编写：
-
-```yaml
-obsolete:
-  - version: v0.0.1
-    link: https://v0.0.1.....
-  - version: v0.0.2
-    link: https://v0.0.2.....
-```
-
-version 为版本号，link 对应 git 仓库指定版本的代码。
-
-### Date
-
-Date 为 [ISO 8601](https://zh.wikipedia.org/wiki/ISO_8601) 支持的时间格式。
-
-示例：
-
-```yaml
-createAt: 2021-09-07
-createAt: 2021-09-07T09:00:00
-createAt: 2021-09-07T06:40:38.159Z
-updateAt: 2021-09-07T14:42:00+08:00
-```
-
-使用 JavaScript 的 Date 对象可以很容易生成这段时间字符串，例如：
-
-```js
-new Date().toISOString(); // 2021-09-07T06:40:38.159Z
-```
-
-当然精确到秒或者毫秒对于文章并没有多大意义，所以直接使用 YYYY-mm-dd 格式即可。
 
 ## markdown
 
