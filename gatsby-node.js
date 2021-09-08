@@ -1,6 +1,57 @@
-const mdxRender = require("./gatsby/mdxRender");
+const path = require("path");
+const config = require("./gatsby/config").default;
+const { fileCommitInfo } = require("./gatsby/git");
 
-// 把 mdx 文件数据使用指定模板渲染
+const mdx = {
+  /**
+   * 创建 mdx 节点时，插入每个文件的 git 提交历史
+   */
+  onCreateNode: async function ({ node, getNode, actions }) {
+    const { createNodeField } = actions;
+    if (node.internal.type === `Mdx`) {
+      const gitinfo = await fileCommitInfo(node.fileAbsolutePath);
+      createNodeField({
+        node,
+        name: `gitinfo`,
+        // 对象无法正常存储，只能使用 json 字符串
+        value: JSON.stringify(gitinfo),
+      });
+    }
+  },
+
+  /**
+   * 根据 docs 文件夹下的 md 文件创建页面
+   */
+  createPages: async function ({ graphql, actions, reporter }) {
+    const { createPage } = actions;
+    const result = await graphql(`
+      query {
+        allMdx {
+          nodes {
+            frontmatter {
+              slug
+            }
+          }
+        }
+      }
+    `);
+
+    result.data.allMdx.nodes.forEach((node) => {
+      createPage({
+        path: config.docsPath + node.frontmatter.slug,
+        component: path.resolve(`./src/templates/Docs.tsx`),
+        context: {
+          slug: node.frontmatter.slug,
+        },
+      });
+    });
+  },
+};
+
+exports.onCreateNode = async (...args) => {
+  await mdx.onCreateNode.apply(this, args);
+};
+
 exports.createPages = async (...args) => {
-  await mdxRender.default.apply(this, args);
+  await mdx.createPages.apply(this, args);
 };
