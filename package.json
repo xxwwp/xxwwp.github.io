@@ -26,7 +26,6 @@
     "gatsby-plugin-styled-components": "^4.13.0",
     "gatsby-remark-images": "^5.10.0",
     "gatsby-source-filesystem": "^3.13.0",
-    "gatsby-source-graphql": "^3.13.0",
     "gatsby-transformer-sharp": "^3.13.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
