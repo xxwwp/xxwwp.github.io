@@ -7,7 +7,7 @@ publish: false
 tags:
 archives:
   - 文章
-desc: 记录了项目的 docs 文件夹中 markdown 文档的规范，对基础规范做出示例。
+desc:
 ---
 
 ## 元数据

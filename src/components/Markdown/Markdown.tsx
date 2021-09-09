@@ -27,19 +27,19 @@ const Article = styled("article")`
     }
   }
   h1 {
-    font-size: 2.5rem;
-  }
-  h2 {
-    font-size: 2rem;
-  }
-  h3 {
     font-size: 1.75rem;
   }
+  h2 {
+    font-size: 1.6rem;
+  }
+  h3 {
+    font-size: 1.45rem;
+  }
   h4 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   h5 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
   h6 {
     font-size: 1rem;
