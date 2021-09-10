@@ -31,14 +31,14 @@ export const query = graphql`
       }
       parent {
         ... on File {
-          base
+          relativePath
         }
       }
     }
   }
 `;
 
-export default function Docs({ data }: DData) {
+export default function Docs({ data }: PageData) {
   const fm = data.markdownRemark.frontmatter;
   const { latest }: DGitinfo = JSON.parse(data.markdownRemark.fields.gitinfo);
 
@@ -52,10 +52,10 @@ export default function Docs({ data }: DData) {
       <MarkdownPage heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo
         lastModify={latest.date}
-        sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.markdownRemark.parent.base}`}
+        sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.markdownRemark.parent.relativePath}`}
         tags={fm.tags}
         archives={fm.archives}
-        historyLink={`https://github.com/xxwwp/xxwwp.github.io/commits/main/docs/${data.markdownRemark.parent.base}`}
+        historyLink={`https://github.com/xxwwp/xxwwp.github.io/commits/main/docs/${data.markdownRemark.parent.relativePath}`}
         createAt={data.markdownRemark.frontmatter.createAt}
       />
     </Post>
@@ -63,19 +63,19 @@ export default function Docs({ data }: DData) {
 }
 
 /** 版本项类型 */
-export interface DVersion {
+interface DVersion {
   version: string;
   link: string;
 }
 
 /** md 标题类型 */
-export interface DHeading {
+interface DHeading {
   depth: number;
   value: string;
 }
 
 /** md 的 GraphQL 数据 */
-export interface DMdx {
+interface DMdx {
   htmlAst: object;
   excerpt: string;
   frontmatter: {
@@ -94,7 +94,7 @@ export interface DMdx {
     gitinfo: string;
   };
   parent: {
-    base: string;
+    relativePath: string;
   };
 }
 
@@ -108,13 +108,13 @@ interface DGitinfoItem {
 }
 
 /** 文章的 git 信息 */
-export interface DGitinfo {
+interface DGitinfo {
   all: DGitinfoItem[];
   latest: DGitinfoItem;
   total: number;
 }
 
-export interface DData extends PageProps {
+interface PageData extends PageProps {
   data: {
     markdownRemark: DMdx;
   };
