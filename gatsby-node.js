@@ -2,13 +2,13 @@ const path = require("path");
 const config = require("./gatsby/config").default;
 const { fileCommitInfo } = require("./gatsby/git");
 
-const mdx = {
+const md = {
   /**
-   * 创建 mdx 节点时，插入每个文件的 git 提交历史
+   * 创建 md 节点时，插入每个文件的 git 提交历史
    */
   onCreateNode: async function ({ node, getNode, actions }) {
     const { createNodeField } = actions;
-    if (node.internal.type === `Mdx`) {
+    if (node.internal.type === `MarkdownRemark`) {
       const gitinfo = await fileCommitInfo(node.fileAbsolutePath);
       createNodeField({
         node,
@@ -25,8 +25,8 @@ const mdx = {
   createPages: async function ({ graphql, actions, reporter }) {
     const { createPage } = actions;
     const result = await graphql(`
-      query {
-        allMdx {
+      query GetMarkdowns {
+        allMarkdownRemark {
           nodes {
             frontmatter {
               slug
@@ -36,7 +36,7 @@ const mdx = {
       }
     `);
 
-    result.data.allMdx.nodes.forEach((node) => {
+    result.data.allMarkdownRemark.nodes.forEach((node) => {
       createPage({
         path: config.docsPath + node.frontmatter.slug,
         component: path.resolve(`./src/templates/Docs.tsx`),
@@ -49,9 +49,9 @@ const mdx = {
 };
 
 exports.onCreateNode = async (...args) => {
-  await mdx.onCreateNode.apply(this, args);
+  await md.onCreateNode.apply(this, args);
 };
 
 exports.createPages = async (...args) => {
-  await mdx.createPages.apply(this, args);
+  await md.createPages.apply(this, args);
 };

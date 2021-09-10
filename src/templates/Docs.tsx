@@ -8,12 +8,13 @@ import DocInfo from "../components/DocInfo";
 
 export const query = graphql`
   query ($slug: String!) {
-    mdx(frontmatter: { slug: { eq: $slug } }) {
-      body
+    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
+      htmlAst
       excerpt
       frontmatter {
         slug
         title
+        createAt(formatString: "yyyy-MM-DD")
         publish
         archives
         desc
@@ -38,20 +39,24 @@ export const query = graphql`
 `;
 
 export default function Docs({ data }: DData) {
-  const fm = data.mdx.frontmatter;
-  const { latest }: DGitinfo = JSON.parse(data.mdx.fields.gitinfo);
+  const fm = data.markdownRemark.frontmatter;
+  const { latest }: DGitinfo = JSON.parse(data.markdownRemark.fields.gitinfo);
 
   const unPublish = fm.publish !== true && <Blockquote>这是一篇没有正式发布的草稿，不推荐阅读。</Blockquote>;
 
+  console.log(JSON.parse(data.markdownRemark.fields.gitinfo));
+
   return (
-    <Post desc={fm.desc ?? data.mdx.excerpt} keywords={fm.tags}>
+    <Post desc={fm.desc ?? data.markdownRemark.excerpt} keywords={fm.tags}>
       {unPublish}
-      <MarkdownPage heading={fm.title} body={data.mdx.body} />
+      <MarkdownPage heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo
         lastModify={latest.date}
-        sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.mdx.parent.base}`}
+        sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.markdownRemark.parent.base}`}
         tags={fm.tags}
         archives={fm.archives}
+        historyLink={`https://github.com/xxwwp/xxwwp.github.io/commits/main/docs/${data.markdownRemark.parent.base}`}
+        createAt={data.markdownRemark.frontmatter.createAt}
       />
     </Post>
   );
@@ -71,13 +76,13 @@ export interface DHeading {
 
 /** md 的 GraphQL 数据 */
 export interface DMdx {
-  body: string;
+  htmlAst: object;
   excerpt: string;
   frontmatter: {
     slug: string;
     title: string;
+    createAt: string;
     publish: boolean;
-    version?: string;
     desc?: string;
     nextPage?: string;
     prevPage?: string;
@@ -96,7 +101,7 @@ export interface DMdx {
 interface DGitinfoItem {
   authorEmail: string;
   authorName: string;
-  body: string;
+  html: string;
   date: string;
   hash: string;
   message: string;
@@ -111,6 +116,6 @@ export interface DGitinfo {
 
 export interface DData extends PageProps {
   data: {
-    mdx: DMdx;
+    markdownRemark: DMdx;
   };
 }

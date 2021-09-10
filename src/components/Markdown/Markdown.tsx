@@ -1,14 +1,18 @@
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import { MDXProvider } from "@mdx-js/react";
+import rehypeReact from "rehype-react";
 import { Helmet } from "react-helmet";
 import React, { ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
+import H1_6 from "./H1_6";
+import Blockquote from "../Blockquote";
+import Anchor from "./Anchor";
+
+const MDBlockquote = (props) => <Blockquote {...props} bgColor="#eef" baseColor="#ccd" />;
 
 const Article = styled("article")`
   line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, ui-sans-serif, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  color: #336;
+  color: #0f0f36;
 
   h1,
   h2,
@@ -23,7 +27,22 @@ const Article = styled("article")`
     a:hover,
     a:active,
     a:visited {
-      color: inherit;
+      color: #383980;
+      text-decoration: none;
+      &::after {
+        content: " #";
+        font-size: 1.8ex;
+      }
+    }
+    a::after {
+      content: none;
+    }
+    &::before {
+      content: "";
+      display: block;
+      pointer-events: none;
+      padding-top: 80px;
+      margin-top: -80px;
     }
   }
   h1 {
@@ -49,17 +68,10 @@ const Article = styled("article")`
     font-size: 1rem;
   }
   em {
-    background-color: #fcf8e3;
-    font-style: normal;
+    background-color: #ecfbfd;
     color: #000;
   }
   blockquote {
-    margin: 1.25rem -1rem;
-    padding: 0.5rem 1.25rem;
-    border: 1px solid #eee;
-    border-left-width: 0.25rem;
-    border-radius: 0.25rem;
-    border-left-color: #f0ad4e;
     cite {
       text-align: right;
       color: silver;
@@ -70,16 +82,11 @@ const Article = styled("article")`
   ol {
     padding-left: 2rem;
   }
-  /* .remark-highlight {
-    margin-left: -1rem;
-    margin-right: -1rem;
-  } */
   pre {
     border-radius: 5px;
-    box-shadow: 0 0 10px 3px #cacaca;
+    filter: hue-rotate(200deg);
   }
   code {
-    color: #e83e8c;
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 87.5%;
   }
@@ -89,40 +96,52 @@ const Article = styled("article")`
   }
   a {
     color: #0d6efd;
+    text-decoration: none;
   }
-  a:hover {
-    color: #488df5;
-  }
-  a:visited {
-    color: #0a5dda;
-  }
+  a:hover,
+  a:visited,
   a:active {
-    color: #72a6f5;
-    text-shadow: 0 0 3px #7e8af8;
+    filter: brightness(1.5);
+    text-decoration: underline;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+  th {
+    white-space: nowrap;
   }
 `;
 
+// 自定义 md 组件
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  components: {
+    ...H1_6,
+    blockquote: MDBlockquote,
+    a: Anchor,
+  },
+}).Compiler;
+
 interface MarkdownProps extends ComponentPropsWithoutRef<"article"> {
   heading?: string;
-  body?: string;
+  htmlAst?: object;
 }
 
-export default function Markdown({ heading, body, ...rest }: MarkdownProps) {
+export default function Markdown({ heading, htmlAst, ...rest }: MarkdownProps) {
   return (
     <React.Fragment>
       <Helmet>
         <link
           key="prismTheme"
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.css"
+          href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css"
         ></link>
       </Helmet>
       <Article {...rest}>
         <h1>{heading}</h1>
         <hr />
-        <MDXProvider components={{}}>
-          <MDXRenderer>{body}</MDXRenderer>
-        </MDXProvider>
+        {renderAst(htmlAst)}
       </Article>
     </React.Fragment>
   );

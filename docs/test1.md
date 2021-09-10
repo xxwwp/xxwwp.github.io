@@ -1,8 +1,9 @@
 ---
 title: 文章标题
-slug: urllink
+slug: test1
 nextPage: nextlink
 prevPage: lastlink
+createAt: 2021-09-10
 publish: false
 tags:
   - svg
@@ -17,6 +18,10 @@ desc: 这里是文章表述
 ## 开始
 
 量安少得可怜就阿斯利康
+
+![](./assets/one.png)
+
+![](/demos/test.svg)
 
 ```html
 <style>

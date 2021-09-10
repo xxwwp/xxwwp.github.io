@@ -1,6 +1,7 @@
 ---
 title: "markdown 编写规范"
 slug: Markdown_writing_specification
+createAt: 2021-09-10
 nextPage:
 prevPage:
 publish: false
@@ -24,16 +25,43 @@ meta: 元数据
 
 元数据提供文章的所有基础数据，这些数据将用于渲染或标识。数据列表如下：
 
-| 字段名   | 类型     | 必填 | 默认                   | 描述                                                           |
-| -------- | -------- | ---- | ---------------------- | -------------------------------------------------------------- |
-| title    | string   | 是   |                        | 文章标题                                                       |
-| slug     | string   | 是   |                        | 文章路径（所有文章会有基础路径 "docs/"）                       |
-| nextPage | string   | 否   |                        | 下一篇文章路径，基于渲染后的 url                               |
-| prevPage | string   | 否   |                        | 上一篇文章路径，基于渲染后的 url                               |
-| publish  | boolean  | 是   | false                  | 是否发布，仅在设置为 true 时文章会被发布。（默认不会发布文章） |
-| tags     | string[] | 否   |                        | 文章的标签，将用于页面的关键字设置，文章标签分类               |
-| archives | string[] | 否   |                        | 文章归档，将用于文章分类归档                                   |
-| desc     | string   | 否   | 自动选取文章前面的文本 | 文章描述，将用于文章卡片简介文本，页面描述                     |
+- _title = string_
+
+  文章标题
+
+- _slug = string_
+
+  文章路径（所有文章会有基础路径 "docs/"）
+
+- _createAt = string_
+
+  一个 [ISO 8601](https://zh.wikipedia.org/wiki/ISO_8601) 格式的时间字符串，指定文档是与哪一天创建的。
+
+- _nextPage ::= string_
+
+  下一篇文章路径，基于渲染后的 url
+
+- _prevPage ::= string_
+
+  上一篇文章路径，基于渲染后的 url
+
+- _publish = boolean 默认 false_
+
+  是否发布，仅在设置为 true 时文章会被发布。（默认不会发布文章）
+
+- _tags ::= string[]_
+
+  文章的标签，将用于页面的关键字设置，文章标签分类
+
+- _archives ::= string[]_
+
+  文章归档，将用于文章分类归档
+
+- _desc ::= string_
+
+  文章描述，将用于文章卡片简介文本，页面描述。如果没有设置该值，会使用 [gatsby-transform-remark](https://www.gatsbyjs.com/plugins/gatsby-transformer-remark/) 插件提供的 [excerpt](https://using-remark.gatsbyjs.org/excerpts/) 数据。
+
+> 上面描述中，`=` 代表必填，`::=` 代表非必填。
 
 可以复制[模板][1]快速生成新的 markdown 页面。
 
@@ -43,6 +71,7 @@ meta: 元数据
 ---
 title: 文章标题
 slug: urllink
+createAt: 2021-09-10
 nextPage: nextlink
 prevPage: lastlink
 publish: false
@@ -82,6 +111,12 @@ desc: 这里是文章表述
 
 ###### 六级标题
 ```
+
+## 表格
+
+重要区分列表和表格的语义区别，我曾多个地方使用表格代替列表，导致渲染和语义都不好。
+
+如果是描述性列表，可以直接使用 `<dl>` 元素。
 
 ### 注释
 
