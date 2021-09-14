@@ -5,6 +5,7 @@ import styled from "styled-components";
 import H1_6 from "./H1_6";
 import Blockquote from "../Blockquote";
 import Anchor from "./Anchor";
+import "katex/dist/katex.min.css";
 
 const MDBlockquote = (props) => <Blockquote {...props} bgColor="#eef" baseColor="#ccd" />;
 
@@ -110,6 +111,11 @@ const Article = styled("article")`
   }
   th {
     white-space: nowrap;
+  }
+
+  .gatsby-highlight,
+  .math {
+    margin: 1em 0;
   }
 `;
 

@@ -1,0 +1,321 @@
+{
+  "type": "root",
+  "children": [
+    {
+      "type": "element",
+      "tagName": "hr",
+      "properties": {},
+      "children": [],
+      "position": { "start": { "line": 1, "column": 1, "offset": 0 }, "end": { "line": 1, "column": 4, "offset": 3 } }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "p",
+      "properties": {},
+      "children": [
+        {
+          "type": "text",
+          "value": "title: test1\nslug: test1\nnextPage: nextlink\nprevPage: lastlink\ncreateAt: 2021-09-10\npublish: false\ntags:",
+          "position": {
+            "start": { "line": 2, "column": 1, "offset": 5 },
+            "end": { "line": 8, "column": 6, "offset": 115 }
+          }
+        }
+      ],
+      "position": { "start": { "line": 2, "column": 1, "offset": 5 }, "end": { "line": 8, "column": 6, "offset": 115 } }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "ul",
+      "properties": {},
+      "children": [
+        { "type": "text", "value": "\n" },
+        {
+          "type": "element",
+          "tagName": "li",
+          "properties": {},
+          "children": [
+            {
+              "type": "text",
+              "value": "svg",
+              "position": {
+                "start": { "line": 9, "column": 5, "offset": 121 },
+                "end": { "line": 9, "column": 8, "offset": 124 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 9, "column": 1, "offset": 117 },
+            "end": { "line": 9, "column": 8, "offset": 124 }
+          }
+        },
+        { "type": "text", "value": "\n" },
+        {
+          "type": "element",
+          "tagName": "li",
+          "properties": {},
+          "children": [
+            {
+              "type": "text",
+              "value": "html",
+              "position": {
+                "start": { "line": 10, "column": 5, "offset": 130 },
+                "end": { "line": 10, "column": 9, "offset": 134 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 10, "column": 1, "offset": 126 },
+            "end": { "line": 10, "column": 9, "offset": 134 }
+          }
+        },
+        { "type": "text", "value": "\n" },
+        {
+          "type": "element",
+          "tagName": "li",
+          "properties": {},
+          "children": [
+            {
+              "type": "text",
+              "value": "tag3\narchives:",
+              "position": {
+                "start": { "line": 11, "column": 5, "offset": 140 },
+                "end": { "line": 12, "column": 10, "offset": 155 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 11, "column": 1, "offset": 136 },
+            "end": { "line": 12, "column": 10, "offset": 155 }
+          }
+        },
+        { "type": "text", "value": "\n" },
+        {
+          "type": "element",
+          "tagName": "li",
+          "properties": {},
+          "children": [
+            {
+              "type": "text",
+              "value": "文章",
+              "position": {
+                "start": { "line": 13, "column": 5, "offset": 161 },
+                "end": { "line": 13, "column": 7, "offset": 163 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 13, "column": 1, "offset": 157 },
+            "end": { "line": 13, "column": 7, "offset": 163 }
+          }
+        },
+        { "type": "text", "value": "\n" },
+        {
+          "type": "element",
+          "tagName": "li",
+          "properties": {},
+          "children": [
+            {
+              "type": "text",
+              "value": "archives2\ndesc: 这里是文章表述",
+              "position": {
+                "start": { "line": 14, "column": 5, "offset": 169 },
+                "end": { "line": 15, "column": 14, "offset": 193 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 14, "column": 1, "offset": 165 },
+            "end": { "line": 15, "column": 14, "offset": 193 }
+          }
+        },
+        { "type": "text", "value": "\n" }
+      ],
+      "position": {
+        "start": { "line": 9, "column": 1, "offset": 117 },
+        "end": { "line": 15, "column": 14, "offset": 193 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "hr",
+      "properties": {},
+      "children": [],
+      "position": {
+        "start": { "line": 16, "column": 1, "offset": 195 },
+        "end": { "line": 16, "column": 4, "offset": 198 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "h2",
+      "properties": {},
+      "children": [
+        {
+          "type": "text",
+          "value": "开始",
+          "position": {
+            "start": { "line": 18, "column": 4, "offset": 205 },
+            "end": { "line": 18, "column": 6, "offset": 207 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 18, "column": 1, "offset": 202 },
+        "end": { "line": 18, "column": 6, "offset": 207 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "p",
+      "properties": {},
+      "children": [
+        {
+          "type": "text",
+          "value": "量安少得可怜就阿斯利康",
+          "position": {
+            "start": { "line": 20, "column": 1, "offset": 211 },
+            "end": { "line": 20, "column": 12, "offset": 222 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 20, "column": 1, "offset": 211 },
+        "end": { "line": 20, "column": 12, "offset": 222 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "p",
+      "properties": {},
+      "children": [
+        {
+          "type": "element",
+          "tagName": "img",
+          "properties": { "src": "./assets/one.png", "alt": null },
+          "children": [],
+          "position": {
+            "start": { "line": 22, "column": 1, "offset": 226 },
+            "end": { "line": 22, "column": 22, "offset": 247 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 22, "column": 1, "offset": 226 },
+        "end": { "line": 22, "column": 22, "offset": 247 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "p",
+      "properties": {},
+      "children": [
+        {
+          "type": "element",
+          "tagName": "img",
+          "properties": { "src": "/demos/test.svg", "alt": null },
+          "children": [],
+          "position": {
+            "start": { "line": 24, "column": 1, "offset": 251 },
+            "end": { "line": 24, "column": 21, "offset": 271 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 24, "column": 1, "offset": 251 },
+        "end": { "line": 24, "column": 21, "offset": 271 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "pre",
+      "properties": {},
+      "children": [
+        {
+          "type": "element",
+          "tagName": "code",
+          "properties": { "className": ["language-html"] },
+          "children": [
+            {
+              "type": "text",
+              "value": "<style>\n  .foo {\n    background: url(../image.png) #f0f;\n    width: 200px;\n    height: 100%;\n    display: flex;\n  }\n</style>\n\n<body>\n  <!-- jjj -->\n  <a href=\"xxwwp.github.io\"> xxwwp </a>\n</body>\n\n<script>\n  // 写几行代码\n\n  const a = () => 1;\n\n  function bvasd({[foo,bar = 10]}) {\n  \treturn foo?.baz ** bar;\n  }\n\n  const b = [...bavsd()];\n</script>\n"
+            }
+          ],
+          "position": {
+            "start": { "line": 26, "column": 1, "offset": 275 },
+            "end": { "line": 52, "column": 4, "offset": 657 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 26, "column": 1, "offset": 275 },
+        "end": { "line": 52, "column": 4, "offset": 657 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "p",
+      "properties": {},
+      "children": [
+        {
+          "type": "text",
+          "value": "\\$\\$",
+          "position": {
+            "start": { "line": 54, "column": 1, "offset": 661 },
+            "end": { "line": 54, "column": 5, "offset": 665 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 54, "column": 1, "offset": 661 },
+        "end": { "line": 54, "column": 5, "offset": 665 }
+      }
+    },
+    { "type": "text", "value": "\n" },
+    {
+      "type": "element",
+      "tagName": "p",
+      "properties": {},
+      "children": [
+        {
+          "type": "text",
+          "value": "$$\na = 1 ",
+          "position": {
+            "start": { "line": 56, "column": 1, "offset": 669 },
+            "end": { "line": 57, "column": 7, "offset": 679 }
+          }
+        },
+        {
+          "type": "text",
+          "value": "\\",
+          "position": {
+            "start": { "line": 57, "column": 7, "offset": 679 },
+            "end": { "line": 57, "column": 9, "offset": 681 }
+          }
+        },
+        {
+          "type": "text",
+          "value": "\nb = 2\n$$",
+          "position": {
+            "start": { "line": 57, "column": 9, "offset": 681 },
+            "end": { "line": 59, "column": 3, "offset": 692 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 56, "column": 1, "offset": 669 },
+        "end": { "line": 59, "column": 3, "offset": 692 }
+      }
+    }
+  ],
+  "position": { "start": { "line": 1, "column": 1, "offset": 0 }, "end": { "line": 60, "column": 1, "offset": 694 } }
+}

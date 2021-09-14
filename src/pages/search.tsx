@@ -1,5 +1,5 @@
 import { graphql, PageProps } from "gatsby";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 /**
@@ -57,6 +57,7 @@ export const query = graphql`
         }
         fields {
           path
+          mini
         }
       }
     }
@@ -67,8 +68,7 @@ export default function Search({ data }: PageData) {
   const [keyword, setSearch] = useState("");
   const [list, setList] = useState<DData["allMarkdownRemark"]["nodes"]>([]);
 
-  // 根据 keyword , data 生成渲染列表
-  useEffect(() => {
+  const handleList = useCallback(() => {
     if (keyword === "") return void setList([]);
 
     const wNodes: { node: typeof list[number]; w: number }[] = data.allMarkdownRemark.nodes.map((v) => ({
@@ -96,7 +96,11 @@ export default function Search({ data }: PageData) {
     setList(filters.map((v) => v.node));
   }, [keyword, data]);
 
-  // 多关键字的类型没有判断，这部分还是要重写
+  // 防抖
+  useEffect(() => {
+    const timer = setTimeout(handleList, 1000);
+    return () => clearTimeout(timer);
+  }, [handleList]);
 
   return (
     <DivS>
@@ -126,6 +130,7 @@ export default function Search({ data }: PageData) {
                   </span>
                 ))}
               </p>
+              <p>{v.fields.mini}</p>
             </li>
           ))}
         </ul>
@@ -140,6 +145,7 @@ interface DData {
     nodes: {
       fields: {
         path: string;
+        mini: string;
       };
       frontmatter: {
         title: string;

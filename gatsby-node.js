@@ -1,6 +1,7 @@
 const path = require("path");
 const config = require("./gatsby/config").default;
 const { fileCommitInfo } = require("./gatsby/git");
+const mdMini = require("./gatsby/mdZip").mdMini;
 
 // markdown 处理
 const md = {
@@ -21,6 +22,11 @@ const md = {
         node,
         name: `path`,
         value: "/" + config.docsPath + node.frontmatter.slug,
+      });
+      createNodeField({
+        node,
+        name: `mini`,
+        value: mdMini(node.rawMarkdownBody),
       });
     }
   },

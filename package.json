@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "develop": "gatsby develop",
-    "start": "gatsby develop",
+    "start": "gatsby clean && gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
@@ -23,12 +23,14 @@
     "gatsby-plugin-styled-components": "^4.13.0",
     "gatsby-remark-copy-linked-files": "^4.11.0-next.2",
     "gatsby-remark-images": "^5.11.0-next.2",
+    "gatsby-remark-katex": "^5.10.0",
     "gatsby-remark-prismjs": "^5.11.0-next.2",
     "gatsby-remark-responsive-iframe": "^4.11.0-next.2",
     "gatsby-remark-smartypants": "^4.11.0-next.2",
     "gatsby-source-filesystem": "^3.14.0-next.2",
     "gatsby-transformer-remark": "^4.11.0-next.4",
     "gatsby-transformer-sharp": "^3.13.0",
+    "katex": "^0.13.18",
     "prismjs": "^1.24.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

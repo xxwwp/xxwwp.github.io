@@ -503,7 +503,7 @@ fill 用来指定动画结束时效果是否保留。
 
 效果如下，你可以尝试点击中央的文字：
 
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0" y="0" width="200" height="200" viewBox="0 0 10 10">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="200" height="200" viewBox="0 0 10 10">
 	<rect fill="#FFF" x="0" y="0" width="10" height="10">
 		<animate
 			id="Ex_Indefinite1"

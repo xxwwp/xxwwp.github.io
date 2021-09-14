@@ -1,5 +1,5 @@
 ---
-title: 文章标题
+title: test1
 slug: test1
 nextPage: nextlink
 prevPage: lastlink
@@ -50,3 +50,10 @@ desc: 这里是文章表述
   const b = [...bavsd()];
 </script>
 ```
+
+\$\$
+
+$$
+a = 1 \\
+b = 2
+$$
