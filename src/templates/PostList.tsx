@@ -1,6 +1,28 @@
 import { graphql, PageProps, Link } from "gatsby";
 import React from "react";
+import styled from "styled-components";
 import Pagination from "../components/Pagination";
+import PostCard from "../components/PostCard";
+
+const Wrapper = styled.div`
+  margin: auto;
+  width: 700px;
+  min-height: 100vh;
+`;
+
+const Ul = styled.ul`
+  padding-left: 0;
+`;
+
+const Li = styled.li`
+  list-style: none;
+`;
+
+const Span = styled.span`
+  & ~ & {
+    margin-left: 1ex;
+  }
+`;
 
 export const query = graphql`
   query GetListPost($limit: Int!, $skip: Int!) {
@@ -14,7 +36,6 @@ export const query = graphql`
           title
           archives
           createAt(formatString: "yyyy-MM-DD")
-          desc
           tags
         }
       }
@@ -23,40 +44,35 @@ export const query = graphql`
 `;
 
 export default function PostList({ data, pageContext }: PageData) {
-  return (
-    <div>
-      <nav>
-        <Pagination currentPage={pageContext.currentPage} total={pageContext.numPages} />
-      </nav>
-      <ul>
-        {data.allMarkdownRemark.nodes.map((v) => (
-          <li key={v.fields.path}>
-            <h2>
-              <Link to={v.fields.path}> {v.frontmatter.title}</Link>
-            </h2>
-            <p>{v.frontmatter.desc || v.excerpt}</p>
-            <p>{v.frontmatter.createAt}</p>
+  const nav = (
+    <nav>
+      <Pagination currentPage={pageContext.currentPage} total={pageContext.numPages} />
+    </nav>
+  );
 
-            {v.frontmatter.tags?.length > 0 && (
-              <dl>
-                <dt>标签</dt>
-                {v.frontmatter.tags.map((v) => (
-                  <dd key={v}>{v}</dd>
-                ))}
-              </dl>
-            )}
-            {v.frontmatter.archives?.length > 0 && (
-              <dl>
-                <dt>归档</dt>
-                {v.frontmatter.archives.map((v) => (
-                  <dd key={v}>{v}</dd>
-                ))}
-              </dl>
-            )}
-          </li>
+  return (
+    <Wrapper>
+      {nav}
+      <Ul>
+        {data.allMarkdownRemark.nodes.map((v) => (
+          <Li key={v.fields.path}>
+            <PostCard
+              title={v.frontmatter.title}
+              path={v.fields.path}
+              createAt={v.frontmatter.createAt}
+              excerpt={v.excerpt}
+              tags={v.frontmatter.tags?.map((v) => (
+                <Span key={v}>{v}</Span>
+              ))}
+              archives={v.frontmatter.archives?.map((v) => (
+                <Span key={v}>{v}</Span>
+              ))}
+            />
+          </Li>
         ))}
-      </ul>
-    </div>
+      </Ul>
+      {nav}
+    </Wrapper>
   );
 }
 
@@ -72,7 +88,6 @@ interface DData {
         title: string;
         createAt: string;
         archives?: string[];
-        desc?: string;
         tags?: string[];
       };
     }[];

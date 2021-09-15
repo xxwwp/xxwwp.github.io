@@ -1,6 +1,6 @@
 import { PageProps } from "gatsby";
 import { graphql } from "gatsby";
-import MarkdownPage from "../components/Markdown";
+import Markdown from "../components/Markdown";
 import Post from "../components/Post";
 import React from "react";
 import Blockquote from "../components/Blockquote";
@@ -49,7 +49,7 @@ export default function Docs({ data }: PageData) {
   return (
     <Post desc={fm.desc ?? data.markdownRemark.excerpt} keywords={fm.tags}>
       {unPublish}
-      <MarkdownPage heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
+      <Markdown heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo
         lastModify={latest.date}
         sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.markdownRemark.parent.relativePath}`}

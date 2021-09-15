@@ -47,26 +47,26 @@ const Article = styled("article")`
     }
   }
   h1 {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
   }
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   h3 {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
   }
   h4 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   h5 {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
   h6 {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   p {
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   em {
     background-color: #ecfbfd;
@@ -87,7 +87,7 @@ const Article = styled("article")`
     border-radius: 5px;
     filter: hue-rotate(200deg);
   }
-  code {
+  code[class*="language-"] {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 87.5%;
   }

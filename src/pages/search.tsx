@@ -1,6 +1,9 @@
-import { graphql, PageProps } from "gatsby";
-import React, { useCallback, useEffect, useState } from "react";
+import { graphql, PageProps, Link } from "gatsby";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useDebounce } from "../utils";
+import qs from "query-string";
+import PostCard from "../components/PostCard";
 
 /**
  * 匹配关键字
@@ -13,7 +16,7 @@ function getMatchs(raw: string, key: string) {
   let reg = keys.reduce((prev, v) => (prev += `(${v})|`), "");
   reg = reg.substr(0, reg.length - 1);
 
-  return [...raw.matchAll(RegExp(reg, "g"))];
+  return [...raw.matchAll(RegExp(reg, "ig"))];
 }
 
 /**
@@ -47,28 +50,30 @@ const DivS = styled.div`
 
 export const query = graphql`
   query SearchQuery {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }) {
       nodes {
-        frontmatter {
-          title
-          createAt
-          tags
-          archives
-        }
+        excerpt
         fields {
           path
-          mini
+        }
+        frontmatter {
+          title
+          archives
+          createAt(formatString: "yyyy-MM-DD")
+          tags
         }
       }
     }
   }
 `;
 
-export default function Search({ data }: PageData) {
-  const [keyword, setSearch] = useState("");
+export default function Search({ data, location, navigate }: PageData) {
   const [list, setList] = useState<DData["allMarkdownRemark"]["nodes"]>([]);
+  const keyword = (qs.parse(location.search).keyword as string) ?? "";
 
-  const handleList = useCallback(() => {
+  const emK = useCallback((raw: string) => emKeyword(raw, keyword), [keyword]);
+
+  useEffect(() => {
     if (keyword === "") return void setList([]);
 
     const wNodes: { node: typeof list[number]; w: number }[] = data.allMarkdownRemark.nodes.map((v) => ({
@@ -80,11 +85,11 @@ export default function Search({ data }: PageData) {
       .filter((item) => {
         const {
           node: {
-            frontmatter: { archives, tags, title },
+            frontmatter: { archives, tags, title, createAt },
           },
         } = item;
         // 整理归档、标签和标题，写入权重，过滤掉没有匹配成功项目
-        [...(archives ?? []), ...(tags ?? []), title].forEach((v) => {
+        [...(archives ?? []), ...(tags ?? []), title, createAt].forEach((v) => {
           const matchs = getMatchs(v, keyword);
           item.w += matchs.length;
           return matchs.length !== 0;
@@ -96,41 +101,31 @@ export default function Search({ data }: PageData) {
     setList(filters.map((v) => v.node));
   }, [keyword, data]);
 
-  // 防抖
-  useEffect(() => {
-    const timer = setTimeout(handleList, 1000);
-    return () => clearTimeout(timer);
-  }, [handleList]);
+  const handleKeyword = useDebounce(function (e: ChangeEvent<HTMLInputElement>) {
+    navigate(`/search?${qs.stringify({ keyword: e.target.value })}`, { replace: true });
+  }, 250);
 
   return (
     <DivS>
       <form>
-        <input type="search" value={keyword} onChange={(e) => setSearch(e.target.value)} />
+        <input type="search" defaultValue={keyword} onChange={handleKeyword} />
       </form>
       {list.length > 0 && (
         <ul>
           {list.map((v, i) => (
             <li key={i}>
-              <h2> {emKeyword(v.frontmatter.title, keyword)}</h2>
-              <p>
-                标签：
-                {v.frontmatter.tags?.map((v, i) => (
-                  <span key={i}>
-                    {emKeyword(v, keyword)}
-                    &nbsp;&nbsp;
-                  </span>
+              <PostCard
+                title={emK(v.frontmatter.title)}
+                path={v.fields.path}
+                createAt={emK(v.frontmatter.createAt)}
+                excerpt={v.excerpt}
+                tags={v.frontmatter.tags?.map((v, i) => (
+                  <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
                 ))}
-              </p>
-              <p>
-                归档：
-                {v.frontmatter.archives?.map((v, i) => (
-                  <span key={i}>
-                    {emKeyword(v, keyword)}
-                    &nbsp;&nbsp;
-                  </span>
+                archives={v.frontmatter.archives?.map((v, i) => (
+                  <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
                 ))}
-              </p>
-              <p>{v.fields.mini}</p>
+              />
             </li>
           ))}
         </ul>
@@ -143,9 +138,9 @@ export default function Search({ data }: PageData) {
 interface DData {
   allMarkdownRemark: {
     nodes: {
+      excerpt: string;
       fields: {
         path: string;
-        mini: string;
       };
       frontmatter: {
         title: string;
