@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentPropsWithoutRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface BqSParams {
   // 底色
@@ -8,10 +8,15 @@ interface BqSParams {
 }
 
 const BlockquoteS = styled("blockquote")<BqSParams>`
-  background: tomato;
-  background: ${(p) => p.baseColor};
-  padding-left: 10px;
-  margin: 1.2em 0;
+  ${(p) => {
+    const color = p.baseColor ?? p.theme.colors.primary.main;
+    return css`
+      background: ${color};
+      border: 1px solid ${color};
+      padding-left: 10px;
+      margin: 1.2em 0;
+    `;
+  }}
 `;
 
 interface ContentParams {
@@ -22,10 +27,14 @@ interface ContentParams {
 }
 
 const Content = styled("div")<ContentParams>`
-  background: #ffbfb3;
-  background: ${(p) => p.bgColor};
-  padding: 1rem 0.8rem;
-  color: ${(p) => p.color};
+  ${(p) => {
+    const bg = p.bgColor ?? p.theme.colors.bg.refer;
+    return css`
+      background: ${bg};
+      padding: 1rem 0.8rem;
+      color: ${p.color};
+    `;
+  }}
 `;
 
 interface BlockquoteProps extends ComponentPropsWithoutRef<"blockquote">, BqSParams, ContentParams {}

@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import Pagination from "../components/Pagination";
 import PostCard from "../components/PostCard";
+import Root from "../components/Root/Root";
 
 const Wrapper = styled.div`
   margin: auto;
@@ -16,6 +17,11 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   list-style: none;
+  & ~ & {
+    margin-top: 5px;
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+  }
 `;
 
 const Span = styled.span`
@@ -51,28 +57,30 @@ export default function PostList({ data, pageContext }: PageData) {
   );
 
   return (
-    <Wrapper>
-      {nav}
-      <Ul>
-        {data.allMarkdownRemark.nodes.map((v) => (
-          <Li key={v.fields.path}>
-            <PostCard
-              title={v.frontmatter.title}
-              path={v.fields.path}
-              createAt={v.frontmatter.createAt}
-              excerpt={v.excerpt}
-              tags={v.frontmatter.tags?.map((v) => (
-                <Span key={v}>{v}</Span>
-              ))}
-              archives={v.frontmatter.archives?.map((v) => (
-                <Span key={v}>{v}</Span>
-              ))}
-            />
-          </Li>
-        ))}
-      </Ul>
-      {nav}
-    </Wrapper>
+    <Root>
+      <Wrapper>
+        {nav}
+        <Ul>
+          {data.allMarkdownRemark.nodes.map((v) => (
+            <Li key={v.fields.path}>
+              <PostCard
+                title={v.frontmatter.title}
+                path={v.fields.path}
+                createAt={v.frontmatter.createAt}
+                excerpt={v.excerpt}
+                tags={v.frontmatter.tags?.map((v) => (
+                  <Span key={v}>{v}</Span>
+                ))}
+                archives={v.frontmatter.archives?.map((v) => (
+                  <Span key={v}>{v}</Span>
+                ))}
+              />
+            </Li>
+          ))}
+        </Ul>
+        {nav}
+      </Wrapper>
+    </Root>
   );
 }
 

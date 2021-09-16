@@ -2,6 +2,7 @@
 import React, { ComponentPropsWithoutRef, ReactNode } from "react";
 import styled from "styled-components";
 import Helmet from "react-helmet";
+import Root from "../Root/Root";
 
 const Main = styled.main`
   max-width: 1000px;
@@ -19,12 +20,14 @@ export default function Post({ children, desc, keywords, ...rest }: PostProps) {
   const keywordsContent = [baseKeywords, keywords].filter((v) => !!v).join(", ");
 
   return (
-    <Main {...rest}>
-      <Helmet>
-        <meta name="description" content={desc} />
-        <meta name="keywords" content={keywordsContent} />
-      </Helmet>
-      {children}
-    </Main>
+    <Root>
+      <Main {...rest}>
+        <Helmet>
+          <meta name="description" content={desc} />
+          <meta name="keywords" content={keywordsContent} />
+        </Helmet>
+        {children}
+      </Main>
+    </Root>
   );
 }

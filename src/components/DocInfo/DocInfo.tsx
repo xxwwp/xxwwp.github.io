@@ -3,10 +3,12 @@ import pngCopyright from "../../images/copyright.png";
 import styled from "styled-components";
 
 const DocInfoStyle = styled.div`
-  margin-top: 70px;
-  color: #fff;
+  margin: 70px 0;
   padding: 1em;
-  background-color: #0a213b;
+  background-color: ${(p) => p.theme.colors.bg.refer};
+  border: 1px solid ${(p) => p.theme.colors.primary.main};
+  box-shadow: 0px 1px 5px ${(p) => p.theme.colors.primary.refer};
+
   ul {
     list-style: none;
     padding-left: 0;

@@ -5,6 +5,15 @@ import Post from "../components/Post";
 import React from "react";
 import Blockquote from "../components/Blockquote";
 import DocInfo from "../components/DocInfo";
+import { useTheme } from "styled-components";
+
+function UnPublishTip() {
+  return (
+    <Blockquote style={{ fontSize: ".9rem" }} baseColor={useTheme().colors.secondary.main}>
+      这是一篇没有正式发布的草稿，不推荐阅读。
+    </Blockquote>
+  );
+}
 
 export const query = graphql`
   query ($slug: String!) {
@@ -42,7 +51,7 @@ export default function Docs({ data }: PageData) {
   const fm = data.markdownRemark.frontmatter;
   const { latest }: DGitinfo = JSON.parse(data.markdownRemark.fields.gitinfo);
 
-  const unPublish = fm.publish !== true && <Blockquote>这是一篇没有正式发布的草稿，不推荐阅读。</Blockquote>;
+  const unPublish = fm.publish !== true && <UnPublishTip />;
 
   console.log(JSON.parse(data.markdownRemark.fields.gitinfo));
 
