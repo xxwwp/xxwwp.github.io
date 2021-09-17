@@ -2,20 +2,8 @@ import { css } from "styled-components";
 
 const codeStyle = css`
   pre[class*="language-"] {
-    padding: 1em 1em;
-    margin: 0.5em 0;
     overflow: auto;
     background: ${(p) => p.theme.colors.black.refer};
-    border-radius: 5px;
-    @media screen and (min-width: 1029px) {
-      ::-webkit-scrollbar {
-        height: 12px;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.3);
-      }
-    }
   }
   pre[class*="language-"] > code[class*="language-"] {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -81,7 +69,7 @@ const codeStyle = css`
   .token.attr-name,
   .token.char,
   .token.builtin {
-    color: ${(p) => p.theme.colors.primary.main};
+    color: ${(p) => p.theme.colors.primary.refer};
   }
 
   .token.operator,
@@ -94,7 +82,7 @@ const codeStyle = css`
   }
 
   .token.attr-value {
-    color: ${(p) => p.theme.colors.primary.refer};
+    color: ${(p) => p.theme.colors.primary.main};
   }
 
   .token.atrule,

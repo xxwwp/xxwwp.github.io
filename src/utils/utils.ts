@@ -42,3 +42,24 @@ export function useDebounce<F extends (...args: any) => void>(cb: F, delay = 200
     [timer, delay]
   );
 }
+
+/**
+ * 事件节流，仅在下一帧渲染时再次执行事件，一般用于优化 resize，scroll 等事件
+ * 如添加自定义事件 optimizedResize 代替 resize 事件写为 throttleEvent('resize','optimizedResize')
+ * @reference https://developer.mozilla.org/zh-CN/docs/Web/API/Window/resize_event
+ */
+export function throttleEvent(type: string, name: string, obj: EventTarget = window) {
+  let running = false;
+
+  function func() {
+    if (running) return;
+    running = true;
+
+    requestAnimationFrame(function () {
+      obj.dispatchEvent(new CustomEvent(name));
+      running = false;
+    });
+  }
+
+  obj.addEventListener(type, func);
+}

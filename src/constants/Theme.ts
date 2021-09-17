@@ -31,7 +31,7 @@ const Theme: ThemeType = {
       refer: "#f5f5f5",
     },
     text: {
-      main: "#424242",
+      main: "#130514",
       refer: "#666",
     },
     link: {

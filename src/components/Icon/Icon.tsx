@@ -12,7 +12,6 @@ const Icon = styled.span<IconParams>`
   svg {
     fill: ${(p) => p.fill};
     width: ${(p) => p.size ?? "1rem"};
-    height: ${(p) => p.size ?? "1rem"};
   }
 `;
 

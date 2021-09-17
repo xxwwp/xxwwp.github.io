@@ -1,44 +1,48 @@
 import React from "react";
 import pngCopyright from "../../images/copyright.png";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import Icon from "../Icon";
+import Juejin from "../Icon/Juejin";
 
 const DocInfoStyle = styled.div`
-  margin: 70px 0;
-  padding: 1em;
-  background-color: ${(p) => p.theme.colors.bg.refer};
-  border: 1px solid ${(p) => p.theme.colors.primary.main};
-  box-shadow: 0px 1px 5px ${(p) => p.theme.colors.primary.refer};
+  ${({ theme: { colors: c } }) => css`
+    margin: 70px 0;
+    padding: 1em;
+    background-color: ${(p) => p.theme.colors.bg.refer};
+    border: 1px solid ${(p) => p.theme.colors.primary.main};
+    box-shadow: 0px 1px 5px ${(p) => p.theme.colors.primary.refer};
 
-  ul {
-    list-style: none;
-    padding-left: 0;
-    font-size: 14px;
-    margin: 1em 0;
-  }
-  li {
-    line-height: 1.5em;
-  }
-  a {
-    color: #8a82fd;
-    text-decoration: none;
-    &:hover,
-    &:active,
-    &:focus {
-      color: #b0aafc;
-      text-decoration: underline;
+    ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 14px;
+      margin: 1em 0;
     }
-  }
-  .middle {
-    vertical-align: middle;
-    margin: 4px;
-  }
-  .right {
-    float: right;
-  }
-  .hor-margin {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-  }
+    li {
+      line-height: 1.5em;
+    }
+    a {
+      color: ${c.link.main};
+      text-decoration: none;
+      &:hover,
+      &:active,
+      &:focus {
+        filter: brightness(1.3);
+        text-decoration: underline;
+      }
+    }
+    .middle {
+      vertical-align: middle;
+      margin: 4px;
+    }
+    .right {
+      float: right;
+    }
+    .hor-margin {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+    }
+  `}
 `;
 
 export interface DocInfoProps {
@@ -97,7 +101,7 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
         <li>
           询问或联系作者：
           <a href="https://juejin.cn/user/3069492197065453" target="_blank">
-            掘金
+            <Icon size="52px" vertical="middle" children={<Juejin />} />
           </a>
         </li>
       </ul>

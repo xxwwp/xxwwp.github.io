@@ -30,8 +30,9 @@ const Content = styled("div")<ContentParams>`
   ${(p) => {
     const bg = p.bgColor ?? p.theme.colors.bg.refer;
     return css`
+      display: flow-root;
       background: ${bg};
-      padding: 1rem 0.8rem;
+      padding: 0 0.8rem;
       color: ${p.color};
     `;
   }}

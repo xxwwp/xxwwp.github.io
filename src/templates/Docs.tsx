@@ -2,15 +2,18 @@ import { PageProps } from "gatsby";
 import { graphql } from "gatsby";
 import Markdown from "../components/Markdown";
 import Post from "../components/Post";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Blockquote from "../components/Blockquote";
 import DocInfo from "../components/DocInfo";
 import { useTheme } from "styled-components";
+import TOC from "../components/TOC";
+import { useCurrentHeading } from "../components/Markdown/H1_6";
+import PostList from "../components/PostList";
 
 function UnPublishTip() {
   return (
     <Blockquote style={{ fontSize: ".9rem" }} baseColor={useTheme().colors.secondary.main}>
-      这是一篇没有正式发布的草稿，不推荐阅读。
+      <p>这是一篇没有正式发布的草稿，不推荐阅读。</p>
     </Blockquote>
   );
 }
@@ -44,6 +47,17 @@ export const query = graphql`
         }
       }
     }
+    allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }, limit: 5) {
+      nodes {
+        frontmatter {
+          createAt(formatString: "yyyy.MM.DD")
+          title
+        }
+        fields {
+          path
+        }
+      }
+    }
   }
 `;
 
@@ -53,11 +67,22 @@ export default function Docs({ data }: PageData) {
 
   const unPublish = fm.publish !== true && <UnPublishTip />;
 
-  console.log(JSON.parse(data.markdownRemark.fields.gitinfo));
+  const active = useCurrentHeading();
+
+  const recentPosts = data.allMarkdownRemark.nodes.map((v) => ({ ...v.fields, ...v.frontmatter }));
 
   return (
-    <Post desc={fm.desc ?? data.markdownRemark.excerpt} keywords={fm.tags}>
-      {unPublish}
+    <Post
+      desc={fm.desc ?? data.markdownRemark.excerpt}
+      keywords={fm.tags}
+      aside={
+        <>
+          {unPublish}
+          <TOC deepRender={4} toc={data.markdownRemark.headings} active={active.name}></TOC>
+          <PostList list={recentPosts}></PostList>
+        </>
+      }
+    >
       <Markdown heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo
         lastModify={latest.date}
@@ -69,12 +94,6 @@ export default function Docs({ data }: PageData) {
       />
     </Post>
   );
-}
-
-/** 版本项类型 */
-interface DVersion {
-  version: string;
-  link: string;
 }
 
 /** md 标题类型 */
@@ -126,5 +145,16 @@ interface DGitinfo {
 interface PageData extends PageProps {
   data: {
     markdownRemark: DMdx;
+    allMarkdownRemark: {
+      nodes: {
+        frontmatter: {
+          createAt: string;
+          title: string;
+        };
+        fields: {
+          path: string;
+        };
+      }[];
+    };
   };
 }

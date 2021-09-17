@@ -1,7 +1,6 @@
 import rehypeReact from "rehype-react";
-import { Helmet } from "react-helmet";
 import React, { ComponentPropsWithoutRef } from "react";
-import styled, { css, useTheme } from "styled-components";
+import styled, { css } from "styled-components";
 import H1_6 from "./H1_6";
 import Blockquote from "../Blockquote";
 import Anchor from "./Anchor";
@@ -14,6 +13,7 @@ const Article = styled("article")`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, ui-sans-serif, Helvetica,
       Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     color: ${c.text.main};
+    letter-spacing: 0.05ex;
 
     ${codeStyle}
     h1,
@@ -24,20 +24,17 @@ const Article = styled("article")`
     h6 {
       font-weight: bold;
       line-height: 1.2;
-      color: ${c.text.main};
-      a,
+      a {
+        color: ${c.text.main};
+      }
       a:hover,
       a:active,
       a:visited {
-        color: inherit;
-        text-decoration: none;
+        text-shadow: 0px 0px 2px ${c.text.refer};
         &::after {
           content: " #";
           font-size: 1.8ex;
         }
-      }
-      a::after {
-        content: none;
       }
       &::before {
         content: "";
@@ -63,11 +60,11 @@ const Article = styled("article")`
       font-size: 1.05rem;
     }
     h6 {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
     p {
       font-weight: 400;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
     em,
     strong {
@@ -76,6 +73,11 @@ const Article = styled("article")`
     }
     strong {
       font-size: 0.95rem;
+    }
+
+    pre[class*="language-"] {
+      padding: 1em 1em;
+      margin: 1em 0;
     }
 
     code:not([class*="language-"]) {
@@ -106,9 +108,8 @@ const Article = styled("article")`
       text-decoration: none;
     }
     a:hover,
-    a:visited,
     a:active {
-      filter: brightness(1.5);
+      filter: brightness(1.3);
       text-decoration: underline;
     }
 
