@@ -19,22 +19,22 @@ const LinkS = styled(Link)`
 `;
 
 const P = styled.p`
+  margin: 5px 0;
   font-size: 14px;
   color: ${(p) => p.theme.colors.text.refer};
-  margin: 5px 0;
 `;
 
 const Info = styled.p`
-  color: #f7917f;
   margin: 5px 0;
-  color: ${(p) => p.theme.colors.text.main};
   font-size: 12px;
+  color: ${(p) => p.theme.colors.text.main};
 `;
 
 const IconS = styled((props: ComponentPropsWithoutRef<typeof Icon>) => (
-  <Icon vertical="middle" size="12px" fill="#f7917f" {...props} />
+  <Icon vertical="middle" size="12px" {...props} />
 ))`
   margin-right: 1ex;
+  fill: ${(p) => p.theme.colors.secondary.main};
 `;
 
 const InfoItem = styled.span`

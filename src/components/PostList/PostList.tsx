@@ -12,7 +12,7 @@ const Li = styled.li`
 `;
 
 const LinkS = styled(Link)`
-  color: ${(p) => p.theme.colors.primary.main};
+  color: ${(p) => p.theme.colors.secondary.main};
   text-decoration: none;
   line-height: 1.5;
   &:active,

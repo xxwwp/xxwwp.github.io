@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Root from "../Root/Root";
 import { TOCProps } from "../TOC";
+import Header from "../Header";
 
 const Layout = styled.div`
   display: grid;
@@ -61,12 +62,15 @@ export default function Post({ desc, keywords, children, aside, headings, ...res
   const baseKeywords = ["玄晓乌屋", "xxww", "xxwwp"];
   const keywordsContent = [baseKeywords, keywords].filter((v) => !!v).join(", ");
 
+  const title = "1";
+
   return (
     <Root>
       <Helmet>
         <meta name="description" content={desc} />
         <meta name="keywords" content={keywordsContent} />
       </Helmet>
+      <Header />
       <Layout>
         <AsideBox>
           <Aside>{aside}</Aside>

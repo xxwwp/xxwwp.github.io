@@ -1,9 +1,20 @@
 import { graphql, PageProps, Link } from "gatsby";
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { useDebounce } from "../utils";
 import qs from "query-string";
 import PostCard from "../components/PostCard";
+import Root from "../components/Root/Root";
+import Header from "../components/Header";
+import Icon from "../components/Icon";
+import Sea from "../components/Icon/Search";
+
+function SearchIcon() {
+  const { colors } = useTheme();
+  return (
+    <Icon style={{ margin: "0 10px" }} vertical="middle" size="20px" fill={colors.secondary.main} children={<Sea />} />
+  );
+}
 
 /**
  * 匹配关键字
@@ -42,8 +53,39 @@ function emKeyword(raw: string, key: string) {
 }
 
 const DivS = styled.div`
+  max-width: 600px;
+  padding: 20px;
+  margin: auto;
+  form {
+    text-align: center;
+  }
+  .search-input {
+    border: none;
+    border-bottom: 2px solid ${(p) => p.theme.colors.secondary.main};
+    border-radius: 5px;
+    padding: 10px 20px;
+
+    transition: box-shadow 0.2s;
+
+    input {
+      font-size: 1.2rem;
+      border: none;
+      outline: none;
+      &::-webkit-search-cancel-button {
+        display: none;
+      }
+    }
+
+    &:focus-within {
+      box-shadow: 0 0 5px ${(p) => p.theme.colors.primary.main};
+    }
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
   em {
-    color: red;
+    color: ${(p) => p.theme.colors.yellow.main};
     font-style: normal;
   }
 `;
@@ -70,6 +112,7 @@ export const query = graphql`
 export default function Search({ data, location, navigate }: PageData) {
   const [list, setList] = useState<DData["allMarkdownRemark"]["nodes"]>([]);
   const keyword = (qs.parse(location.search).keyword as string) ?? "";
+  console.log(location);
 
   const emK = useCallback((raw: string) => emKeyword(raw, keyword), [keyword]);
 
@@ -106,31 +149,37 @@ export default function Search({ data, location, navigate }: PageData) {
   }, 250);
 
   return (
-    <DivS>
-      <form>
-        <input type="search" defaultValue={keyword} onChange={handleKeyword} />
-      </form>
-      {list.length > 0 && (
-        <ul>
-          {list.map((v, i) => (
-            <li key={i}>
-              <PostCard
-                title={emK(v.frontmatter.title)}
-                path={v.fields.path}
-                createAt={emK(v.frontmatter.createAt)}
-                excerpt={v.excerpt}
-                tags={v.frontmatter.tags?.map((v, i) => (
-                  <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
-                ))}
-                archives={v.frontmatter.archives?.map((v, i) => (
-                  <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
-                ))}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-    </DivS>
+    <Root>
+      <Header></Header>
+      <DivS>
+        <form>
+          <fieldset className="search-input">
+            <SearchIcon />
+            <input autoFocus type="search" defaultValue={keyword} onChange={handleKeyword} placeholder="search...." />
+          </fieldset>
+        </form>
+        {list.length > 0 && (
+          <ul>
+            {list.map((v, i) => (
+              <li key={i}>
+                <PostCard
+                  title={emK(v.frontmatter.title)}
+                  path={v.fields.path}
+                  createAt={emK(v.frontmatter.createAt)}
+                  excerpt={v.excerpt}
+                  tags={v.frontmatter.tags?.map((v, i) => (
+                    <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
+                  ))}
+                  archives={v.frontmatter.archives?.map((v, i) => (
+                    <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
+                  ))}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </DivS>
+    </Root>
   );
 }
 

@@ -4,9 +4,10 @@ import styled from "styled-components";
 import Pagination from "../components/Pagination";
 import PostCard from "../components/PostCard";
 import Root from "../components/Root/Root";
+import Header from "../components/Header";
 
 const Wrapper = styled.div`
-  margin: auto;
+  margin: 20px auto;
   width: 700px;
   min-height: 100vh;
 `;
@@ -58,6 +59,7 @@ export default function PostList({ data, pageContext }: PageData) {
 
   return (
     <Root>
+      <Header />
       <Wrapper>
         {nav}
         <Ul>
