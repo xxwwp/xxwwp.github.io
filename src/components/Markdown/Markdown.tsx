@@ -9,7 +9,7 @@ import codeStyle from "./codeStyle";
 
 const Article = styled("article")`
   ${({ theme: { colors: c } }) => css`
-    line-height: 1.5;
+    line-height: 1.7;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, ui-sans-serif, Helvetica,
       Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     color: ${c.text.main};
@@ -24,6 +24,7 @@ const Article = styled("article")`
     h6 {
       font-weight: bold;
       line-height: 1.2;
+      margin-top: 1.6em;
       a {
         color: ${c.text.main};
       }
@@ -45,30 +46,30 @@ const Article = styled("article")`
       }
     }
     h1 {
-      font-size: 1.65rem;
+      font-size: 27px;
     }
     h2 {
-      font-size: 1.5rem;
+      font-size: 25px;
     }
     h3 {
-      font-size: 1.35rem;
+      font-size: 23px;
     }
     h4 {
-      font-size: 1.2rem;
+      font-size: 21px;
     }
     h5 {
-      font-size: 1.05rem;
+      font-size: 19px;
     }
     h6 {
-      font-size: 0.95rem;
+      font-size: 17px;
     }
     p {
       font-weight: 400;
-      font-size: 0.95rem;
+      font-size: 17px;
     }
     em,
     strong {
-      background: ${(p) => p.theme.colors.bg.refer};
+      background: ${c.bg.refer};
       padding: 0 1ex;
     }
     strong {
@@ -81,8 +82,8 @@ const Article = styled("article")`
     }
 
     code:not([class*="language-"]) {
-      background-color: ${(p) => p.theme.colors.bg.refer};
-      color: ${(p) => p.theme.colors.secondary.main};
+      background-color: ${c.bg.refer};
+      color: ${c.secondary.main};
       font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       padding: 0 0.5ex;
     }
@@ -123,6 +124,10 @@ const Article = styled("article")`
     .gatsby-highlight,
     .math {
       margin: 1em 0;
+    }
+
+    iframe {
+      box-shadow: 0px 2px 10px ${c.secondary.refer};
     }
   `}
 `;

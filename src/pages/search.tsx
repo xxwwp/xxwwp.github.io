@@ -112,7 +112,6 @@ export const query = graphql`
 export default function Search({ data, location, navigate }: PageData) {
   const [list, setList] = useState<DData["allMarkdownRemark"]["nodes"]>([]);
   const keyword = (qs.parse(location.search).keyword as string) ?? "";
-  console.log(location);
 
   const emK = useCallback((raw: string) => emKeyword(raw, keyword), [keyword]);
 

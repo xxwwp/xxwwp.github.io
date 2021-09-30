@@ -8,8 +8,9 @@ import Header from "../Header";
 
 const Layout = styled.div`
   display: grid;
-  width: 900px;
-  grid-template-columns: 280px 600px;
+  max-width: 1200px;
+  width: 100%;
+  grid-template-columns: 280px minmax(300px, 900px);
   column-gap: 20px;
   margin: auto;
 `;
@@ -58,11 +59,9 @@ interface PostProps extends ComponentPropsWithoutRef<"main"> {
   headings?: TOCProps["toc"];
 }
 
-export default function Post({ desc, keywords, children, aside, headings, ...rest }: PostProps) {
+export default function Post({ desc, keywords = [], children, aside, headings, ...rest }: PostProps) {
   const baseKeywords = ["玄晓乌屋", "xxww", "xxwwp"];
-  const keywordsContent = [baseKeywords, keywords].filter((v) => !!v).join(", ");
-
-  const title = "1";
+  const keywordsContent = [...baseKeywords, ...keywords].filter((v) => !!v).join(", ");
 
   return (
     <Root>

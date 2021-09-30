@@ -33,7 +33,12 @@ const Span = styled.span`
 
 export const query = graphql`
   query GetListPost($limit: Int!, $skip: Int!) {
-    allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }, limit: $limit, skip: $skip) {
+    allMarkdownRemark(
+      sort: { fields: frontmatter___createAt, order: DESC }
+      limit: $limit
+      skip: $skip
+      filter: { frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null } } }
+    ) {
       nodes {
         excerpt
         fields {

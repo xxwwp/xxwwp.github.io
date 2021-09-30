@@ -67,7 +67,10 @@ const pagination = {
     const result = await graphql(
       `
         query GetAllMD {
-          allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }) {
+          allMarkdownRemark(
+            sort: { fields: frontmatter___createAt, order: DESC }
+            filter: { frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null } } }
+          ) {
             nodes {
               id
             }

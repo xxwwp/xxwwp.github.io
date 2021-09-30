@@ -18,6 +18,14 @@ function UnPublishTip() {
   );
 }
 
+function UnCommitTip() {
+  return (
+    <Blockquote style={{ fontSize: ".9rem" }} baseColor={useTheme().colors.secondary.main}>
+      <p>没有找到该文章 git 信息，请确保打包之前对该文章进行提交。</p>
+    </Blockquote>
+  );
+}
+
 export const query = graphql`
   query ($slug: String!) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
@@ -66,6 +74,7 @@ export default function Docs({ data }: PageData) {
   const { latest }: DGitinfo = JSON.parse(data.markdownRemark.fields.gitinfo);
 
   const unPublish = fm.publish !== true && <UnPublishTip />;
+  const unCommit = latest === null ? <UnCommitTip /> : "";
 
   const active = useCurrentHeading();
 
@@ -78,6 +87,7 @@ export default function Docs({ data }: PageData) {
       aside={
         <>
           {unPublish}
+          {unCommit}
           <TOC deepRender={4} toc={data.markdownRemark.headings} active={active.name}></TOC>
           <PostList list={recentPosts}></PostList>
         </>
@@ -85,7 +95,7 @@ export default function Docs({ data }: PageData) {
     >
       <Markdown heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo
-        lastModify={latest.date}
+        lastModify={latest?.date}
         sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.markdownRemark.parent.relativePath}`}
         tags={fm.tags}
         archives={fm.archives}

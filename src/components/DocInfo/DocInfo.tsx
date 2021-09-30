@@ -3,6 +3,7 @@ import pngCopyright from "../../images/copyright.png";
 import styled, { css } from "styled-components";
 import Icon from "../Icon";
 import Juejin from "../Icon/Juejin";
+import { Link } from "gatsby";
 
 const DocInfoStyle = styled.div`
   ${({ theme: { colors: c } }) => css`
@@ -64,15 +65,15 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
   const crTip = "署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)";
 
   const tagsLink = tags?.map((v) => (
-    <a key={v} className="hor-margin" href={`/search?tag=${v}`}>
+    <Link key={v} className="hor-margin" to={`/search?keyword=${v}`}>
       {v}
-    </a>
+    </Link>
   ));
 
   const archivesLink = archives?.map((v) => (
-    <a key={v} className="hor-margin" href={`/search?archive=${v}`}>
+    <Link key={v} className="hor-margin" to={`/search?keyword=${v}`}>
       {v}
-    </a>
+    </Link>
   ));
 
   return (

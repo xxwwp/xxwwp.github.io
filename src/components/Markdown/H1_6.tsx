@@ -19,13 +19,15 @@ window.addEventListener(
   optimizedScorll,
   function (e: Event) {
     const keys = Object.keys(boundingCBs);
+    // 滚动的偏移值，标题会在距离视区顶部此高度时触发 matchheading 事件
+    const offsetHeight = 150;
 
     for (var i = 0; i < keys.length; i++) {
       const current = boundingCBs[keys[i]]();
       const next = boundingCBs[keys[i + 1]]?.();
 
       // 判断标题元素是否对应当前视区内容，满足条件分发事件 matchheading
-      if ((current.top < 10 && next?.top > 10) || (i === keys.length - 1 && current.top < 0)) {
+      if ((current.top < offsetHeight && next?.top > offsetHeight) || (i === keys.length - 1 && current.top < 0)) {
         window.dispatchEvent(
           new CustomEvent<MatchHeadingDefail>(matchheading, { detail: { name: keys[i], id: keys[i] } })
         );
@@ -69,6 +71,9 @@ export interface MatchHeadingDefail {
 /** 获取当前内容对应标题的 hook */
 export function useCurrentHeading(deps: any[] = []) {
   const [detail, setDetail] = useState<MatchHeadingDefail>({ name: null, id: null });
+
+  // 默认执行一次 scroll，触发匹配标题进行事件提交，完成初始化效果
+  useEffect(() => void window.scroll(), []);
 
   useEffect(() => {
     function handleMatchHeading(e: CustomEvent<MatchHeadingDefail>) {

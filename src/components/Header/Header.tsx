@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled, { css } from "styled-components";
+import classNames from "classnames";
 
 const Box = styled.header`
   ${({ theme: { colors: c } }) => css`
@@ -47,7 +48,7 @@ const Title = styled.div`
 const navs = [
   {
     path: "/post-list",
-    name: "文章列表",
+    name: "记录",
   },
   {
     path: "/search",
@@ -56,14 +57,12 @@ const navs = [
 ];
 
 export default function Header() {
-  console.log(location.pathname);
-
   return (
     <Box>
       <Nav>
         <Title>玄晓乌屋</Title>
         {navs.map((v) => (
-          <Link key={v.path} to={v.path} className={v.path === location.pathname && "active"}>
+          <Link key={v.path} to={v.path} className={classNames({ active: v.path === location.pathname })}>
             {v.name}
           </Link>
         ))}

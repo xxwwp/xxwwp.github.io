@@ -45,7 +45,7 @@ meta: 元数据
 
   上一篇文章路径，基于渲染后的 url
 
-- _publish = boolean 默认 false_
+- _publish ::= boolean 默认 false_
 
   是否发布，仅在设置为 true 时文章会被发布。（默认不会发布文章）
 
@@ -61,7 +61,7 @@ meta: 元数据
 
   文章描述，将用于文章卡片简介文本，页面描述。如果没有设置该值，会使用 [gatsby-transform-remark](https://www.gatsbyjs.com/plugins/gatsby-transformer-remark/) 插件提供的 [excerpt](https://using-remark.gatsbyjs.org/excerpts/) 数据。
 
-> 上面描述中，`=` 代表必填，`::=` 代表非必填。
+> 上面描述中，`=` 代表必填，`::=` 代表非必填。**必须填入 `title`、`slug` 与 `createAt` 三个字段程序才会处理 md 文件。**
 
 可以复制[模板][1]快速生成新的 markdown 页面。
 
@@ -187,6 +187,14 @@ desc: 这里是文章表述
 ```
 
 点击缓存部分的 `cpu` 链接文章将自动定位到前文的指定位置。
+
+另外，包含空格的锚点使用 `<>` 对链接进行固定，例如：
+
+```markdown
+<h2 id="间隙 锚点">间隙 锚点</h2>
+
+[点击这里去间隙 锚点](<#间隙 锚点>)
+```
 
 ### 其他格式
 

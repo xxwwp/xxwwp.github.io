@@ -10,6 +10,9 @@ const GlobalStyle = createGlobalStyle`
     body {
       margin: 0;
     }
+    * {
+      scroll-behavior: smooth;
+    }
     body,
     input {
       background: ${c.bg.main};

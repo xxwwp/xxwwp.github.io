@@ -23,7 +23,6 @@ export const qeury = graphql`
 `;
 
 export default function Index({ data }) {
-  console.log(data);
   return (
     <>
       <header>玄晓乌屋</header>
