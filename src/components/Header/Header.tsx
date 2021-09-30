@@ -40,7 +40,7 @@ const Nav = styled.nav`
   }
 `;
 
-const Title = styled.div`
+const Title = styled(Link)`
   font-size: 1.8rem;
   margin-right: 20px;
 `;
@@ -60,7 +60,7 @@ export default function Header() {
   return (
     <Box>
       <Nav>
-        <Title>玄晓乌屋</Title>
+        <Title to="/">玄晓乌屋</Title>
         {navs.map((v) => (
           <Link key={v.path} to={v.path} className={classNames({ active: v.path === location.pathname })}>
             {v.name}

@@ -42,9 +42,11 @@ function emKeyword(raw: string, key: string) {
 
   for (var ri = 0, mi = 0; mi < matchs.length; mi++) {
     const item = matchs[mi];
-    emNode.push(raw.substr(ri, item.index));
-    emNode.push(<em key={mi}>{item[0]}</em>);
-    ri = item.index + item[0].length;
+    if (item.index) {
+      emNode.push(raw.substr(ri, item.index));
+      emNode.push(<em key={mi}>{item[0]}</em>);
+      ri = item.index + item[0].length;
+    }
   }
 
   emNode.push(raw.substr(ri));

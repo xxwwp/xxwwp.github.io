@@ -1,4 +1,13 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  ElementType,
+  Key,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { RefObject } from "react";
 import { throttleEvent } from "../../utils";
 
 // 自定义优化滚动事件、标题命中事件名称，编写一定乱码，防止和全局其他事件重叠
@@ -8,11 +17,21 @@ const matchheading = "matchheading_y19v0d";
 // 优化滚动事件
 throttleEvent("scroll", optimizedScorll);
 
+type Heading<T extends ElementType> = (props: ComponentPropsWithoutRef<T>) => JSX.Element;
+
+const headingList = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+
+type Headings = {
+  [key in typeof headingList[number]]: Heading<key>;
+};
+
 // 所有标题组件
-const headings = {};
+const headings: Partial<Headings> = {};
 
 // 所有标题位置的回调
-const boundingCBs = {};
+const boundingCBs: {
+  [key: string]: () => DOMRect;
+} = {};
 
 // 匹配当前滚动位置对应的标题，并把匹配成功的标题信息通过自定义事件 matchheading 分发
 window.addEventListener(
@@ -39,9 +58,13 @@ window.addEventListener(
 );
 
 // 在 boundingCBs 中写入标题位置
-function useDispatchPosition(id, ref: MutableRefObject<HTMLHeadingElement>) {
+function useDispatchPosition(id: string, ref: RefObject<HTMLHeadingElement>) {
   useEffect(() => {
-    boundingCBs[id] = () => ref.current?.getBoundingClientRect?.();
+    if (ref.current instanceof HTMLHeadingElement) {
+      boundingCBs[id] = () => {
+        return ref.current!.getBoundingClientRect();
+      };
+    }
     return () => void delete boundingCBs[id];
   }, [ref]);
 }
@@ -49,15 +72,20 @@ function useDispatchPosition(id, ref: MutableRefObject<HTMLHeadingElement>) {
 // 生成 h1 ~ h6 组件
 [1, 2, 3, 4, 5, 6].forEach(
   (level) =>
-    (headings[`h${level}`] = ({ children, ...rest }) => {
+    (headings[`h${level}` as typeof headingList[number]] = ({ children, ...rest }) => {
       const ref = useRef<HTMLHeadingElement>(null);
-      useDispatchPosition(children, ref);
 
-      return React.createElement(`h${level}`, { id: children, ...rest, ref }, [
-        <a key={children} href={`#${children}`}>
-          {children}
-        </a>,
-      ]);
+      if (typeof children === "string") {
+        useDispatchPosition(children, ref);
+
+        return React.createElement(`h${level}`, { id: children, ...rest, ref }, [
+          <a key={children} href={`#${children}`}>
+            {children}
+          </a>,
+        ]);
+      } else {
+        throw new Error("markdown 的标题不能为一个组件");
+      }
     })
 );
 
@@ -70,7 +98,7 @@ export interface MatchHeadingDefail {
 
 /** 获取当前内容对应标题的 hook */
 export function useCurrentHeading(deps: any[] = []) {
-  const [detail, setDetail] = useState<MatchHeadingDefail>({ name: null, id: null });
+  const [detail, setDetail] = useState<MatchHeadingDefail | null>(null);
 
   // 默认执行一次 scroll，触发匹配标题进行事件提交，完成初始化效果
   useEffect(() => void window.scroll(), []);
@@ -80,8 +108,8 @@ export function useCurrentHeading(deps: any[] = []) {
       setDetail(e.detail);
     }
 
-    window.addEventListener(matchheading, handleMatchHeading, false);
-    return () => window.removeEventListener(matchheading, handleMatchHeading);
+    window.addEventListener(matchheading, handleMatchHeading as EventListener, false);
+    return () => window.removeEventListener(matchheading, handleMatchHeading as EventListener);
   }, deps);
 
   return detail;

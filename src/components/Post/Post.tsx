@@ -59,9 +59,9 @@ interface PostProps extends ComponentPropsWithoutRef<"main"> {
   headings?: TOCProps["toc"];
 }
 
-export default function Post({ desc, keywords = [], children, aside, headings, ...rest }: PostProps) {
+export default function Post({ desc, keywords, children, aside, headings, ...rest }: PostProps) {
   const baseKeywords = ["玄晓乌屋", "xxww", "xxwwp"];
-  const keywordsContent = [...baseKeywords, ...keywords].filter((v) => !!v).join(", ");
+  const keywordsContent = [...baseKeywords, ...(keywords ?? [])].filter((v) => !!v).join(", ");
 
   return (
     <Root>

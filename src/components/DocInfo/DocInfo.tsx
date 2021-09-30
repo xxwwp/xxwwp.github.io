@@ -9,9 +9,9 @@ const DocInfoStyle = styled.div`
   ${({ theme: { colors: c } }) => css`
     margin: 70px 0;
     padding: 1em;
-    background-color: ${(p) => p.theme.colors.bg.refer};
-    border: 1px solid ${(p) => p.theme.colors.primary.main};
-    box-shadow: 0px 1px 5px ${(p) => p.theme.colors.primary.refer};
+    background-color: ${c.bg.refer};
+    border: 1px solid ${c.primary.main};
+    box-shadow: 0px 1px 5px ${c.primary.refer};
 
     ul {
       list-style: none;

@@ -2,7 +2,7 @@ import { PageProps } from "gatsby";
 import { graphql } from "gatsby";
 import Markdown from "../components/Markdown";
 import Post from "../components/Post";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Blockquote from "../components/Blockquote";
 import DocInfo from "../components/DocInfo";
 import { useTheme } from "styled-components";

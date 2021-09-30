@@ -2,13 +2,9 @@
 title: "markdown 编写规范"
 slug: Markdown_writing_specification
 createAt: 2021-09-10
-nextPage:
-prevPage:
-publish: false
-tags:
+publish: true
 archives:
   - 文章
-desc:
 ---
 
 ## 元数据

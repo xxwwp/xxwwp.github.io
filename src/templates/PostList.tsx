@@ -1,4 +1,4 @@
-import { graphql, PageProps, Link } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import React from "react";
 import styled from "styled-components";
 import Pagination from "../components/Pagination";
@@ -37,7 +37,9 @@ export const query = graphql`
       sort: { fields: frontmatter___createAt, order: DESC }
       limit: $limit
       skip: $skip
-      filter: { frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null } } }
+      filter: {
+        frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { eq: true } }
+      }
     ) {
       nodes {
         excerpt

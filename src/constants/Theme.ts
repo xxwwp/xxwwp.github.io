@@ -1,18 +1,18 @@
 interface Color {
-  main?: string;
-  refer?: string;
+  main: string;
+  refer: string;
 }
 
 export interface ThemeType {
-  colors?: {
-    primary?: Color;
-    secondary?: Color;
-    bg?: Color;
-    text?: Color;
-    link?: Color;
-    green?: Color;
-    yellow?: Color;
-    black?: Color;
+  colors: {
+    primary: Color;
+    secondary: Color;
+    bg: Color;
+    text: Color;
+    link: Color;
+    green: Color;
+    yellow: Color;
+    black: Color;
   };
 }
 

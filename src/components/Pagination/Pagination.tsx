@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, useState } from "react";
+import React, { ChangeEvent, ComponentPropsWithoutRef, FormEvent, useState } from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
 import { navigate } from "gatsby";
@@ -43,7 +43,7 @@ export default function Pagination({ currentPage, total }: PaginationProps) {
   const baseURL = "/post-list/";
 
   // 操作跳转页面
-  function handlePage(e) {
+  function handlePage(e: ChangeEvent<HTMLInputElement>) {
     const v = e.target.value;
 
     if (!/^\d*$/.test(v) || v === "0") return;
@@ -57,7 +57,7 @@ export default function Pagination({ currentPage, total }: PaginationProps) {
   }
 
   // 提交跳转页面
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     navigate(baseURL + (page === "1" ? "" : page));
   }
