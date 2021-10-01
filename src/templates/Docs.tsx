@@ -8,7 +8,7 @@ import DocInfo from "../components/DocInfo";
 import { useTheme } from "styled-components";
 import TOC from "../components/TOC";
 import { useCurrentHeading } from "../components/Markdown/H1_6";
-import PostList from "../components/PostList";
+import PostRecent from "../components/PostRecent";
 
 function UnPublishTip() {
   return (
@@ -93,7 +93,7 @@ export default function Docs({ data }: PageData) {
           {unPublish}
           {unCommit}
           <TOC deepRender={4} toc={data.markdownRemark.headings} active={active.name}></TOC>
-          <PostList list={recentPosts}></PostList>
+          <PostRecent list={recentPosts}></PostRecent>
         </>
       }
     >

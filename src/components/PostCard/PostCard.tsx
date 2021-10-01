@@ -41,7 +41,7 @@ const InfoItem = styled.span`
   margin-right: 3ex;
 `;
 
-interface PostCardProps {
+export interface PostCardProps {
   title: ReactNode;
   path: string;
   createAt: ReactNode;

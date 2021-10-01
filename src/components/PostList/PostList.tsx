@@ -1,15 +1,22 @@
-import React, { ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef, ReactNode } from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
-
-const H3 = styled.h3``;
+import PostCard from "../PostCard";
 
 const Ul = styled.ul`
   padding-left: 0;
 `;
+
 const Li = styled.li`
   list-style: none;
+  & ~ & {
+    margin-top: 5px;
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+  }
 `;
+
+const Tag = styled.span``;
 
 const LinkS = styled(Link)`
   color: ${(p) => p.theme.colors.secondary.main};
@@ -28,25 +35,35 @@ interface PostNode {
 }
 
 interface PostListProps extends ComponentPropsWithoutRef<"nav"> {
-  list?: PostNode[];
+  list?: Array<{
+    path: string;
+    title: ReactNode;
+    createAt: ReactNode;
+    excerpt?: string;
+    tags?: ReactNode[];
+    archives?: ReactNode[];
+  }>;
 }
 
 export default function PostList({ list = [], ...rest }: PostListProps) {
   return (
-    <nav {...rest}>
-      <H3>近期文章</H3>
-      <Ul>
-        {list.map((v) => (
-          <Li key={v.path}>
-            <LinkS to={v.path}>
-              {v.createAt}：{v.title}
-            </LinkS>
-          </Li>
-        ))}
-        <Li key="/post-list">
-          <LinkS to="/post-list">...</LinkS>
+    <Ul>
+      {list.map((v) => (
+        <Li key={v.path}>
+          <PostCard
+            title={v.title}
+            path={v.path}
+            createAt={v.createAt}
+            excerpt={v.excerpt}
+            tags={v.tags?.map((v, i) => (
+              <Tag key={i}>{v} &nbsp;</Tag>
+            ))}
+            archives={v.archives?.map((v, i) => (
+              <Tag key={i}>{v} &nbsp;</Tag>
+            ))}
+          />
         </Li>
-      </Ul>
-    </nav>
+      ))}
+    </Ul>
   );
 }

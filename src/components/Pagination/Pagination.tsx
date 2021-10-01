@@ -36,11 +36,11 @@ const PaginationStyle = styled("div")`
 interface PaginationProps extends ComponentPropsWithoutRef<"div"> {
   currentPage: number;
   total: number;
+  baseURL: string;
 }
 
-export default function Pagination({ currentPage, total }: PaginationProps) {
+export default function Pagination({ currentPage, total, baseURL }: PaginationProps) {
   const [page, setPage] = useState(currentPage.toString());
-  const baseURL = "/post-list/";
 
   // 操作跳转页面
   function handlePage(e: ChangeEvent<HTMLInputElement>) {

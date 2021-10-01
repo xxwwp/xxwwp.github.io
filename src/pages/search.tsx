@@ -1,20 +1,18 @@
-import { graphql, PageProps, Link } from "gatsby";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
-import styled, { useTheme } from "styled-components";
+import { graphql, PageProps } from "gatsby";
+import React, { ChangeEvent, ReactNode, useEffect, useState } from "react";
+import styled from "styled-components";
 import { useDebounce } from "../utils";
 import qs from "query-string";
-import PostCard from "../components/PostCard";
 import Root from "../components/Root/Root";
 import Header from "../components/Header";
-import Icon from "../components/Icon";
-import Sea from "../components/Icon/Search";
+import PostList from "../components/PostList";
+import SearchBar from "../components/SearchBar/SearchBar";
+import Box from "../components/Box";
 
-function SearchIcon() {
-  const { colors } = useTheme();
-  return (
-    <Icon style={{ margin: "0 10px" }} vertical="middle" size="20px" fill={colors.secondary.main} children={<Sea />} />
-  );
-}
+const Em = styled.em`
+  color: ${(p) => p.theme.colors.yellow.main};
+  font-style: normal;
+`;
 
 /**
  * 匹配关键字
@@ -24,72 +22,112 @@ function SearchIcon() {
  */
 function getMatchs(raw: string, key: string) {
   const keys = key.trim().split(/\s+/);
-  let reg = keys.reduce((prev, v) => (prev += `(${v})|`), "");
-  reg = reg.substr(0, reg.length - 1);
+  const reg = keys.reduce((prev, v) => (prev += `(${v})|`), "");
 
-  return [...raw.matchAll(RegExp(reg, "ig"))];
+  return [...raw.matchAll(RegExp(reg.substr(0, reg.length - 1), "ig"))];
 }
 
 /**
- * 强调字符串中的关键字
- * @param raw 原生字符串
- * @param key 需要匹配的关键字
- * @returns 强调关键字的渲染列表
+ * 柯里化强调文本函数
+ * 示例：
+ * emText('foo')('foo text foo') // 返回 [<em>foo</em>,' text ',<em>foo</em>]
+ * @param key 关键字
  */
-function emKeyword(raw: string, key: string) {
-  const matchs = getMatchs(raw, key);
-  const emNode = [];
+const emText =
+  (key: string) =>
+  /**
+   * 提供一个输入文本返回强调文本组件数组的函数
+   * @param raw 需要强调的文本
+   * @param diffKey 用于组件 key 的后缀补充
+   */
+  (raw: string, diffKey: string = "") => {
+    const matchs = getMatchs(raw, key);
+    const emNode: ReactNode[] = [];
 
-  for (var ri = 0, mi = 0; mi < matchs.length; mi++) {
-    const item = matchs[mi];
-    if (item.index) {
-      emNode.push(raw.substr(ri, item.index));
-      emNode.push(<em key={mi}>{item[0]}</em>);
-      ri = item.index + item[0].length;
+    for (var ri = 0, mi = 0; mi < matchs.length; mi++) {
+      const item = matchs[mi];
+
+      if (typeof item.index === "number") {
+        emNode.push(raw.substring(ri, item.index));
+        emNode.push(<Em key={mi + diffKey}>{item[0]}</Em>);
+        ri = item.index + item[0].length;
+      }
     }
-  }
 
-  emNode.push(raw.substr(ri));
+    emNode.push(raw.substr(ri));
 
-  return emNode;
+    return {
+      vNode: emNode,
+      count: matchs.length,
+    };
+  };
+
+/**
+ * 返回一个对关键字进行匹配过滤后的列表
+ * @param list 数据列表
+ * @param keyword 关键字
+ * @param degree 匹配程度
+ * @returns
+ */
+function matchList(list: DData["allMarkdownRemark"]["nodes"], keyword: string, degree = 0.5) {
+  // 匹配柯里化
+  const emMatch = emText(keyword);
+  let maxWeight = 0;
+
+  if (keyword === "") return [];
+
+  return list
+    .map((node) => {
+      const {
+        frontmatter: { archives, tags, title, createAt },
+      } = node;
+
+      // 权重
+      let weight = 0;
+
+      const emTitle = emMatch(title);
+      weight += emTitle.count;
+
+      const emCreateAt = emMatch(createAt);
+      weight += emCreateAt.count;
+
+      function emMap(v: string, i: number) {
+        const item = emMatch(v, i.toString());
+        weight += item.count;
+        return item.vNode;
+      }
+
+      const emArchives = archives?.map(emMap);
+      const emTags = tags?.map(emMap);
+
+      // 追踪最大权重值
+      if (weight > maxWeight) {
+        maxWeight = weight;
+      }
+
+      return {
+        node,
+        weight,
+        vNodes: {
+          title: emTitle.vNode,
+          createAt: emCreateAt.vNode,
+          archives: emArchives,
+          tags: emTags,
+          path: node.fields.path,
+        },
+      };
+    })
+    .filter((item) => {
+      return item.weight / maxWeight > degree;
+    })
+    .sort((prev, next) => (prev.weight < next.weight ? 1 : -1))
+    .map((item) => item.vNodes);
 }
 
 const DivS = styled.div`
   max-width: 600px;
   padding: 20px;
   margin: auto;
-  form {
-    text-align: center;
-  }
-  .search-input {
-    border: none;
-    border-bottom: 2px solid ${(p) => p.theme.colors.secondary.main};
-    border-radius: 5px;
-    padding: 10px 20px;
-
-    transition: box-shadow 0.2s;
-
-    input {
-      font-size: 1.2rem;
-      border: none;
-      outline: none;
-      &::-webkit-search-cancel-button {
-        display: none;
-      }
-    }
-
-    &:focus-within {
-      box-shadow: 0 0 5px ${(p) => p.theme.colors.primary.main};
-    }
-  }
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  em {
-    color: ${(p) => p.theme.colors.yellow.main};
-    font-style: normal;
-  }
 `;
 
 export const query = graphql`
@@ -112,38 +150,13 @@ export const query = graphql`
 `;
 
 export default function Search({ data, location, navigate }: PageData) {
-  const [list, setList] = useState<DData["allMarkdownRemark"]["nodes"]>([]);
+  const nodes = data.allMarkdownRemark.nodes;
+  const [renderLi, setRenderLi] = useState<ReturnType<typeof matchList>>([]);
   const keyword = (qs.parse(location.search).keyword as string) ?? "";
 
-  const emK = useCallback((raw: string) => emKeyword(raw, keyword), [keyword]);
-
   useEffect(() => {
-    if (keyword === "") return void setList([]);
-
-    const wNodes: { node: typeof list[number]; w: number }[] = data.allMarkdownRemark.nodes.map((v) => ({
-      node: v,
-      w: 0,
-    }));
-
-    const filters = wNodes
-      .filter((item) => {
-        const {
-          node: {
-            frontmatter: { archives, tags, title, createAt },
-          },
-        } = item;
-        // 整理归档、标签和标题，写入权重，过滤掉没有匹配成功项目
-        [...(archives ?? []), ...(tags ?? []), title, createAt].forEach((v) => {
-          const matchs = getMatchs(v, keyword);
-          item.w += matchs.length;
-          return matchs.length !== 0;
-        });
-        return item.w > 0;
-      })
-      .sort((prev, next) => (prev.w > next.w ? -1 : 1));
-
-    setList(filters.map((v) => v.node));
-  }, [keyword, data]);
+    setRenderLi(matchList(nodes, keyword, 0.6));
+  }, [nodes, keyword]);
 
   const handleKeyword = useDebounce(function (e: ChangeEvent<HTMLInputElement>) {
     navigate(`/search?${qs.stringify({ keyword: e.target.value })}`, { replace: true });
@@ -152,34 +165,10 @@ export default function Search({ data, location, navigate }: PageData) {
   return (
     <Root>
       <Header></Header>
-      <DivS>
-        <form>
-          <fieldset className="search-input">
-            <SearchIcon />
-            <input autoFocus type="search" defaultValue={keyword} onChange={handleKeyword} placeholder="search...." />
-          </fieldset>
-        </form>
-        {list.length > 0 && (
-          <ul>
-            {list.map((v, i) => (
-              <li key={i}>
-                <PostCard
-                  title={emK(v.frontmatter.title)}
-                  path={v.fields.path}
-                  createAt={emK(v.frontmatter.createAt)}
-                  excerpt={v.excerpt}
-                  tags={v.frontmatter.tags?.map((v, i) => (
-                    <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
-                  ))}
-                  archives={v.frontmatter.archives?.map((v, i) => (
-                    <span key={i}>{emK(v)}&nbsp;&nbsp;</span>
-                  ))}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-      </DivS>
+      <Box p={[40, 20]}>
+        <SearchBar value={keyword} onSearchInput={handleKeyword} />
+        {renderLi.length > 0 && <PostList list={renderLi} />}
+      </Box>
     </Root>
   );
 }

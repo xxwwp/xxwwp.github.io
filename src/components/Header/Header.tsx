@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import styled, { css } from "styled-components";
 import classNames from "classnames";
+import { page } from "../../constants/conf";
 
 const Box = styled.header`
   ${({ theme: { colors: c } }) => css`
@@ -47,12 +48,16 @@ const Title = styled(Link)`
 
 const navs = [
   {
-    path: "/post-list",
+    path: page.record,
     name: "记录",
   },
   {
-    path: "/search",
+    path: page.search,
     name: "检索",
+  },
+  {
+    path: page.draft,
+    name: "草稿",
   },
 ];
 

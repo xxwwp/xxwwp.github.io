@@ -60,37 +60,22 @@ const md = {
   },
 };
 
-// 分页处理
-const pagination = {
-  async createPage({ graphql, actions, reporter }) {
+// markdown 文字卡片分页器
+function mdPagination(gql, url, component, postsPerPage = 10) {
+  return async function createPage({ graphql, actions, reporter }) {
     const { createPage } = actions;
-    const result = await graphql(
-      `
-        query GetAllMD {
-          allMarkdownRemark(
-            sort: { fields: frontmatter___createAt, order: DESC }
-            filter: { frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null } } }
-          ) {
-            nodes {
-              id
-            }
-          }
-        }
-      `
-    );
+    const result = await graphql(gql);
     if (result.errors) {
-      reporter.panicOnBuild(`Error while running GraphQL query.`);
+      reporter.panicOnBuild(`Error while running GraphQL query. 创建 markdown 分页失败，路径 ${url}。`);
       return;
     }
-    // ...
     // Create blog-list pages
     const posts = result.data.allMarkdownRemark.nodes;
-    const postsPerPage = 10;
     const numPages = Math.ceil(posts.length / postsPerPage);
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
-        path: i === 0 ? `/post-list` : `/post-list/${i + 1}`,
-        component: path.resolve("./src/templates/PostList.tsx"),
+        path: i === 0 ? `${url}` : `${url}/${i + 1}`,
+        component,
         context: {
           limit: postsPerPage,
           skip: i * postsPerPage,
@@ -99,8 +84,47 @@ const pagination = {
         },
       });
     });
-  },
-};
+  };
+}
+
+// 记录页
+const recordPage = mdPagination(
+  `
+    query GetRecordPages{
+      allMarkdownRemark(
+        sort: { fields: frontmatter___createAt, order: DESC }
+        filter: {
+          frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { eq: true } }
+        }
+      ) {
+        nodes {
+          id
+        }
+      }
+    }
+  `,
+  "/record",
+  path.resolve("./src/templates/Record.tsx")
+);
+
+const DraftPage = mdPagination(
+  `
+    query GetDraftPage {
+      allMarkdownRemark(
+        sort: { fields: frontmatter___createAt, order: DESC }
+        filter: {
+          frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { ne: true } }
+        }
+      ) {
+        nodes {
+          id
+        }
+      }
+    }
+  `,
+  "/draft",
+  path.resolve("./src/templates/Draft.tsx")
+);
 
 exports.onCreateNode = async (...args) => {
   await md.onCreateNode.apply(this, args);
@@ -108,5 +132,6 @@ exports.onCreateNode = async (...args) => {
 
 exports.createPages = async (...args) => {
   await md.createPages.apply(this, args);
-  await pagination.createPage.apply(this, args);
+  await recordPage.apply(this, args);
+  await DraftPage.apply(this, args);
 };
