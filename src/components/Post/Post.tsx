@@ -9,10 +9,23 @@ import Header from "../Header";
 const Layout = styled.div`
   display: grid;
   max-width: 1200px;
-  width: 100%;
-  grid-template-columns: 280px minmax(300px, 900px);
+  grid-template-columns: 280px minmax(400px, 900px);
   column-gap: 20px;
+
   margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 900px) {
+    grid-template-columns: minmax(400px, 900px);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "_top"
+      "_bottom";
+    & > :first-child {
+      grid-area: _bottom;
+    }
+  }
 `;
 
 const AsideBox = styled.div`

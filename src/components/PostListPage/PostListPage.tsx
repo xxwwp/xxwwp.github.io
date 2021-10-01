@@ -29,7 +29,7 @@ export default function PostListPage({ data, pageContext, baseURL }: PostListPag
   return (
     <Root>
       <Header />
-      <Box p={[20, 0]}>
+      <Box p={20}>
         {pagination}
         <PostList list={list} />
         {pagination}

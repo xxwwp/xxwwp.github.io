@@ -6,6 +6,7 @@ import Blockquote from "../Blockquote";
 import Anchor from "./Anchor";
 import "katex/dist/katex.min.css";
 import codeStyle from "./codeStyle";
+import Table from "./Table";
 
 const Article = styled("article")`
   ${({ theme: { colors: c } }) => css`
@@ -114,11 +115,21 @@ const Article = styled("article")`
       text-decoration: underline;
     }
 
+    .table-box {
+      overflow-x: scroll;
+    }
     table {
       border-collapse: collapse;
     }
     th {
       white-space: nowrap;
+      min-width: 100px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid ${c.secondary.refer};
+      padding: 10px;
     }
 
     .gatsby-highlight,
@@ -139,6 +150,7 @@ const renderAst = new rehypeReact({
     ...H1_6,
     blockquote: Blockquote,
     a: Anchor,
+    table: Table,
   },
 }).Compiler;
 
