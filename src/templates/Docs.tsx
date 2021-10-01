@@ -55,7 +55,11 @@ export const query = graphql`
         }
       }
     }
-    allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }, limit: 5) {
+    allMarkdownRemark(
+      filter: { frontmatter: { publish: { eq: true } } }
+      sort: { fields: frontmatter___createAt, order: DESC }
+      limit: 5
+    ) {
       nodes {
         frontmatter {
           createAt(formatString: "yyyy.MM.DD")

@@ -9,7 +9,6 @@ import Header from "../components/Header";
 const Wrapper = styled.div`
   margin: 20px auto;
   width: 700px;
-  min-height: 100vh;
 `;
 
 const Ul = styled.ul`
@@ -58,7 +57,7 @@ export const query = graphql`
 `;
 
 export default function PostList({ data, pageContext }: PageData) {
-  const nav = (
+  const pagination = (
     <nav>
       <Pagination currentPage={pageContext.currentPage} total={pageContext.numPages} />
     </nav>
@@ -68,7 +67,7 @@ export default function PostList({ data, pageContext }: PageData) {
     <Root>
       <Header />
       <Wrapper>
-        {nav}
+        {pagination}
         <Ul>
           {data.allMarkdownRemark.nodes.map((v) => (
             <Li key={v.fields.path}>
@@ -87,7 +86,7 @@ export default function PostList({ data, pageContext }: PageData) {
             </Li>
           ))}
         </Ul>
-        {nav}
+        {pagination}
       </Wrapper>
     </Root>
   );

@@ -7,6 +7,9 @@ const GlobalStyle = createGlobalStyle`
     input {
       color: ${c.text.main};
     }
+    html {
+      overflow: overlay;
+    }
     body {
       margin: 0;
     }
