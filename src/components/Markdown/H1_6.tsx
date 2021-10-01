@@ -3,6 +3,7 @@ import React, {
   ElementType,
   Key,
   MutableRefObject,
+  ReactNode,
   useEffect,
   useRef,
   useState,
@@ -75,17 +76,16 @@ function useDispatchPosition(id: string, ref: RefObject<HTMLHeadingElement>) {
     (headings[`h${level}` as typeof headingList[number]] = ({ children, ...rest }) => {
       const ref = useRef<HTMLHeadingElement>(null);
 
-      if (typeof children === "string") {
-        useDispatchPosition(children, ref);
+      // renderAst 会传入一个数组，把标题放在数组的首位
+      const id = children.toString();
 
-        return React.createElement(`h${level}`, { id: children, ...rest, ref }, [
-          <a key={children} href={`#${children}`}>
-            {children}
-          </a>,
-        ]);
-      } else {
-        throw new Error("markdown 的标题不能为一个组件");
-      }
+      useDispatchPosition(id, ref);
+
+      return React.createElement(`h${level}`, { id, ...rest, ref }, [
+        <a key={id} href={`#${id}`}>
+          {children}
+        </a>,
+      ]);
     })
 );
 
@@ -98,10 +98,9 @@ export interface MatchHeadingDefail {
 
 /** 获取当前内容对应标题的 hook */
 export function useCurrentHeading(deps: any[] = []) {
-  const [detail, setDetail] = useState<MatchHeadingDefail | null>(null);
+  const [detail, setDetail] = useState<MatchHeadingDefail>({ name: "", id: "" });
 
   // 默认执行一次 scroll，触发匹配标题进行事件提交，完成初始化效果
-  useEffect(() => void window.scroll(), []);
 
   useEffect(() => {
     function handleMatchHeading(e: CustomEvent<MatchHeadingDefail>) {
