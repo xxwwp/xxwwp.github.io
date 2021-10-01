@@ -39,10 +39,6 @@ const DocInfoStyle = styled.div`
     .right {
       float: right;
     }
-    .hor-margin {
-      margin-left: 0.5em;
-      margin-right: 0.5em;
-    }
   `}
 `;
 
@@ -65,14 +61,14 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
   const crTip = "署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)";
 
   const tagsLink = tags?.map((v) => (
-    <Link key={v} className="hor-margin" to={`/search?keyword=${v}`}>
-      {v}
+    <Link key={v} to={`/search?keyword=${v}`}>
+      {v} &nbsp;
     </Link>
   ));
 
   const archivesLink = archives?.map((v) => (
-    <Link key={v} className="hor-margin" to={`/search?keyword=${v}`}>
-      {v}
+    <Link key={v} to={`/search?keyword=${v}`}>
+      {v} &nbsp;
     </Link>
   ));
 

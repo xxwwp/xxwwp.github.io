@@ -82,7 +82,7 @@ const codeStyle = css`
   }
 
   .token.attr-value {
-    color: ${(p) => p.theme.colors.primary.main};
+    color: ${(p) => p.theme.colors.yellow.refer};
   }
 
   .token.atrule,

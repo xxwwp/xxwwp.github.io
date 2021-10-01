@@ -5,47 +5,37 @@ import styled, { css } from "styled-components";
 interface BqSParams {
   // 底色
   baseColor?: string;
-}
-
-const BlockquoteS = styled("blockquote")<BqSParams>`
-  ${(p) => {
-    const color = p.baseColor ?? p.theme.colors.primary.main;
-    return css`
-      background: ${color};
-      border: 1px solid ${color};
-      padding-left: 10px;
-      margin: 1.2em 0;
-    `;
-  }}
-`;
-
-interface ContentParams {
   // 背景色
   bgColor?: string;
   // 字体颜色
   color?: string;
 }
 
-const Content = styled("div")<ContentParams>`
+const BlockquoteS = styled("blockquote")<BqSParams>`
   ${(p) => {
-    const bg = p.bgColor ?? p.theme.colors.bg.refer;
+    const baseColor = p.baseColor ?? p.theme.colors.primary.main;
+    const bgColor = p.bgColor;
+    const color = p.color ?? p.theme.colors.text.refer;
     return css`
-      display: flow-root;
-      background: ${bg};
-      padding: 0 0.8rem;
-      color: ${p.color};
+      border: 1px solid ${baseColor};
+      padding: 0 10px 0 20px;
+      margin: 1.2em 0;
+      background-color: ${bgColor};
+      color: ${color};
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 10px;
+        background: ${baseColor};
+      }
     `;
   }}
 `;
 
-interface BlockquoteProps extends ComponentPropsWithoutRef<"blockquote">, BqSParams, ContentParams {}
+interface BlockquoteProps extends ComponentPropsWithoutRef<"blockquote">, BqSParams {}
 
-export default function Blockquote({ children, bgColor, color, ...rest }: BlockquoteProps) {
-  return (
-    <BlockquoteS {...rest}>
-      <Content bgColor={bgColor} color={color}>
-        {children}
-      </Content>
-    </BlockquoteS>
-  );
+export default function Blockquote({ children, ...rest }: BlockquoteProps) {
+  return <BlockquoteS {...rest}>{children}</BlockquoteS>;
 }

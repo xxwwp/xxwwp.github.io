@@ -11,16 +11,18 @@ import { useCurrentHeading } from "../components/Markdown/H1_6";
 import PostRecent from "../components/PostRecent";
 
 function UnPublishTip() {
+  const c = useTheme().colors;
   return (
-    <Blockquote style={{ fontSize: ".9rem" }} baseColor={useTheme().colors.secondary.main}>
+    <Blockquote style={{ fontSize: ".9rem" }} baseColor={c.yellow.refer} bgColor={c.bg.refer}>
       <p>这是一篇没有正式发布的草稿，不推荐阅读。</p>
     </Blockquote>
   );
 }
 
 function UnCommitTip() {
+  const c = useTheme().colors;
   return (
-    <Blockquote style={{ fontSize: ".9rem" }} baseColor={useTheme().colors.secondary.main}>
+    <Blockquote style={{ fontSize: ".9rem" }} baseColor={c.yellow.refer} bgColor={c.bg.refer}>
       <p>没有找到该文章 git 信息，请确保打包之前对该文章进行提交。</p>
     </Blockquote>
   );

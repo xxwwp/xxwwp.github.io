@@ -6,18 +6,19 @@ import Root from "../Root/Root";
 import { TOCProps } from "../TOC";
 import Header from "../Header";
 
+const miniWidth = "900px";
+
 const Layout = styled.div`
   display: grid;
   max-width: 1200px;
-  grid-template-columns: 280px minmax(400px, 900px);
+  grid-template-columns: 300px minmax(380px, ${miniWidth});
   column-gap: 20px;
 
   margin: auto;
-  padding: 20px;
   box-sizing: border-box;
 
-  @media screen and (max-width: 900px) {
-    grid-template-columns: minmax(400px, 900px);
+  @media screen and (max-width: ${miniWidth}) {
+    grid-template-columns: 100%;
     grid-template-rows: auto auto;
     grid-template-areas:
       "_top"
@@ -37,7 +38,7 @@ const Aside = styled.aside`
   position: sticky;
   top: 0px;
   max-height: 100vh;
-  padding: 0px 25px 100px 0;
+  padding: 0px 25px 100px 20px;
   overflow: auto;
 `;
 
@@ -49,11 +50,11 @@ const Main = styled.main`
     padding: 1em 1rem;
     margin: 1em -1rem;
     border-radius: 5px;
-    @media screen and (max-width: 632px) {
+    @media screen and (max-width: ${miniWidth}) {
       border-radius: 0px;
     }
 
-    @media screen and (min-width: 632px) {
+    @media screen and (min-width: ${miniWidth}) {
       ::-webkit-scrollbar {
         height: 12px;
       }

@@ -7,13 +7,10 @@ const GlobalStyle = createGlobalStyle`
     input {
       color: ${c.text.main};
     }
-    html {
-      overflow: overlay;
-    }
     body {
       margin: 0;
     }
-    * {
+    html {
       scroll-behavior: smooth;
     }
     body,

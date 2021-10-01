@@ -116,7 +116,7 @@ const Article = styled("article")`
     }
 
     .table-box {
-      overflow-x: scroll;
+      overflow-x: auto;
     }
     table {
       border-collapse: collapse;
@@ -128,8 +128,15 @@ const Article = styled("article")`
 
     th,
     td {
-      border-bottom: 1px solid ${c.secondary.refer};
       padding: 10px;
+    }
+    th,
+    td {
+      border: 1px solid ${c.primary.refer};
+    }
+    th {
+      text-align: left;
+      border-bottom: 1px solid ${c.primary.main};
     }
 
     .gatsby-highlight,
@@ -138,7 +145,7 @@ const Article = styled("article")`
     }
 
     iframe {
-      box-shadow: 0px 2px 10px ${c.secondary.refer};
+      box-shadow: 0px 2px 10px ${c.primary.refer};
     }
   `}
 `;
