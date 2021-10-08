@@ -75,7 +75,7 @@ export const query = graphql`
   }
 `;
 
-export default function Docs({ data }: PageData) {
+export default function Docs({ data, location }: PageData) {
   const fm = data.markdownRemark.frontmatter;
   const { latest }: DGitinfo = JSON.parse(data.markdownRemark.fields.gitinfo);
 
@@ -98,6 +98,7 @@ export default function Docs({ data }: PageData) {
           <PostRecent list={recentPosts}></PostRecent>
         </>
       }
+      location={location}
     >
       <Markdown heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo

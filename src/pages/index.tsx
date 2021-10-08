@@ -1,3 +1,4 @@
+import { PageProps } from "gatsby";
 import * as React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -14,10 +15,12 @@ const Content = styled.main`
   }
 `;
 
-export default function Index() {
+interface IndexProps extends PageProps {}
+
+export default function Index({ location }: IndexProps) {
   return (
     <Root>
-      <Header></Header>
+      <Header location={location} />
       <Content>
         <h1>玄晓乌屋</h1>
         <p>主页建设中...</p>

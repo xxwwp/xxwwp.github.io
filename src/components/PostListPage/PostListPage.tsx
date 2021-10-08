@@ -10,7 +10,7 @@ interface PostListPageProps extends PageData {
   baseURL: string;
 }
 
-export default function PostListPage({ data, pageContext, baseURL }: PostListPageProps) {
+export default function PostListPage({ data, pageContext, baseURL, location }: PostListPageProps) {
   const list = data.allMarkdownRemark.nodes.map((v) => ({
     path: v.fields.path,
     title: v.frontmatter.title,
@@ -28,7 +28,7 @@ export default function PostListPage({ data, pageContext, baseURL }: PostListPag
 
   return (
     <Root>
-      <Header />
+      <Header location={location} />
       <Box p={20}>
         {pagination}
         <PostList list={list} />

@@ -164,7 +164,7 @@ export default function Search({ data, location, navigate }: PageData) {
 
   return (
     <Root>
-      <Header></Header>
+      <Header location={location} />
       <Box p={[40, 20]}>
         <SearchBar value={keyword} onSearchInput={handleKeyword} />
         {renderLi.length > 0 && <PostList list={renderLi} />}

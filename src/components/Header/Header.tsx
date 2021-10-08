@@ -1,8 +1,9 @@
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import { Link } from "gatsby";
 import styled, { css } from "styled-components";
 import classNames from "classnames";
 import { page } from "../../constants/conf";
+import { WindowLocation } from "@reach/router";
 
 const Box = styled.header`
   ${({ theme: { colors: c } }) => css`
@@ -61,7 +62,11 @@ const navs = [
   },
 ];
 
-export default function Header() {
+interface HeaderProps extends ComponentPropsWithoutRef<"header"> {
+  location: WindowLocation;
+}
+
+export default function Header({ location }: HeaderProps) {
   return (
     <Box>
       <Nav>

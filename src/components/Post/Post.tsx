@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import Root from "../Root/Root";
 import { TOCProps } from "../TOC";
 import Header from "../Header";
+import { WindowLocation } from "@reach/router";
 
 const miniWidth = "900px";
 
@@ -67,13 +68,14 @@ const Main = styled.main`
 `;
 
 interface PostProps extends ComponentPropsWithoutRef<"main"> {
+  location: WindowLocation;
   desc?: string;
   keywords?: string[];
   aside?: JSX.Element;
   headings?: TOCProps["toc"];
 }
 
-export default function Post({ desc, keywords, children, aside, headings, ...rest }: PostProps) {
+export default function Post({ desc, keywords, children, aside, headings, location, ...rest }: PostProps) {
   const baseKeywords = ["玄晓乌屋", "xxww", "xxwwp"];
   const keywordsContent = [...baseKeywords, ...(keywords ?? [])].filter((v) => !!v).join(", ");
 
@@ -83,7 +85,7 @@ export default function Post({ desc, keywords, children, aside, headings, ...res
         <meta name="description" content={desc} />
         <meta name="keywords" content={keywordsContent} />
       </Helmet>
-      <Header />
+      <Header location={location} />
       <Layout>
         <AsideBox>
           <Aside>{aside}</Aside>

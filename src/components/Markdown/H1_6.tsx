@@ -9,14 +9,16 @@ import React, {
   useState,
 } from "react";
 import { RefObject } from "react";
-import { throttleEvent } from "../../utils";
+import { throttleEvent, isBrowser } from "../../utils";
 
 // 自定义优化滚动事件、标题命中事件名称，编写一定乱码，防止和全局其他事件重叠
 const optimizedScorll = "optimizedScorll_bo8j3kj";
 const matchheading = "matchheading_y19v0d";
 
 // 优化滚动事件
-throttleEvent("scroll", optimizedScorll);
+if (isBrowser) {
+  throttleEvent("scroll", optimizedScorll);
+}
 
 type Heading<T extends ElementType> = (props: ComponentPropsWithoutRef<T>) => JSX.Element;
 
@@ -35,28 +37,30 @@ const boundingCBs: {
 } = {};
 
 // 匹配当前滚动位置对应的标题，并把匹配成功的标题信息通过自定义事件 matchheading 分发
-window.addEventListener(
-  optimizedScorll,
-  function (e: Event) {
-    const keys = Object.keys(boundingCBs);
-    // 滚动的偏移值，标题会在距离视区顶部此高度时触发 matchheading 事件
-    const offsetHeight = 150;
+if (isBrowser) {
+  window.addEventListener(
+    optimizedScorll,
+    function (e: Event) {
+      const keys = Object.keys(boundingCBs);
+      // 滚动的偏移值，标题会在距离视区顶部此高度时触发 matchheading 事件
+      const offsetHeight = 150;
 
-    for (var i = 0; i < keys.length; i++) {
-      const current = boundingCBs[keys[i]]();
-      const next = boundingCBs[keys[i + 1]]?.();
+      for (var i = 0; i < keys.length; i++) {
+        const current = boundingCBs[keys[i]]();
+        const next = boundingCBs[keys[i + 1]]?.();
 
-      // 判断标题元素是否对应当前视区内容，满足条件分发事件 matchheading
-      if ((current.top < offsetHeight && next?.top > offsetHeight) || (i === keys.length - 1 && current.top < 0)) {
-        window.dispatchEvent(
-          new CustomEvent<MatchHeadingDefail>(matchheading, { detail: { name: keys[i], id: keys[i] } })
-        );
-        break;
+        // 判断标题元素是否对应当前视区内容，满足条件分发事件 matchheading
+        if ((current.top < offsetHeight && next?.top > offsetHeight) || (i === keys.length - 1 && current.top < 0)) {
+          window.dispatchEvent(
+            new CustomEvent<MatchHeadingDefail>(matchheading, { detail: { name: keys[i], id: keys[i] } })
+          );
+          break;
+        }
       }
-    }
-  },
-  false
-);
+    },
+    false
+  );
+}
 
 // 在 boundingCBs 中写入标题位置
 function useDispatchPosition(id: string, ref: RefObject<HTMLHeadingElement>) {
