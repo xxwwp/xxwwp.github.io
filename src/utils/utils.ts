@@ -48,7 +48,7 @@ export function useDebounce<F extends (...args: any) => void>(cb: F, delay = 200
  * 如添加自定义事件 optimizedResize 代替 resize 事件写为 throttleEvent('resize','optimizedResize')
  * @reference https://developer.mozilla.org/zh-CN/docs/Web/API/Window/resize_event
  */
-export function throttleEvent(type: string, name: string, obj: EventTarget = window) {
+export function throttleEvent(type: string, name: string, obj: EventTarget) {
   let running = false;
 
   function func() {
