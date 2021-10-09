@@ -59,7 +59,7 @@ operator = "erode | dilate"
 				y="1"
 				width="9"
 				height="9"
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 			></image>
 		</g>
 	</defs>
@@ -85,7 +85,7 @@ operator = "erode | dilate"
 				y="1"
 				width="9"
 				height="9"
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 			></image>
 		</g>
 	</defs>
