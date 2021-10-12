@@ -33,13 +33,13 @@ archives:
 	<defs>
 		<filter id="Image-1">
 			<feImage
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 				preserveAspectRatio="xMaxYMid slice"
 			></feImage>
 		</filter>
 		<filter id="Image-2">
 			<feImage
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 				width="2"
 				height="8"
 				preserveAspectRatio="none"
@@ -58,13 +58,13 @@ archives:
 	<defs>
 		<filter id="Image-1">
 			<feImage
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 				preserveAspectRatio="xMaxYMid slice"
 			></feImage>
 		</filter>
 		<filter id="Image-2">
 			<feImage
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 				width="2"
 				height="8"
 				preserveAspectRatio="none"

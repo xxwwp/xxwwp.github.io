@@ -14,7 +14,11 @@ export default function Root({ children }: RootProps) {
     <>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        <Helmet>
+        <Helmet
+          htmlAttributes={{
+            lang: "zh-Hans-CN",
+          }}
+        >
           <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
         </Helmet>
         {children}

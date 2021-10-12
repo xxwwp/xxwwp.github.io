@@ -95,7 +95,7 @@ $$
 			<feImage
 				result="Blend-1-Result-2"
       	xmlns:xlink="http://www.w3.org/1999/xlink"
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 			/>
 			<feFlood result="Blend-1-Result-1" flood-color="#009000" flood-opacity="1" />
 			<feBlend in="Blend-1-Result-1" in2="Blend-1-Result-2" mode="screen" />
@@ -113,7 +113,7 @@ $$
 			<feImage
 				result="Blend-1-Result-2"
       	xmlns:xlink="http://www.w3.org/1999/xlink"
-				xlink:href="https://hbimg.huabanimg.com/21a1ea15b965125284d140d6c160b308fb6c44731b7b2-glHieg_fw658"
+				xlink:href="/imgs/test1.jpg"
 			/>
 			<feFlood result="Blend-1-Result-1" flood-color="#009000" flood-opacity="1" />
 			<feBlend in="Blend-1-Result-1" in2="Blend-1-Result-2" mode="screen" />
