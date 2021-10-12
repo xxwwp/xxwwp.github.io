@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import PostList from "../components/PostList";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Box from "../components/Box";
+import { Helmet } from "react-helmet";
 
 const Em = styled.em`
   color: ${(p) => p.theme.colors.yellow.main};
@@ -164,6 +165,7 @@ export default function Search({ data, location, navigate }: PageData) {
 
   return (
     <Root>
+      <Helmet title="检索"></Helmet>
       <Header location={location} />
       <Box p={[40, 20]}>
         <SearchBar value={keyword} onSearchInput={handleKeyword} />

@@ -5,12 +5,14 @@ import Root from "../Root/Root";
 import Header from "../Header";
 import PostList from "../PostList";
 import Box from "../Box";
+import { Helmet } from "react-helmet";
 
 interface PostListPageProps extends PageData {
   baseURL: string;
+  title?: string;
 }
 
-export default function PostListPage({ data, pageContext, baseURL, location }: PostListPageProps) {
+export default function PostListPage({ title, data, pageContext, baseURL, location }: PostListPageProps) {
   const list = data.allMarkdownRemark.nodes.map((v) => ({
     path: v.fields.path,
     title: v.frontmatter.title,
@@ -28,6 +30,7 @@ export default function PostListPage({ data, pageContext, baseURL, location }: P
 
   return (
     <Root>
+      <Helmet title={title} />
       <Header location={location} />
       <Box p={20}>
         {pagination}
