@@ -72,7 +72,11 @@ export default function Header({ location }: HeaderProps) {
       <Nav>
         <Title to="/">玄晓乌屋</Title>
         {navs.map((v) => (
-          <Link key={v.path} to={v.path} className={classNames({ active: v.path === location.pathname })}>
+          <Link
+            key={v.path}
+            to={v.path}
+            className={classNames({ active: RegExp("^" + v.path).test(location.pathname) })}
+          >
             {v.name}
           </Link>
         ))}

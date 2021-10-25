@@ -73,15 +73,16 @@ interface PostProps extends ComponentPropsWithoutRef<"main"> {
   keywords?: string[];
   aside?: JSX.Element;
   headings?: TOCProps["toc"];
+  title?: string;
 }
 
-export default function Post({ desc, keywords, children, aside, headings, location, ...rest }: PostProps) {
+export default function Post({ title, desc, keywords, children, aside, headings, location, ...rest }: PostProps) {
   const baseKeywords = ["玄晓乌屋", "xxww", "xxwwp"];
   const keywordsContent = [...baseKeywords, ...(keywords ?? [])].filter((v) => !!v).join(", ");
 
   return (
     <Root>
-      <Helmet>
+      <Helmet title={title}>
         <meta name="description" content={desc} />
         <meta name="keywords" content={keywordsContent} />
       </Helmet>

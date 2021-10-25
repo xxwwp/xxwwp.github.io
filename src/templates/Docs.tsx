@@ -99,6 +99,7 @@ export default function Docs({ data, location }: PageData) {
         </>
       }
       location={location}
+      title={data.markdownRemark.frontmatter.title}
     >
       <Markdown heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
       <DocInfo

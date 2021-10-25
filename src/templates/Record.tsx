@@ -30,5 +30,5 @@ export const query = graphql`
 `;
 
 export default function Draft(pageData: PageData) {
-  return <PostListPage {...pageData} baseURL={page.record + "/"} />;
+  return <PostListPage title={`记录`} {...pageData} baseURL={page.record + "/"} />;
 }

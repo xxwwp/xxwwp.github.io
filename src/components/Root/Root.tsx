@@ -16,7 +16,7 @@ export default function Root({ children }: RootProps) {
         <GlobalStyle />
         <Helmet
           htmlAttributes={{
-            lang: "zh-Hans-CN",
+            lang: "zh-hans",
           }}
         >
           <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
