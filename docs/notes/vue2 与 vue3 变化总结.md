@@ -58,6 +58,18 @@ vue3 的声明周期相对 vue2 进行了一些修改，明显的就是 `destory
 
 ![](https://v3.cn.vuejs.org/images/lifecycle.svg)
 
+### 移除 $listeners
+
+vue3 中奖不再有 `$listeners`，同样在模板中不能使用这个特殊变量。事件监听器现在是 `$attrs` 的一部分，万事大喜，以后 _透传_ 只需要用 `v-bind="$attrs"` 方式即可：
+
+```html
+<div v-bind="$attrs"></div>
+```
+
+不过这个还是不够灵活，比较很多时候我并不希望传递整个 `$attrs`。
+
+> vue3 组件中的 `this` 和`$attrs` 都使用的是 Proxy 类型哦！不再是 `Object.defineProperties` 了。
+
 ## 模板语法
 
 ### v-if 和 v-for 优先级更改
@@ -149,6 +161,8 @@ app.component("custom-input", {
 在 vue3 中，修改了[属性继承](https://v3.cn.vuejs.org/guide/component-attrs.html#attribute-%E7%BB%A7%E6%89%BF)的定义。原生事件会直接透传到组件内部的根组件，不在使用 `native` 修饰符。[详见](https://v3.cn.vuejs.org/guide/migration/v-on-native-modifier-removed.html#_3-x-%E8%AF%AD%E6%B3%95)。
 
 多个根节点的话就查看[多个根节点上的 Attribute 继承](https://v3.cn.vuejs.org/guide/component-attrs.html#%E5%A4%9A%E4%B8%AA%E6%A0%B9%E8%8A%82%E7%82%B9%E4%B8%8A%E7%9A%84-attribute-%E7%BB%A7%E6%89%BF)。
+
+多个根组件还有个特殊情况
 
 ## 组件
 
@@ -267,3 +281,46 @@ export default defineComponent({
 ```
 
 注意，没有传递的修饰符是接收不到的，接收到的必定是 `true`。
+
+### Provide / Inject
+
+这两个东西类似 react 中的上下文 Context，父组件可以使用 Provide 提供数据，子组件中可以使用 Inject 来注入数据。
+
+[官方文档](https://v3.cn.vuejs.org/guide/component-provide-inject.html)在 vue 传统使用中对这个功能介绍很少，而且使用很变扭。
+
+官方更推荐在[响应式计算和侦听](https://v3.cn.vuejs.org/guide/reactivity-computed-watchers.html#%E8%AE%A1%E7%AE%97%E5%80%BC)和[组合式 API 部分](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E5%93%8D%E5%BA%94%E6%80%A7)学习。
+
+我在传统模式中使用了下，甚至有些意外的行为。而且传统模式下使用也很局限，还不如 vuex 方便。
+
+### 异步组件
+
+和 vue2 其实差别不大，不过现在的异步组件使用 `defineAsyncComponent` 来定义，比如：
+
+```js
+import { createApp, defineAsyncComponent } from "vue";
+
+createApp({
+  // ...
+  components: {
+    AsyncComponent: defineAsyncComponent(() => import("./components/AsyncComponent.vue")),
+  },
+});
+```
+
+另外特别重要的一点是，未来将推出 `Suspense` 功能，这个东西可以用来处理异步组件未加载完成时默认展示的内容，不过就是一个烟雾弹，看这里 [Suspense](#Suspense)
+
+### Suspense
+
+这是一个实验性的功能，是拿来处理异步组件的。
+
+react 的 concurrent 模式也是早就提出，一直没有落实下来，本来说 2020 年底推出，结果特么的现在都 2021 年 11 月了，还没推出。
+
+vue3 的 Suspense 就是和 react 的 concurrent 差不多一个东西。
+
+Suspense 就是用来处理异步组件的，不过看目前的进度，vue3 要等到 react 推出了 concurrent 模式，观摩之后再推出 Supense 吧。
+
+## FAQ
+
+### vue3 中实现透传
+
+参见 [移除 \$listeners](#移除%20$listeners)
