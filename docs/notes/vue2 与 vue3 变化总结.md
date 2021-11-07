@@ -319,6 +319,312 @@ vue3 的 Suspense 就是和 react 的 concurrent 差不多一个东西。
 
 Suspense 就是用来处理异步组件的，不过看目前的进度，vue3 要等到 react 推出了 concurrent 模式，观摩之后再推出 Supense 吧。
 
+## 组合式 API
+
+现在每个组件都增加了一个叫 `setup` 的函数属性。
+
+**`setup` 会在组件未创建前执行，在 `setup` 内部，`data`、`computed`、`methods`、`refs` 都不可以使用。**
+
+### 返回一个对象
+
+`setup` 可以返回一个对象，对象内部的属性都可以在 `template` 中使用。
+
+示例：
+
+```html
+<template>
+  <div>
+    <!-- 使用 setup return 对象的 count 属性 -->
+    {{ count }}
+  </div>
+</template>
+
+<script lang="ts">
+  import { defineComponent } from "vue";
+
+  export default defineComponent({
+    setup() {
+      // return 一个对象，其值可以在模板中使用
+      return { count: 1 };
+    },
+  });
+</script>
+```
+
+**默认情况下，`setup` 中的数据不是响应式的**，比如：
+
+```ts
+export default defineComponent({
+  setup() {
+    let count = 0;
+    setInterval(() => count++, 1000);
+    return { count };
+  },
+});
+```
+
+上面的代码中，在模板中使用 `count` 并不会更新。
+
+### 返回渲染函数
+
+`setup` 函数还可以返回一个渲染函数，如果使用 `.vue` 文件，那么在使用渲染函数的情况下，template 会失效，
+
+渲染函数示例：
+
+```js
+import { h, defineComponent } from "vue";
+
+export default defineComponent({
+  setup() {
+    return () => h("div", {}, ["翻译翻译，什么叫惊喜？"]);
+  },
+});
+```
+
+你还可以使用 vue 官方提供的 [jsx](https://github.com/vuejs/jsx-next/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md) ：
+
+```tsx
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  setup() {
+    return () => <div>翻译翻译，什么叫惊喜？</div>;
+  },
+});
+```
+
+啊这，好像很牛逼的样子。而且而且而且，在 vue3 中使用 jsx 还能使用 css scoped。这在 vue2 都没实现。
+
+```html
+<script lang="tsx">
+  import { defineComponent } from "vue";
+
+  export default defineComponent({
+    setup(props, context) {
+      return () => <div class="root">翻译翻译，什么叫惊喜？</div>;
+    },
+  });
+</script>
+<style lang="sass" scoped>
+  .root
+    background: red
+    color: white
+</style>
+```
+
+> 不过我还是希望开放 jss，如果 [emotion](https://emotion.sh/docs/introduction)、[styled-components](https://styled-components.com/)、[mui](https://mui.com/) 能够来 vue3 大显身手，岂不美哉。
+
+### setup 参数
+
+`setup` 函数接收两个参数 `props` 和 `context`
+
+- `props`：一个 Proxy 对象，内容是组件的 prop 所有值，**不能直接解构**，需要借助 `toRef` 或者 `toRefs`。
+
+- `context`：一个普通对象，内容是组件上下文需要用到数据或函数，含有四个东西：
+
+  - `context.attrs`：等同于 `$attrs`，**Proxy 类型，不要解构使用。**
+  - `context.slots`：等同于 `$slots`，**Proxy 类型，不要解构使用。**
+  - `context.emit`：等同于 `$emit`
+  - `context.expose`：**暴露**公共 property 函数
+
+  因为 `context` 不是 Proxy 对象，所以不是响应式的，可以直接解构。
+
+> `attrs` 和 `slots` 是有状态的对象，它们总是会随组件本身的更新而更新。这意味着你应该避免对它们进行解构，并始终以 `attrs.x` 或 `slots.x` 的方式引用 property。请注意，与 `props` 不同，`attrs` 和 `slots` 的 property 是非响应式的。如果你打算根据 `attrs` 或 `slots` 的更改应用副作用，那么应该在 `onBeforeUpdate` 生命周期钩子中执行此操作。
+
+#### context.expose
+
+`expose` 可以暴露一些公共方法到实例当中。使用 `expose`
+
+例如封装了一个音频播放器组件，父组件希望通过组件实例来执行一个 `play` 方法，让播放器开始播放。此时就可以用到 `expose`。
+
+使用如：
+
+```ts
+export default {
+  expose: ["play"],
+  setup(props, { expose }) {
+    //...
+
+    expose({
+      play() {
+        console.log("音频开始播放！");
+        // ...
+      },
+    });
+
+    //...
+  },
+};
+```
+
+现在父组件就可以通过 `$refs.refName.play()` 来执行子组件通过 `expose` 暴露的函数了。
+
+### ref
+
+### reactive
+
+### toRefs
+
+### toRef
+
+### watchEffect
+
+[watchEffect](https://v3.cn.vuejs.org/api/computed-watch-api.html#watcheffect) 叫做监听器，和 react 的 _useEffect_ 类似，但是不需要传入依赖项。
+
+`watchEffect` 接收一个**副作用函数（后文称作 effect）** 和一个配置项（后文称作 _options_），返回一个**停止器函数（后文称作 stoper）**。`watchEffect` 会立即执行一次接收到的 effect。
+
+- **effect**：`watchEffect` 会追踪 effect 内部的响应值作为 _依赖项_，当依赖项更新时，effect 会**异步**再次执行，默认情况下再次执行总是在生命周期 update 前。
+
+- **options**
+
+  - **options.flush**
+
+    - 默认值为 `"pre"` ，effect 会在更新前执行，effect 第一次会在立即执行。
+    - 当值设置为 `"post"` 时，effect 会在更新后执行，effect 第一次会在组件挂载后在执行。
+    - 当值设置为 `"sync"` 时，effect 的**更新会在强制同步执行**，这很低效并不推荐。
+
+    > 从 Vue 3.2.0 开始，watchPostEffect 和 watchSyncEffect 别名也可以用来让代码意图更加明显。---官网
+    >
+    > 话说 watchPostEffect 和 watchSyncEffect 很混淆好吧，还不如使用配置。---小编
+
+  - options.onTrack & options.onTrigger：用来调试的，作用不大。
+
+- **stoper**：执行后 stoper 后会停止监听器，停止后 effect 不会因为依赖改变再次执行。
+
+```js
+const count = ref(0);
+
+const stoper = watchEffect(() => console.log(count.value));
+// 依次打印 0 ,1 ,2 ,3
+
+const tiemr = setInterval(() => {
+  count.value++;
+
+  // 值为 4 时停止
+  if (count.value > 3) {
+    stoper();
+    clearInterval(tiemr);
+  }
+}, 100);
+```
+
+> 有时你需要在监听器失效时做一些处理，就像 react 的 useEffect 返回值一样功能，那么可以使用 [onInvalidate](#onInvalidate)。
+
+### 组合式 API 中的 Provide / Inject
+
+在组合式 API 中使用 Provide / Inject 和 react 中的 Context 差不多，使用如下：
+
+```js
+// 父组件
+import { defineComponent, provide, ref } from "vue";
+import Test from "./Test.vue";
+
+export default defineComponent({
+  name: "HelloWorld",
+  components: { Test },
+  setup() {
+    const count = ref(0);
+    const changeCount = (v) => (count.value = v);
+
+    provide("countContext", { count, changeCount });
+  },
+});
+```
+
+```jsx
+// 子组件
+import { defineComponent, inject, useCssModule } from "vue";
+
+export default defineComponent({
+  setup(props, { emit }) {
+    const { count, changeCount } = inject("countContext" /* 可选默认值 */);
+
+    return () => <div onClick={() => changeCount(count.value + 1)}>this is count :{count.value}</div>;
+  },
+});
+```
+
+### onInvalidate
+
+[onInvalidate](https://v3.cn.vuejs.org/guide/reactivity-computed-watchers.html#%E6%B8%85%E9%99%A4%E5%89%AF%E4%BD%9C%E7%94%A8) 用来设置监听器失效时的回调，需要把它写在 `watchEffect` 的副作用函数 effect 中。
+
+`onInvalidate` 的失效有两种情况：
+
+- **副作用即将重新执行时**
+
+- **侦听器被停止 (如果在 setup() 或生命周期钩子函数中使用了 watchEffect，则在组件卸载时)**
+
+示例：
+
+```js
+watchEffect((onInvalidate) => {
+  const timer = setTimeout(fn, 3000);
+
+  onInvalidate(() => {
+    clearTimeout(timer);
+  });
+});
+```
+
+类似上面代码一样，使用 `onInvalidate` 可以在组件失效时，把一些过时的副作用清理掉。
+
+### watch
+
+同 vue2 中的 watch 一样的功能，vue2 我就没咋用过这东西，[详见官网](https://v3.cn.vuejs.org/guide/reactivity-computed-watchers.html#watch)
+
+### 生命周期钩子
+
+在组合式 API 中可以使用部分生命周期钩子。因为 `setup` 没有 `this`，所以这些钩子被封装在了全局上，并且其对应的名字如下：
+
+| 选项式 API      | Hook inside setup |
+| --------------- | ----------------- |
+| beforeCreate    | Not needed\*      |
+| created         | Not needed\*      |
+| beforeMount     | onBeforeMount     |
+| mounted         | onMounted         |
+| beforeUpdate    | onBeforeUpdate    |
+| updated         | onUpdated         |
+| beforeUnmount   | onBeforeUnmount   |
+| unmounted       | onUnmounted       |
+| errorCaptured   | onErrorCaptured   |
+| renderTracked   | onRenderTracked   |
+| renderTriggered | onRenderTriggered |
+| activated       | onActivated       |
+| deactivated     | onDeactivated     |
+
+你可以通过下面方式调用：
+
+```js
+import { defineComponent, onMounted, onBeforeMount } from "vue";
+
+export default defineComponent({
+  setup() {
+    onMounted(() => console.log("组件挂载后"));
+    onBeforeMount(() => console.log("组件挂载前"));
+  },
+});
+```
+
+### 模板引用
+
+[在组合式 API 中获取元素或组件实例](https://v3.cn.vuejs.org/guide/composition-api-template-refs.html#%E6%A8%A1%E6%9D%BF%E5%BC%95%E7%94%A8)
+
+### 其他组合式 API
+
+东西太多了，[看这里](https://v3.cn.vuejs.org/api/basic-reactivity.html#%E5%93%8D%E5%BA%94%E6%80%A7%E5%9F%BA%E7%A1%80-api)。
+
+## 新增 Teleport，指定渲染位置
+
+类似 react 的 Portals 功能，详见[官网](https://v3.cn.vuejs.org/guide/teleport.html)。
+
+## 全局 API
+
+vue3 提供了很多新的全局 API，[官网](https://v3.cn.vuejs.org/api/global-api.html#%E5%85%A8%E5%B1%80-api)
+
+## 单文件组件
+
+[参考](https://v3.cn.vuejs.org/api/sfc-spec.html#%E4%BB%8B%E7%BB%8D)
+
 ## FAQ
 
 ### vue3 中实现透传
