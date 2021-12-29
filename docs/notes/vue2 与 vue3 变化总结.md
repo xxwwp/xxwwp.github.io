@@ -4,7 +4,7 @@ slug: notes/vue2 与 vue3 变化总结
 createAt: 2021-11-06
 # nextPage: nextlink
 # prevPage: lastlink
-publish: false
+publish: true
 tags:
   - vue2
   - vue3
