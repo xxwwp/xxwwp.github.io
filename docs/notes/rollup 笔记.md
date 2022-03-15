@@ -255,7 +255,7 @@ rollup 包提供两个函数来支持 NodeJS 的 API，对，并不是 JavaScrip
 
 [官方提供的用例](https://rollupjs.org/guide/en/#rollupwatch)
 
-## 常用的插件
+## 工具集成
 
 官方文档上并没有标注插件汇总清单，不过我搜到了在 github 上找到了它的 [插件库][2]。
 
@@ -301,22 +301,17 @@ export default {
 };
 ```
 
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-ooooooooooooooooooooooooooooooo 这里有严重问题
-
 之后在进行 rollup 构建，就不会发生错误，the-answer 模块将正常参与构建。
+
+> 关于错误 _Unresolved dependencies_
+>
+> 当你未使用 @rollup/plugin-node-resolve 插件时这个错误会触发，rollup 默认是无法使用 npm package 的。
+>
+> 但即使你安装插件 @rollup/plugin-node-resolve，如果你未安装相关依赖包，也会出现这个错误。例如你未执行 `npm i react` 就在源代码里面使用 `import {...} from "react"` 这也会出现该错误。
 
 ### @rollup/plugin-commonjs 把 cjs 转化成 esm 格式参与构建
 
-rollup 默认都把源文件及其依赖按照 ESM 格式进行处理，但是 npm 中很大一部分包都是使用 CommonJS 格式，这会导致对这些包进行依赖时 rollup 不能正常工作。
+rollup 默认都把源文件及其依赖按照 ESM 格式进行处理，但是 npm 默认支持的是 CommonJS，所以 npm 中很大一部分包都是使用 CommonJS 格式，这会导致 rollup 无法对这部分 cjs 包进行处理。
 
 @rollup/plugin-commonjs 插件可以对 CommonJS 的包进行预处理，将其转化为 ESM 格式再参与构建。
 
@@ -330,6 +325,7 @@ npm install @rollup/plugin-commonjs --save-dev
 
 ```js
 // rollup.config.js
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 
 export default {
@@ -338,13 +334,13 @@ export default {
     dir: "output",
     format: "cjs",
   },
-  plugins: [commonjs()],
+  plugins: [nodeResolve(), commonjs()],
 };
 ```
 
-### @rollup/plugin-node-resolve 在构建时去除 Peer dependencies 对等依赖的库
+### 在构建时去除 Peer dependencies 对等依赖的库
 
-假如编写一个 React 的组件库，那么 React 应该作为 Peer dependencies。但是 rollup 默认还是会把 React 当做依赖进行构建，比如：
+假如编写一个指定 React 版本的组件库，那么 React 应该作为 Peer dependencies，我们并不期望构建后的包存在 React 的源码。但是 rollup 默认还是会把 React 当做依赖进行构建，比如：
 
 ```js
 import react from "react";
@@ -353,11 +349,116 @@ console.log(react);
 
 上面的代码会把 react 当做源代码的依赖参与构建，就算你是使用 `--save-dev` 安装也一样。
 
-此时我们应该做的
+我们只需要在配置文件里添加 `external: ["react"]` 即可，不过别忘了先对 npm package 进行支持：
+
+```js
+// rollup.config.js
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+
+export default {
+  input: "packages/index.js",
+  output: {
+    file: "./dist/bundle.js",
+    format: "cjs",
+    exports: "default",
+  },
+  plugins: [nodeResolve(), commonjs()],
+  external: ["react"],
+};
+```
+
+这样会把 react 当做外部依赖处理，它不会被构建到最终的包当中。
+
+### @rollup/plugin-babel 支持 babel
+
+rollup 可以使用 @rollup/plugin-babel 插件来集成 babel。
+
+首先需要安装 bebel 的相关依赖和插件（为了演示更多配置，这里使用 babel 转化了 jsx）：
+
+```bash
+npm install @rollup/plugin-babel @babel/core @babel/preset-env @babel/preset-react --save-dev
+# 顺便安装 react，我们同样不用 --save 安装 react
+npm install react --save-dev
+```
+
+然后在配置文件设置插件：
+
+```js
+// rollup.config.js
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import { babel } from "@rollup/plugin-babel";
+
+export default {
+  input: "packages/index.js",
+  output: {
+    file: "./dist/bundle.js",
+    format: "cjs",
+    exports: "named",
+  },
+  plugins: [nodeResolve(), babel({ babelHelpers: "bundled" }), commonjs()],
+  external: ["react"],
+};
+```
+
+然后你必须为自己的代码设置 babel 配置，例如我们需要转义的代码位于 `packages/**` 下面，那么就应该在此文件夹下面建立一个 .babelrc.json，这个 babel 默认的配置方式一样。然后键入以下代码，让环境支持 jsx：
+
+```json
+{
+  "presets": ["@babel/env", "@babel/preset-react"]
+}
+```
+
+很简单，项目已经可以支持 jsx 构建了，来到之前的 `packages/index.js` 文件中，修改代码如下：
+
+```js
+/** @file packages/index.js */
+
+import { useState } from "react";
+
+function App() {
+  const [state] = useState([..."".padEnd(100)].map((_, i) => i));
+
+  for (const iterator of foo) {
+    console.log(iterator);
+  }
+
+  return (
+    <div>
+      <p> a component !</p>
+      <p>
+        <code>{JSON.stringify(state)}</code>
+      </p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+这段代码使用一些 ES6+ 的语法或函数，比如：
+
+- 字符串展开符：`...`
+- `for of` 语句
+- ...
+
+并且还是用了 JSX，现在执行 `npx rollup -c -w`，会发现代码被 babel 顺利转译。
+
+### typescript
+
+### 其他工具集成
+
+在 [官方文档](https://rollupjs.org/guide/en/#tools) 可以找到更多其他工具集成的方式。
 
 ## 参考
 
 - [rollup.js][1]
+- [rollup plugins][2]
+- [rollup-react-not-compiling-jsx][3]
+- [About semantic versioning][4]
 
 [1]: https://rollupjs.org/guide/en/
 [2]: https://github.com/rollup/plugins
+[3]: https://stackoverflow.com/questions/52884278/rollup-react-not-compiling-jsx
+[4]: https://docs.npmjs.com/about-semantic-versioning
