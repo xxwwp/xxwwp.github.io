@@ -76,7 +76,7 @@ export { main as default };
 
 初次之外，rollup 还支持把文件转移成 [多种格式](https://rollupjs.org/guide/en/#outputformat)，比如把上面的的命令改为：
 
-```bash
+```shell
 # 转义成 amd 格式
 npx rollup packages/index.js --file dist/bundle.js --format amd
 # 或者立即执行函数
@@ -111,7 +111,7 @@ export default {
 
 然后可以使用一下命令执行导入该配置文件：
 
-```bash
+```shell
 npx rollup -c rollup.config.js
 # 或者不设置配置文件
 # rollup 会按照一下顺序查找配置文件
@@ -153,7 +153,7 @@ rollup 使用插件来改变构建时的一些行为，例如引入 json 文件�
 
 安装可以引入 json 文件的依赖：
 
-```bash
+```shell
 npm i @rollup/plugin-json -D
 ```
 
@@ -230,7 +230,7 @@ rollup 提供基本的命令行参数来进行简单开发或者测试。[查看
 
 例如你想使用某一个配置文件并且监视需要构建的源文件，那么可以使用：
 
-```bash
+```shell
 npx rollup -c rollup.config.js -w
 ```
 
@@ -267,7 +267,7 @@ rollup 包提供两个函数来支持 NodeJS 的 API，对，并不是 JavaScrip
 
 例如安装一个叫 `the-answer` 的库：
 
-```bash
+```shell
 npm i the-answer
 ```
 
@@ -281,7 +281,7 @@ import answer from "the-answer";
 
 可以通过安装 @rollup/plugin-node-resolve 插件解决此问题：
 
-```bash
+```shell
 npm i @rollup/plugin-node-resolve -D
 ```
 
@@ -317,7 +317,7 @@ rollup 默认都把源文件及其依赖按照 ESM 格式进行处理，但是 n
 
 安装：
 
-```bash
+```shell
 npm install @rollup/plugin-commonjs --save-dev
 ```
 
@@ -376,7 +376,7 @@ rollup 可以使用 @rollup/plugin-babel 插件来集成 babel。
 
 首先需要安装 bebel 的相关依赖和插件（为了演示更多配置，这里使用 babel 转化了 jsx）：
 
-```bash
+```shell
 npm install @rollup/plugin-babel @babel/core @babel/preset-env @babel/preset-react --save-dev
 # 顺便安装 react，我们同样不用 --save 安装 react
 npm install react --save-dev
@@ -443,9 +443,300 @@ export default App;
 - `for of` 语句
 - ...
 
-并且还是用了 JSX，现在执行 `npx rollup -c -w`，会发现代码被 babel 顺利转译。
+并且还是用了 JSX，现在执行 `npx rollup -c`，会发现代码被 babel 顺利转译。
 
-### typescript
+#### rollup 会对 core-js 进行注入
+
+需要注意的一点是，如果对 babel 使用了 core-js 对 Polyfill 进行添加，这些 Polyfill 会以裸导入的方式呈现给 rollup，rollup 默认会把它们当做依赖进行注入。
+
+比如这么一个源代码：
+
+```js
+/** @file packages/index.js */
+
+export function foo() {
+  [..."".padEnd(100)].map((_, i) => console.log(i));
+}
+
+foo();
+```
+
+然后我们配置 babel 为：
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": 1
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ]
+  ]
+}
+```
+
+这里我们增加了 `"useBuiltIns": "usage", "corejs": 3`，使用 corejs 来注入 Polyfill，这个时候我们如果运行 rollup，构建后的代码会含有相关的 Polyfill，大概这样：
+
+```js
+import "core-js/modules/es.array.map.js";
+import "core-js/modules/es.string.pad-end.js";
+
+//...
+```
+
+并且会收到一条控制台错误：
+
+```shell
+packages/index.tsx → ./dist/bundle.js...
+(!) Unresolved dependencies
+https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
+core-js/modules/es.array.map.js (imported by packages/index.tsx)
+core-js/modules/es.string.pad-end.js (imported by packages/index.tsx)
+created ./dist/bundle.js in 2.6s
+```
+
+rollup 警告这两个依赖无法解析，这很正确，因为目前我们都没有安装 core-js，首先消除这个警告，我们来到 rollup.config.js 中，把 core-js 的所有模块视作外部依赖，因为太多了，这里需要使用正则表达式：
+
+```js
+// rollup.config.js
+
+export default {
+  input: "packages/index.js",
+  output: {
+    file: "./dist/bundle.js",
+    format: "esm",
+    exports: "named",
+  },
+  plugins: [babel({ babelHelpers: "bundled", exclude: "node_modules/**" }), commonjs(), nodeResolve()],
+  external: [/^core-js/],
+};
+```
+
+特别需要注意的是，core-js 需要使用正则去匹配它，[external][d1] 不支持 `"core-js/**"` 这种写法去匹配。
+
+你以为这样就完了吗？这样你的代码内部会有很多 Polyfill 的裸导入，并且这些代码并没有被加入其中，所以 core-js 应该作为 Peer dependencies 进行处理，需要在 package.json 文件的 peerDependencies 当中进行添加。
+
+有没有直接把 这些 Polyfill 注入到源码的手段？
+
+首先我们不能把 core-js 作为外部依赖处理，把 rollup.config.js 的 `external: [ /^core-js/]` 去掉，然后使用 `npm i core-js -D`。
+
+此时 babel 又回到了最初的时候，把含有 Polyfill 的源码递给 rollup，rollup 进行解析后，把这些依赖作为本地依赖进行导入构建。
+
+这样你会得到一个巨大的文件，因为包含了很多 Polyfill 的源码。
+
+### Typescript
+
+rollup 与 Typescript 结合有两种方式：
+
+- 作为 rollup 的插件
+
+  这可以体验 ts 全部的功能，比如配置文件，jsx 转换等等，这会使用 ts 引擎对 ts 或 tsx 文件进行编译，生成相应的配置文件等。
+
+- 作为 babel 的预设
+
+  这只可以使用少部分的功能，其中 tsconfig.json 就无法使用，babel 只是提供了转化 ts 语言的预设而已，而不是完全使用 ts 进行编译。可以理解为仅做类型检查。比较明显的一点就是，使用 babel 的 ts 预设时不用安装 ts 引擎。
+
+#### 作为 rollup 插件进行导入
+
+安装 rollup 的 ts 插件 [@rollup/plugin-typescript][5] 和 ts 核心：
+
+```shell
+npm i typescript @rollup/plugin-typescript -D
+```
+
+然后在 rollup.config.js 对插件进行注入：
+
+```js
+// rollup.config.js
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import { babel } from "@rollup/plugin-babel";
+import typescript from "@rollup/plugin-typescript";
+
+export default {
+  input: "packages/index.tsx",
+  output: {
+    file: "./dist/bundle.js",
+    format: "esm",
+    exports: "named",
+  },
+  plugins: [
+    typescript({ tsconfig: "./packages/tsconfig.json" }),
+    babel({ babelHelpers: "bundled", exclude: "node_modules/**", extensions: [".js" ".ts" ] }),
+    commonjs(),
+    nodeResolve(),
+  ],
+  external: [/^core-js/],
+};
+```
+
+上面使用 typescript 插件时，指定了 tsconfig.json 的位置，所以需要在项目根路径创建一个 tsconfig.json 文件，我从其他地方白嫖了一份配置文件大致如下：
+
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "downlevelIteration": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "outDir": "./types"
+  },
+  "include": ["./**/*"]
+}
+```
+
+现在修改源代码为这样：
+
+```ts
+/** @file packages/index.js */
+
+export enum State {
+  one,
+  tow,
+}
+```
+
+然后执行 `npx rollup -c` 得到打包后的文件为：
+
+```js
+/** @file packages/index.js */
+var State;
+
+(function (State) {
+  State[(State["one"] = 0)] = "one";
+  State[(State["tow"] = 1)] = "tow";
+})(State || (State = {}));
+
+export { State };
+```
+
+typescript 正常工作，把 enum 类型进行转译了，因为是单独作为插件引入，所以 typescript 还生成了 .d.ts 文件。
+
+如果你足够熟悉 ts 的话，可以看到上面的配置中还设置了 jsx，所以这个配置是支持 jsx 文件的，但是切记把 react 当做外部依赖处理，不然 typescript 在处理完 jsx 后会把代码交给 rollup，rollup 会引入所有 jsx 源码，所以需要下面的配置：
+
+```js
+export default {
+  // ...
+  plugins: [
+    typescript({ tsconfig: "./packages/tsconfig.json" }),
+    babel({ babelHelpers: "bundled", exclude: "node_modules/**", extensions: [".js", ".jsx", ".ts", ".tsx"] }),
+    //...
+  ],
+  external: ["react", /^react\//, /^core-js/],
+};
+```
+
+上面还添加了 babel，babel 默认不支持 .ts 和 .tsx 文件，所以需要额外设置。
+
+完成上面的配置后，我们设置一个 tsx 文件如下：
+
+```js
+/** @file packages/index.tsx */
+
+// 使用了 typescript
+enum State {
+  one,
+  tow,
+}
+
+export default function App() {
+  [..."".padEnd(100)].map((_, i) => console.log(i)); // 这一段代码会激活 babel 转移
+
+  // 下面的代码使用了 tsx
+  return (
+    <div>
+      <h1> a component !</h1>
+      <p>State one is {State.one}</p>
+      <p>State tow is {State.tow}</p>
+    </div>
+  );
+}
+
+```
+
+记住把入口文件指向该 tsx 文件，然后执行 `npx rollup -c`，构建后的代码使用 ts 转译了 tsx 文件，同时使用 babel 转译了 ES6+ 代码。
+
+#### 作为 babel 预设进行导入
+
+因为 babel 本身支持 ts 的预设，而 rollup 又把 babel 当做插件，所以嵌套使用。
+
+首先安装 babel 的 ts 预设 [@babel/preset-typescript][6]：
+
+```shell
+npm i @babel/preset-typescript -D
+```
+
+然后直接配置 .babelrc.json 文件：
+
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-typescript"]
+}
+```
+
+很简单，已经配置完成了。
+
+至于 tsconfig.json，你可以在任何地方编写，因为 babel 并不在乎它，也不会使用 ts 的配置文件。
+
+如果想使用 tsx 支持，那么需要安装 [@babel/preset-react][7]：
+
+```shell
+npm i  @babel/preset-react -D
+```
+
+然后设置 .babelrc.json 为：
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": 1
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ],
+    [
+      "@babel/preset-typescript",
+      {
+        "isTSX": true,
+        "allExtensions": true
+      }
+    ],
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ]
+}
+```
+
+另外如果你的 IDE 像 vscode 一样会只能检测 tsconfig.json，那么可以设置 tsconfig.json 的配置项 `"jsx":"react-jsx"`，这样就不用在每个文件都引入 react 了。
+
+### eslint
 
 ### 其他工具集成
 
@@ -457,8 +748,15 @@ export default App;
 - [rollup plugins][2]
 - [rollup-react-not-compiling-jsx][3]
 - [About semantic versioning][4]
+- [@rollup/plugin-typescript][5]
+- [@babel/preset-typescript][6]
+- [@babel/preset-react][7]
 
 [1]: https://rollupjs.org/guide/en/
 [2]: https://github.com/rollup/plugins
 [3]: https://stackoverflow.com/questions/52884278/rollup-react-not-compiling-jsx
 [4]: https://docs.npmjs.com/about-semantic-versioning
+[5]: https://github.com/rollup/plugins/tree/master/packages/typescript
+[6]: https://babeljs.io/docs/en/babel-preset-typescript
+[7]: https://babeljs.io/docs/en/babel-preset-react
+[d1]: https://rollupjs.org/guide/en/#external
