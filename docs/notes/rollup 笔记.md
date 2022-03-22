@@ -74,7 +74,7 @@ export { main as default };
 
 两个文件被合二为一了。
 
-初次之外，rollup 还支持把文件转移成 [多种格式](https://rollupjs.org/guide/en/#outputformat)，比如把上面的的命令改为：
+除此之外，rollup 还支持把文件转移成 [多种格式](https://rollupjs.org/guide/en/#outputformat)，比如把上面的的命令改为：
 
 ```shell
 # 转义成 amd 格式
@@ -85,11 +85,13 @@ npx rollup packages/index.js --file dist/bundle.js --format iife
 npx rollup packages/index.js --file dist/bundle.js --format umd --name "myBundle"
 ```
 
+上面的命令会依次把文件构建为 amd、立即执行表达式、umd 格式。
+
 ## 使用配置文件
 
 rollup 的配置文件是 `.js` 格式，因为 rollup 本身会处理配置文件，所以可以使用 esm 格式直接导出配置。
 
-rollup 的位置文件一般起名为 **rollup.config.js**，假设你有多个配置文件，可以这么命名：
+rollup 的配置文件一般起名为 **rollup.config.js**，假设你有多个配置文件，可以这么命名：
 
 - rollup.config.dev.js 开发环境
 - rollup.config.prod.js 生产环境
@@ -101,22 +103,23 @@ rollup 的配置文件也支持其他格式例如 _rollup.config.mjs_、_rollup.
 ```js
 // rollup.config.js
 export default {
-  input: "src/main.js",
+  input: "src/main.js", // 需要构建的文件
   output: {
-    file: "bundle.js",
-    format: "amd",
+    // 输出
+    file: "bundle.js", // 输出的文件名及路径
+    format: "amd", // 输出的格式
   },
 };
 ```
 
-然后可以使用一下命令执行导入该配置文件：
+然后可以使用以下命令导入该配置文件并执行：
 
 ```shell
 npx rollup -c rollup.config.js
 # 或者不设置配置文件
 # rollup 会按照一下顺序查找配置文件
 # rollup.config.mjs -> rollup.config.cjs -> rollup.config.js
-rollup -c
+npx rollup -c
 ```
 
 此外，你还可以导出一个数组，包含多个配置，rollup 会给每个配置都进行构建：
@@ -201,6 +204,10 @@ main();
 ```
 
 > rollup 支持 tree-shaking（影子树），所以 json 文件的其他值并不会被导入。
+
+## 插件汇总
+
+[这里有 rollup 的插件汇总。][2]
 
 ## 命令行与配置文件
 
@@ -301,7 +308,7 @@ export default {
 };
 ```
 
-之后在进行 rollup 构建，就不会发生错误，the-answer 模块将正常参与构建。
+之后再进行 rollup 构建，就不会发生错误，the-answer 模块将正常参与构建。
 
 > 关于错误 _Unresolved dependencies_
 >
@@ -676,7 +683,7 @@ export default function App() {
 
 #### 作为 babel 预设进行导入
 
-因为 babel 本身支持 ts 的预设，而 rollup 又把 babel 当做插件，所以嵌套使用。
+因为 babel 本身支持 ts 的预设，而 rollup 又把 babel 当做插件，所以可以嵌套使用。
 
 首先安装 babel 的 ts 预设 [@babel/preset-typescript][6]：
 
@@ -734,13 +741,74 @@ npm i  @babel/preset-react -D
 }
 ```
 
-另外如果你的 IDE 像 vscode 一样会只能检测 tsconfig.json，那么可以设置 tsconfig.json 的配置项 `"jsx":"react-jsx"`，这样就不用在每个文件都引入 react 了。
+另外如果你的 IDE 像 vscode 一样会能检测 tsconfig.json，那么可以设置 tsconfig.json 的配置项 `"jsx":"react-jsx"`，这样就不用在每个文件都引入 react 了。
 
-### eslint
+### eslint ☹
+
+rollup 对 eslint 的支持并不是很好，至少目前是这样的。我遇到了 [这个问题][d4]，然而官方像在踢足球一样，把问题踢给了 typescript 插件，问题没有解决的同时，还关闭了。这个事让我觉得 rollup 的社区真的够操蛋。
+
+在 rollup 提供的插件库里面，有一个叫 [@rollup/plugin-eslint][d2] 的插件，但是这个插件对最新的 eslint 版本已经不支持了，导致我在这里卡了很长的时间，它完全不能按照文档正常工作。
+
+然后我找到了一个非官方的库 [@rbnlffl/rollup-plugin-eslint][d3]，虽然这个库的确很好的替代了 @rollup/plugin-eslint 的不足，但是它又太新了，star 也很低，我安装了试了下，暂时没有问题。
+
+首先我们安装 eslint 的 rollup 插件：
+
+```shell
+yarn add @rbnlffl/rollup-plugin-eslint -D
+```
+
+然后使用 eslint 命令对 eslint 配置文件进行初始化：
+
+```shell
+npx eslint --init
+```
+
+结束后 eslint 会自动生成配置文件，我们只需要在 rollup.config.js 中进行配置即可：
+
+```js
+// rollup.config.js
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import { babel } from "@rollup/plugin-babel";
+import typescript from "@rollup/plugin-typescript";
+// import eslint from "@rollup/plugin-eslint"; // 这就是那条坏掉的代码
+import eslint from "@rbnlffl/rollup-plugin-eslint";
+
+export default {
+  input: "packages/index.tsx",
+  output: {
+    file: "./dist/bundle.js",
+    format: "esm",
+    exports: "named",
+  },
+  plugins: [
+    nodeResolve(),
+    commonjs(),
+    eslint({}),
+    typescript({ tsconfig: "./packages/tsconfig.json" }),
+    babel({ babelHelpers: "bundled", exclude: "node_modules/**", extensions: [".ts", ".tsx"] }),
+  ],
+  external: ["react", /^react\//, /^core-js/],
+};
+```
+
+然而这也没有完全结束，因为这种构建实在不令人放心。如果可以，目前还是不要在 rollup 中使用 eslint 吧，直接使用 eslint 本身最好。
+
+删掉上述的 eslint 的插件代码，直接使用 `npx eslint --ext .tsx ./packages`，很好，直接使用命令行，也产生了错误信息。
 
 ### 其他工具集成
 
 在 [官方文档](https://rollupjs.org/guide/en/#tools) 可以找到更多其他工具集成的方式。
+
+## 总结
+
+rollup 的确很简单，它只是提供了一个构建的基础功能，然后依靠插件来对 TypeScript、Babel 等进行进行集成，然而实际上给我的感觉并不是那么优良。
+
+我写这段文字的时间是 【2022 年 3 月 22 日 16:14:08】，eslint 出现问题的时间我最早找到的是 2021 年 9 月，这个问题历经半年还是没有解决，很失望。反观 Webpack 那边的社区，生龙活虎，这边感觉死气沉沉。
+
+rollup 最早是靠着 Tree-Shaking 与 Webpack 争夺一席之地，现在 Webpack 在这方面也在齐头并进，而 rollup 进步却不那么明显。
+
+它相比 webpack 来说，最大的优点就是简单，没有 Webpack 那么复杂繁多的配置（其实也很多，只是相比 Webpack 少很多），学习也更简单，Webpack 不看个 10 天 8 天很难入门？因为内容太多，还很难消化，学习半个月搭个环境还是跌跌撞撞。rollup 文档不多，基础扎实三四天天之内就大致能上手，搭建简单的环境。
 
 ## 参考
 
@@ -760,3 +828,6 @@ npm i  @babel/preset-react -D
 [6]: https://babeljs.io/docs/en/babel-preset-typescript
 [7]: https://babeljs.io/docs/en/babel-preset-react
 [d1]: https://rollupjs.org/guide/en/#external
+[d2]: https://github.com/robinloeffel/rollup-plugin-eslint
+[d3]: https://github.com/robinloeffel/rollup-plugin-eslint
+[d4]: https://github.com/rollup/plugins/issues/1010
