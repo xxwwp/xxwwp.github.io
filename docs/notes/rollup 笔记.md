@@ -2,11 +2,13 @@
 title: rollup 笔记
 slug: note/rollup
 createAt: 2022-03-14
-publish: false
+publish: true
 tags:
   - rollup
   - 打包
   - 构建工具
+  - babel
+  - typescript
 archives:
   - 笔记
 desc:
