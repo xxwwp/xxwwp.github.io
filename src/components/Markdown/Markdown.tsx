@@ -8,7 +8,12 @@ import "katex/dist/katex.min.css";
 import codeStyle from "./codeStyle";
 import Table from "./Table";
 
+function emUnit(px: number) {
+  return (px / 16).toFixed(2) + "em";
+}
+
 const Article = styled("article")`
+  font-size: 0.9rem;
   ${({ theme: { colors: c } }) => css`
     line-height: 1.7;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, ui-sans-serif, Helvetica,
@@ -42,31 +47,31 @@ const Article = styled("article")`
         content: "";
         display: block;
         pointer-events: none;
-        padding-top: 80px;
-        margin-top: -80px;
+        padding-top: ${emUnit(80)};
+        margin-top: ${emUnit(-80)};
       }
     }
     h1 {
-      font-size: 27px;
+      font-size: ${emUnit(27)};
     }
     h2 {
-      font-size: 25px;
+      font-size: ${emUnit(25)};
     }
     h3 {
-      font-size: 23px;
+      font-size: ${emUnit(23)};
     }
     h4 {
-      font-size: 21px;
+      font-size: ${emUnit(21)};
     }
     h5 {
-      font-size: 19px;
+      font-size: ${emUnit(19)};
     }
     h6 {
-      font-size: 17px;
+      font-size: ${emUnit(17)};
     }
     p {
       font-weight: 400;
-      font-size: 17px;
+      font-size: ${emUnit(17)};
     }
     em,
     strong {
@@ -93,12 +98,12 @@ const Article = styled("article")`
       cite {
         text-align: right;
         color: silver;
-        font-size: 1rem;
+        font-size: 1em;
       }
     }
     ul,
     ol {
-      padding-left: 2rem;
+      padding-left: 2em;
     }
 
     img {
@@ -172,7 +177,7 @@ export default function Markdown({ heading, htmlAst, ...rest }: MarkdownProps) {
       <Article {...rest}>
         <h1>{heading}</h1>
         <hr />
-        {renderAst(htmlAst)}
+        <div className="renderAst">{renderAst(htmlAst)}</div>
       </Article>
     </React.Fragment>
   );

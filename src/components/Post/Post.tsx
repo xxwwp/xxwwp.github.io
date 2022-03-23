@@ -18,39 +18,35 @@ const Layout = styled.div`
   margin: auto;
   box-sizing: border-box;
 
+  // 小屏幕让侧边栏和内容使用常规流布局
   @media screen and (max-width: ${miniWidth}) {
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "_top"
-      "_bottom";
-    & > :first-child {
-      grid-area: _bottom;
-    }
+    display: block;
   }
 `;
 
 const AsideBox = styled.div`
   display: flow-root;
-`;
-
-const Aside = styled.aside`
   box-sizing: border-box;
   position: sticky;
   top: 0px;
-  max-height: 100vh;
   padding: 0px 25px 100px 20px;
+  max-height: 100vh;
   overflow: auto;
+
+  // 小屏幕关闭侧边栏粘性布局
+  @media screen and (max-width: ${miniWidth}) {
+    max-height: none;
+    position: static;
+  }
 `;
 
 const Main = styled.main`
   padding: 1em;
 
-  // 重新排版 md
-  pre[class*="language-"] {
+  // 重新排版 md 的代码样式
+  .renderAst > div > .gatsby-highlight > pre[class*="language-"] {
     padding: 1em 1rem;
     margin: 1em -1rem;
-    border-radius: 5px;
     @media screen and (max-width: ${miniWidth}) {
       border-radius: 0px;
     }
@@ -64,6 +60,10 @@ const Main = styled.main`
         background-color: rgba(255, 255, 255, 0.3);
       }
     }
+  }
+
+  pre[class*="language-"] {
+    border-radius: 5px;
   }
 `;
 
@@ -88,9 +88,7 @@ export default function Post({ title, desc, keywords, children, aside, headings,
       </Helmet>
       <Header location={location} />
       <Layout>
-        <AsideBox>
-          <Aside>{aside}</Aside>
-        </AsideBox>
+        <AsideBox>{aside}</AsideBox>
         <Main {...rest}>{children}</Main>
       </Layout>
     </Root>

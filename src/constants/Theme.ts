@@ -19,12 +19,12 @@ export interface ThemeType {
 const Theme: ThemeType = {
   colors: {
     primary: {
-      main: "#e375ff",
-      refer: "#f8dbff",
+      main: "#2d5399",
+      refer: "#d4e3ff",
     },
     secondary: {
-      main: "#ff35c9",
-      refer: "#f3c2ff",
+      main: "#66a1f9",
+      refer: "#d0dddf",
     },
     bg: {
       main: "#fff",
