@@ -18,7 +18,7 @@ desc:
 
 我比较喜欢使用 vue-cli，在 vue3 中，使用安装脚手架比较简单，使用以下命令：
 
-```sh
+```shell
 yarn global add @vue/cli
 # 或
 npm install -g @vue/cli
