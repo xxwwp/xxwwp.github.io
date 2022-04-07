@@ -158,6 +158,13 @@ W3C 官方提供了一个[很好的示例][o1]，它直观的描述了，你也�
 	></image>
 </svg>
 
+这个效果甚至可以应用到 css 中，使用 css 的 filter 属性即可。不过需要注意的是，因为 svg 的单位和 css 中单位的差异，应用到 css 和 html 中时，需要加大波浪的效果：
+
+- `feDisplacementMap` 滤镜的 `scale` 属性增大到 10 以上
+- `feTurbulence` 的频率 `baseFrequency` 调整到 0.02 一下
+
+然后给我们的 body 元素一个 css 声明 `filter:url(#feTurbulence-1)`，整个页面都会呈现波浪特效
+
 > 其中引用到了动画 [\<animate\>][3] 元素。
 
 ## 参考
