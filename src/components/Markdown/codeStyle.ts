@@ -3,7 +3,7 @@ import { css } from "styled-components";
 const codeStyle = css`
   pre[class*="language-"] {
     overflow: auto;
-    background: ${(p) => p.theme.colors.black.refer};
+    background: #fcfcfc;
   }
   pre[class*="language-"] > code[class*="language-"] {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -24,7 +24,7 @@ const codeStyle = css`
     -ms-hyphens: none;
     hyphens: none;
 
-    color: ${(p) => p.theme.colors.bg.refer};
+    color: #424242;
     background: inherit;
   }
 
@@ -58,21 +58,21 @@ const codeStyle = css`
   .token.constant,
   .token.symbol,
   .token.class-name {
-    color: ${(p) => p.theme.colors.link.refer};
+    color: ${(p) => p.theme.colors.link.main};
   }
 
   .token.selector,
   .token.string {
-    color: ${(p) => p.theme.colors.yellow.refer};
+    color: ${(p) => p.theme.colors.yellow.main};
   }
 
   .token.attr-name,
   .token.char,
   .token.builtin {
-    color: ${(p) => p.theme.colors.primary.refer};
+    color: ${(p) => p.theme.colors.primary.main};
   }
 
-  .token.operator,
+  /* .token.operator, */
   .token.entity,
   .token.url,
   .language-css .token.string,
@@ -82,7 +82,7 @@ const codeStyle = css`
   }
 
   .token.attr-value {
-    color: ${(p) => p.theme.colors.yellow.refer};
+    color: ${(p) => p.theme.colors.secondary.main};
   }
 
   .token.atrule,
@@ -112,7 +112,7 @@ const codeStyle = css`
   }
 
   .token.function {
-    color: ${(p) => p.theme.colors.link.main};
+    color: ${(p) => p.theme.colors.yellow.main};
   }
 `;
 

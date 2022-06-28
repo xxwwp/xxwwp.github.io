@@ -7,8 +7,9 @@ import { WindowLocation } from "@reach/router";
 
 const Box = styled.header`
   ${({ theme: { colors: c } }) => css`
-    background: linear-gradient(to bottom right, ${c.secondary.main}, ${c.primary.main});
-    color: white;
+    /* background: linear-gradient(to bottom right, ${c.secondary.main}, ${c.primary.main}); */
+    /* background: ${c.secondary.main}; */
+    background: skyblue;
   `}
 `;
 

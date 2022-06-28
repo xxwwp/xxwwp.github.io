@@ -1,4 +1,4 @@
-import { graphql, PageProps } from "gatsby";
+import { graphql, PageProps, navigate } from "gatsby";
 import React, { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDebounce } from "../utils";
@@ -150,7 +150,7 @@ export const query = graphql`
   }
 `;
 
-export default function Search({ data, location, navigate }: PageData) {
+export default function Search({ data, location }: PageData) {
   const nodes = data.allMarkdownRemark.nodes;
   const [renderLi, setRenderLi] = useState<ReturnType<typeof matchList>>([]);
   const keyword = (qs.parse(location.search).keyword as string) ?? "";
@@ -160,7 +160,7 @@ export default function Search({ data, location, navigate }: PageData) {
   }, [nodes, keyword]);
 
   const handleKeyword = useDebounce(function (e: ChangeEvent<HTMLInputElement>) {
-    navigate(`/search?${qs.stringify({ keyword: e.target.value })}`, { replace: true });
+    navigate(`?${qs.stringify({ keyword: e.target.value })}`, { replace: true });
   }, 250);
 
   return (

@@ -19,7 +19,7 @@ desc:
 
 使用 vue 脚手架新建项目，出现无法找到 package.json 和 tsconfig.json 文件，导致引入一个 `HelloWord.vue` 都报错的问题。
 
-![](../assets/QQ截图20211106145838.png)
+![](../assets/20211106145838.png)
 
 这个问题实际上源于 vscode 的插件 [vetur][1]，这个插件只会在根路径寻找 tsconfig.json 和 package.json 文件，导致无法正常应用 typescript 配置。
 

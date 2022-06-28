@@ -19,7 +19,7 @@ export interface ThemeType {
 const Theme: ThemeType = {
   colors: {
     primary: {
-      main: "#2d5399",
+      main: "#10baff",
       refer: "#d4e3ff",
     },
     secondary: {
@@ -35,7 +35,7 @@ const Theme: ThemeType = {
       refer: "#666",
     },
     link: {
-      main: "#8a82fd",
+      main: "#0096d3",
       refer: "#b0aafc",
     },
     green: {
@@ -43,7 +43,7 @@ const Theme: ThemeType = {
       refer: "#478d46",
     },
     yellow: {
-      main: "#d29d07",
+      main: "#8d6c10",
       refer: "#fdca8c",
     },
     black: {
