@@ -1,7 +1,7 @@
 ---
 title: svg 偏移 feOffset
 createAt: 2021-08-18
-slug: svg/filter/偏移
+slug: /docs/svg/filter/偏移
 publish: true
 tags:
   - svg

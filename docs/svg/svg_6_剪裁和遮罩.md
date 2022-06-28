@@ -1,7 +1,7 @@
 ---
 title: svg 剪裁和遮罩
 createAt: 2021-08-11
-slug: svg/剪裁和遮罩
+slug: /docs/svg/剪裁和遮罩
 publish: true
 tags:
   - svg

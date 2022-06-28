@@ -169,7 +169,21 @@ export default function Search({ data, location }: PageData) {
       <Header location={location} />
       <Box p={[40, 20]}>
         <SearchBar value={keyword} onSearchInput={handleKeyword} />
-        {renderLi.length > 0 && <PostList list={renderLi} />}
+        {
+          <PostList
+            list={
+              renderLi.length > 0
+                ? renderLi
+                : nodes.map((v) => ({
+                    title: v.frontmatter.title,
+                    createAt: v.frontmatter.createAt,
+                    archives: v.frontmatter.archives,
+                    tags: v.frontmatter.tags,
+                    path: v.fields.path,
+                  }))
+            }
+          />
+        }
       </Box>
     </Root>
   );

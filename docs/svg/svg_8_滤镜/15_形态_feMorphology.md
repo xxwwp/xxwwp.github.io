@@ -1,7 +1,7 @@
 ---
 title: svg 形态 feMorphology
 createAt: 2021-08-27
-slug: svg/filter/形态
+slug: /docs/svg/filter/形态
 publish: true
 tags:
   - svg

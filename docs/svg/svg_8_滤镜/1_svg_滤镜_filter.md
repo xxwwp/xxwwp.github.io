@@ -1,7 +1,7 @@
 ---
 title: svg 滤镜 filter
 createAt: 2021-08-11
-slug: svg/滤镜
+slug: /docs/svg/滤镜
 publish: true
 tags:
   - svg

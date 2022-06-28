@@ -1,7 +1,8 @@
 ---
 title: svg 简介
 createAt: 2021-08-11
-slug: svg/简介
+slug: /docs/svg/简介
+nextPage: /docs/svg/线条与着色
 publish: true
 tags:
   - svg
@@ -118,7 +119,7 @@ svg 在 html 中的大小默认情况下由 svg 元素的 width、height 决定�
 
 > 上面的例子解释了，如果遇到设置了 width 和 height 属性的 svg 图案，必须同时设置宽高进行缩小或者放大，否则缩小后会出现错误。
 
-## `viewBox` 属性
+## viewBox 属性
 
 可以使用 `viewBox` 属性改变 svg 内部坐标，比如下面定义了 100 \* 100 个单位的坐标系，但是使用了 `viewBox="0 0 50 50"` 属性，此时坐标轴就会变成 50 \* 50 来绘制，但是 svg 的大小依旧是 100 \* 100。
 

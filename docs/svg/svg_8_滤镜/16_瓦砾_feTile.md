@@ -1,7 +1,7 @@
 ---
 title: svg 瓦砾 feTile
 createAt: 2021-08-27
-slug: svg/filter/瓦砾
+slug: /docs/svg/filter/瓦砾
 publish: true
 tags:
   - svg

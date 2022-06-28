@@ -1,7 +1,7 @@
 ---
 title: svg 泛色 feFlood
 createAt: 2021-08-18
-slug: svg/filter/泛色
+slug: /docs/svg/filter/泛色
 publish: true
 tags:
   - svg

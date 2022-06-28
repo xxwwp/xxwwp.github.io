@@ -1,7 +1,7 @@
 ---
 title: postcss - helloworld
 createAt: 2021-12-29
-slug: notes/postcss - helloworld
+slug: /docs/notes/postcss - helloworld
 publish: true
 tags:
   - postcss

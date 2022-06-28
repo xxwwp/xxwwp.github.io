@@ -1,7 +1,7 @@
 ---
 title: svg 光照滤镜 feDiffuseLighting、feDistantLight、fePointLight、feSpecularLighting、feSpotLight
 createAt: 2021-08-24
-slug: svg/filter/光照滤镜
+slug: /docs/svg/filter/光照滤镜
 publish: true
 tags:
   - svg

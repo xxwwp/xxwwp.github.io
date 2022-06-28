@@ -1,7 +1,7 @@
 ---
 title: svg 资源嵌入
 createAt: 2021-08-11
-slug: svg/资源嵌入
+slug: /docs/svg/资源嵌入
 publish: true
 tags:
   - svg

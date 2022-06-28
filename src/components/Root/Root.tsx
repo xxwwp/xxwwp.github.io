@@ -19,7 +19,7 @@ export default function Root({ children }: RootProps) {
             lang: "zh-hans",
           }}
         >
-          <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         </Helmet>
         {children}
       </ThemeProvider>

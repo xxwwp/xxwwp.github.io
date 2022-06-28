@@ -1,7 +1,7 @@
 ---
 title: typescript_与_webpack_alias_混用
 createAt: 2021-09-28
-slug: blogs/typescript_与_webpack_alias_混用
+slug: /docs/blogs/typescript_与_webpack_alias_混用
 publish: false
 tags:
   - none

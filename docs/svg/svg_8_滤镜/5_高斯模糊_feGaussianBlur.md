@@ -1,7 +1,7 @@
 ---
 title: svg 高斯模糊 feGaussianBlue
 createAt: 2021-08-18
-slug: svg/filter/高斯模糊
+slug: /docs/svg/filter/高斯模糊
 publish: true
 tags:
   - svg

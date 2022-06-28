@@ -1,16 +1,16 @@
 const path = require("path");
-const config = require("./gatsby/config").default;
 const { fileCommitInfo } = require("./gatsby/git");
 const mdMini = require("./gatsby/mdZip").mdMini;
 
 // markdown 处理
 const md = {
   /**
-   * 创建 md 节点时，插入每个文件的 git 提交历史
+   * 创建 md 节点时，插入数据
    */
   onCreateNode: async function ({ node, getNode, actions }) {
     const { createNodeField } = actions;
     if (node.internal.type === `MarkdownRemark`) {
+      // 每个文件的 git 提交历史
       const gitinfo = await fileCommitInfo(node.fileAbsolutePath);
       createNodeField({
         node,
@@ -21,7 +21,7 @@ const md = {
       createNodeField({
         node,
         name: `path`,
-        value: "/" + config.docsPath + node.frontmatter.slug,
+        value: node.frontmatter.slug,
       });
       createNodeField({
         node,
@@ -50,7 +50,7 @@ const md = {
 
     result.data.allMarkdownRemark.nodes.forEach((node) => {
       createPage({
-        path: config.docsPath + node.frontmatter.slug,
+        path: node.frontmatter.slug,
         component: path.resolve(`./src/templates/Docs.tsx`),
         context: {
           slug: node.frontmatter.slug,

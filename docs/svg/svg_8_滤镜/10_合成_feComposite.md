@@ -1,7 +1,7 @@
 ---
 title: svg 合成 feComposite
 createAt: 2021-08-19
-slug: svg/filter/合成
+slug: /docs/svg/filter/合成
 publish: true
 tags:
   - svg

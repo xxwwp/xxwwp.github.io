@@ -1,6 +1,6 @@
 ---
 title: 关于在 vue 脚手架中使用 typescript 无法找到模块的问题解决
-slug: notes/关于在 vue 脚手架中使用 typescript 无法找到模块的问题解决
+slug: /docs/notes/关于在 vue 脚手架中使用 typescript 无法找到模块的问题解决
 createAt: 2021-11-06
 # nextPage: nextlink
 # prevPage: lastlink

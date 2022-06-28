@@ -1,7 +1,7 @@
 ---
 title: svg 移位映射 feDisplacementMap
 createAt: 2021-08-26
-slug: svg/filter/移位映射
+slug: /docs/svg/filter/移位映射
 publish: true
 tags:
   - svg

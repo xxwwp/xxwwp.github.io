@@ -1,7 +1,7 @@
 ---
 title: svg 图案 pattern
 createAt: 2021-08-10
-slug: svg/图案
+slug: /docs/svg/图案
 publish: true
 tags:
   - svg

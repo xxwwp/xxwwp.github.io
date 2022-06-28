@@ -1,7 +1,7 @@
 ---
 title: svg 合并 feMerge、feMergeNode
 createAt: 2021-08-19
-slug: svg/filter/合并
+slug: /docs/svg/filter/合并
 publish: true
 tags:
   - svg

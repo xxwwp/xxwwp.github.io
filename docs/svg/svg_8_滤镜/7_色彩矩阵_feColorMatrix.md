@@ -1,7 +1,7 @@
 ---
 title: svg 色彩矩阵 feColorMatrix
 createAt: 2021-08-18
-slug: svg/filter/色彩矩阵
+slug: /docs/svg/filter/色彩矩阵
 publish: true
 tags:
   - svg

@@ -1,7 +1,7 @@
 ---
 title: svg 文本与超链接
 createAt: 2021-08-10
-slug: svg/文本与超链接
+slug: /docs/svg/文本与超链接
 publish: true
 tags:
   - svg

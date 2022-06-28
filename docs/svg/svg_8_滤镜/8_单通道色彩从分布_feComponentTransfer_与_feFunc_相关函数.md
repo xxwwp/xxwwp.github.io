@@ -1,7 +1,7 @@
 ---
 title: svg 单通道色彩从分布 feComponentTransfer 与 feFunc 相关函数
 createAt: 2021-08-18
-slug: svg/filter/单通道色彩从分布
+slug: /docs/svg/filter/单通道色彩从分布
 publish: true
 tags:
   - svg

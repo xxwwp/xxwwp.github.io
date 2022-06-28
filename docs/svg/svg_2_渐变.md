@@ -1,7 +1,7 @@
 ---
 title: svg 渐变、linearGradient 与 radialGradient
 createAt: 2021-08-10
-slug: svg/渐变
+slug: /docs/svg/渐变
 publish: true
 tags:
   - svg

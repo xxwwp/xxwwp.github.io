@@ -1,6 +1,6 @@
 ---
 title: 文章标题
-slug: urllink
+slug: /docs/urllink
 createAt: 2021-09-10
 nextPage: nextlink
 prevPage: lastlink

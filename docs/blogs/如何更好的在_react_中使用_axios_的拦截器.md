@@ -1,7 +1,7 @@
 ---
 title: 如何更好的在 react 中使用 axios 的拦截器
 createAt: 2021-09-28
-slug: blogs/如何更好的在 react 中使用 axios 的拦截器
+slug: /docs/blogs/如何更好的在 react 中使用 axios 的拦截器
 publish: true
 tags:
   - react

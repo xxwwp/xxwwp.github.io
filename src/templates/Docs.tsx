@@ -9,6 +9,7 @@ import { useTheme } from "styled-components";
 import TOC from "../components/TOC";
 import { useCurrentHeading } from "../components/Markdown/H1_6";
 import PostRecent from "../components/PostRecent";
+import FrontAndBackPages from "../components/FrontAndBackPages/FrontAndBackPages";
 
 function UnPublishTip() {
   const c = useTheme().colors;
@@ -85,6 +86,7 @@ export default function Docs({ data, location }: PageData) {
   const active = useCurrentHeading();
 
   const recentPosts = data.allMarkdownRemark.nodes.map((v) => ({ ...v.fields, ...v.frontmatter }));
+  const frontAndBackPages = <FrontAndBackPages prev={fm.prevPage} next={fm.nextPage} />;
 
   return (
     <Post
@@ -101,7 +103,9 @@ export default function Docs({ data, location }: PageData) {
       location={location}
       title={data.markdownRemark.frontmatter.title}
     >
+      {frontAndBackPages}
       <Markdown heading={fm.title} htmlAst={data.markdownRemark.htmlAst} />
+      {frontAndBackPages}
       <DocInfo
         lastModify={latest?.date}
         sourceLink={`https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/${data.markdownRemark.parent.relativePath}`}

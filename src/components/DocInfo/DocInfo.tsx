@@ -60,14 +60,14 @@ export interface DocInfoProps {
 export default function DocInfo({ lastModify, sourceLink, archives, tags, historyLink, createAt }: DocInfoProps) {
   const crTip = "署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)";
 
-  const tagsLink = tags?.map((v) => (
-    <Link key={v} to={`/search?keyword=${v}`}>
+  const tagsLink = tags?.map((v, i) => (
+    <Link key={i} to={`/search?keyword=${v}`}>
       {v} &nbsp;
     </Link>
   ));
 
-  const archivesLink = archives?.map((v) => (
-    <Link key={v} to={`/search?keyword=${v}`}>
+  const archivesLink = archives?.map((v, i) => (
+    <Link key={i} to={`/search?keyword=${v}`}>
       {v} &nbsp;
     </Link>
   ));
@@ -103,8 +103,8 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
         </li>
       </ul>
       <ul>
-        {tagsLink?.length > 0 && <li>标签：{tagsLink}</li>}
-        {archivesLink?.length > 0 && <li>归档：{archivesLink}</li>}
+        {tagsLink?.length > 0 && <li key="label">标签：{tagsLink}</li>}
+        {archivesLink?.length > 0 && <li key="archives">归档：{archivesLink}</li>}
       </ul>
       <p>
         对这篇文档存在疑惑？你可以通过发起

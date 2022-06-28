@@ -1,6 +1,6 @@
 ---
 title: "markdown 编写规范"
-slug: Markdown_writing_specification
+slug: /docs/Markdown_writing_specification
 createAt: 2021-09-10
 publish: false
 archives:
@@ -66,7 +66,7 @@ meta: 元数据
 ```yaml
 ---
 title: 文章标题
-slug: urllink
+slug: /docs/urllink
 createAt: 2021-09-10
 nextPage: nextlink
 prevPage: lastlink

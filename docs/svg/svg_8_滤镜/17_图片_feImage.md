@@ -1,7 +1,7 @@
 ---
 title: svg 图片 feImage
 createAt: 2021-08-27
-slug: svg/filter/图片
+slug: /docs/svg/filter/图片
 publish: true
 tags:
   - svg

@@ -1,6 +1,6 @@
 ---
 title: rollup 笔记
-slug: note/rollup
+slug: /docs/note/rollup
 createAt: 2022-03-14
 publish: true
 tags:

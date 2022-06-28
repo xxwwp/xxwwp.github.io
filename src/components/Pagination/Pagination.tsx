@@ -1,35 +1,25 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, FormEvent, useState } from "react";
-import { Link } from "gatsby";
 import styled from "styled-components";
 import { navigate } from "gatsby";
+import StyleLink from "../StyleLink";
 
 const PaginationStyle = styled("div")`
   display: flex;
-  align-items: center;
   .form {
     margin-left: auto;
+
     input {
       width: 50px;
       text-align: center;
       margin: 0 20px;
       border-radius: 5px;
-      border: 1px solid #666;
+      border: 1px solid ${(p) => p.theme.colors.primary.refer};
       outline: none;
       line-height: 20px;
     }
     span {
-      font-size: 12px;
       color: #666;
     }
-  }
-  a {
-    color: #383980;
-    text-decoration: none;
-  }
-  a:hover,
-  a:visited,
-  a:active {
-    filter: brightness(1.5);
   }
 `;
 
@@ -64,12 +54,14 @@ export default function Pagination({ currentPage, total, baseURL }: PaginationPr
 
   return (
     <PaginationStyle>
-      {currentPage !== 1 && <Link to={currentPage === 2 ? baseURL : baseURL + (currentPage - 1)}>上一页</Link>}
+      {currentPage !== 1 && (
+        <StyleLink to={currentPage === 2 ? baseURL : baseURL + (currentPage - 1)}>上一页</StyleLink>
+      )}
       <form className="form" onSubmit={handleSubmit}>
         <span>共 {total} 页</span>
         <input type="text" value={page} onChange={handlePage} />
       </form>
-      {currentPage !== total && <Link to={baseURL + (currentPage + 1)}>下一页</Link>}
+      {currentPage !== total && <StyleLink to={baseURL + (currentPage + 1)}>下一页</StyleLink>}
     </PaginationStyle>
   );
 }

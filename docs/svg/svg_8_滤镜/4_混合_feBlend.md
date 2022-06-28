@@ -1,7 +1,7 @@
 ---
 title: svg 混合 feBlend
 createAt: 2021-08-18
-slug: svg/filter/混合
+slug: /docs/svg/filter/混合
 publish: true
 tags:
   - svg

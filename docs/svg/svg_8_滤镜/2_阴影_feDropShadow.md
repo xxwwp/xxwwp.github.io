@@ -1,7 +1,7 @@
 ---
 title: svg 阴影滤镜 feDropShadow
 createAt: 2021-08-18
-slug: svg/filter/阴影滤镜
+slug: /docs/svg/filter/阴影滤镜
 publish: true
 tags:
   - svg

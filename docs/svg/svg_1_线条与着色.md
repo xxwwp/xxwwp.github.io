@@ -1,7 +1,9 @@
 ---
 title: svg 线条与着色
 createAt: 2021-08-08
-slug: svg/线条与着色
+slug: /docs/svg/线条与着色
+prevPage: /docs/svg/简介
+nextPage: /docs/svg/渐变
 publish: true
 tags:
   - svg
@@ -18,7 +20,6 @@ tags:
   - 折线
   - polyline
   - 直线
-  - line
   - 路径
   - path
   - 贝塞尔曲线

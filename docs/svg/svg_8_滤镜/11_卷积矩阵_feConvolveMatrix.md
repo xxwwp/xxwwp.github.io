@@ -1,7 +1,7 @@
 ---
 title: svg 卷积矩阵 feConvolveMatrix
 createAt: 2021-08-24
-slug: svg/filter/卷积矩阵
+slug: /docs/svg/filter/卷积矩阵
 publish: true
 tags:
   - svg

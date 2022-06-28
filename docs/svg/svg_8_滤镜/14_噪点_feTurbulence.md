@@ -1,7 +1,7 @@
 ---
 title: svg 噪点 feTurbulence
 createAt: 2021-08-27
-slug: svg/filter/噪点
+slug: /docs/svg/filter/噪点
 publish: true
 tags:
   - svg
