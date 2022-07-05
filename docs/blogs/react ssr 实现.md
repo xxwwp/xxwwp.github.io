@@ -1,6 +1,6 @@
 ---
 title: react ssr 极简实现
-slug: /docs/react ssr 极简实现
+slug: /docs/blogs/react ssr 极简实现
 createAt: 2022-07-01
 publish: true
 tags:
