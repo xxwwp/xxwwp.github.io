@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-record-tsx",
+    "path": "/record/5",
+    "result": {"data":{"allMarkdownRemark":{"nodes":[{"excerpt":"Babel 是一款 JavaScript 编译器，它可以把 ECMAScript 2015+ 的代码转译成低版本兼容的代码。 作用 语法转换：Babel 会转译新版本的 ES 代码，比如箭头函数，解构，模板字符串或者类等。Babel…","fields":{"path":"/docs/blogs/Babel 安装、配置和基本使用"},"frontmatter":{"title":"Babel 安装、配置和基本使用","archives":["博客"],"createAt":"2021-06-22","tags":["babel","jsx"]}}]}},"pageContext":{"limit":10,"skip":40,"numPages":5,"currentPage":5}},
+    "staticQueryHashes": []}
