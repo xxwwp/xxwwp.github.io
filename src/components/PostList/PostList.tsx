@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ReactNode } from "react";
+import React, { ComponentPropsWithoutRef, Fragment, ReactNode } from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
 import PostCard from "../PostCard";
@@ -15,24 +15,6 @@ const Li = styled.li`
     padding-top: 5px;
   }
 `;
-
-const Tag = styled.span``;
-
-const LinkS = styled(Link)`
-  color: ${(p) => p.theme.colors.secondary.main};
-  text-decoration: none;
-  line-height: 1.5;
-  &:active,
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-interface PostNode {
-  createAt: string;
-  title: string;
-  path: string;
-}
 
 interface PostListProps extends ComponentPropsWithoutRef<"nav"> {
   list?: Array<{
@@ -56,10 +38,10 @@ export default function PostList({ list = [], ...rest }: PostListProps) {
             createAt={v.createAt}
             excerpt={v.excerpt}
             tags={v.tags?.map((v, i) => (
-              <Tag key={i}>{v} &nbsp;</Tag>
+              <Fragment key={i}>{v} &nbsp;</Fragment>
             ))}
             archives={v.archives?.map((v, i) => (
-              <Tag key={i}>{v} &nbsp;</Tag>
+              <Fragment key={i}>{v} &nbsp;</Fragment>
             ))}
           />
         </Li>

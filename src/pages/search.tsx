@@ -16,19 +16,6 @@ const Em = styled.em`
 `;
 
 /**
- * 匹配关键字
- * @param raw 原生字符串
- * @param key 需要匹配的关键字
- * @returns 匹配的迭代器
- */
-function getMatchs(raw: string, key: string) {
-  const keys = key.trim().split(/\s+/);
-  const reg = keys.reduce((prev, v) => (prev += `(${v})|`), "");
-
-  return [...raw.matchAll(RegExp(reg.substr(0, reg.length - 1), "ig"))];
-}
-
-/**
  * 柯里化强调文本函数
  * 示例：
  * emText('foo')('foo text foo') // 返回 [<em>foo</em>,' text ',<em>foo</em>]
@@ -42,7 +29,14 @@ const emText =
    * @param diffKey 用于组件 key 的后缀补充
    */
   (raw: string, diffKey: string = "") => {
-    const matchs = getMatchs(raw, key);
+    const keys = key
+      .trim()
+      .split(/\s+/)
+      .filter((s) => s.length > 1);
+    const reg = keys.reduce((prev, v) => (prev += `(${v})|`), "");
+
+    const matchs = [...raw.matchAll(RegExp(reg.length === 0 ? null : reg.substring(0, reg.length - 1), "ig"))];
+
     const emNode: ReactNode[] = [];
 
     for (var ri = 0, mi = 0; mi < matchs.length; mi++) {
@@ -55,7 +49,7 @@ const emText =
       }
     }
 
-    emNode.push(raw.substr(ri));
+    emNode.push(raw.substring(ri));
 
     return {
       vNode: emNode,
@@ -125,12 +119,6 @@ function matchList(list: DData["allMarkdownRemark"]["nodes"], keyword: string, d
     .map((item) => item.vNodes);
 }
 
-const DivS = styled.div`
-  max-width: 600px;
-  padding: 20px;
-  margin: auto;
-`;
-
 export const query = graphql`
   query SearchQuery {
     allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }) {
@@ -156,7 +144,7 @@ export default function Search({ data, location }: PageData) {
   const keyword = (qs.parse(location.search).keyword as string) ?? "";
 
   useEffect(() => {
-    setRenderLi(matchList(nodes, keyword, 0.6));
+    setRenderLi(matchList(nodes, keyword, 0));
   }, [nodes, keyword]);
 
   const handleKeyword = useDebounce(function (e: ChangeEvent<HTMLInputElement>) {
