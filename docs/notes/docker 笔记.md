@@ -22,11 +22,15 @@ desc:
 
 docker 运行在 linux 系统中，所以默认情况下，docker 是不能在 windows 系统中使用的。在 windows 中安装 docker 需要安装官方的桌面工具 **Docker Desktop**，**并且安装 WSL 2 支持 linux 虚拟机启动**，不然 docker 就无法正常工作。
 
+> 菜鸟教程上，使用 Hyper-V 来支持虚拟机，没有使用 Docker 官方的 WSL。我安装的是 WSL，有一些 bug，参见 [bugs](#bugs)。
+
 要测试 docker 是否已经安装好，可以尝试命令：
 
 ```shell
 docker --version
 ```
+
+安装并不是非常麻烦，但是我使用 docker 的时候非常慢，下载一些包直接半小时起步，所以需要镜像加持。[菜鸟教程 | Docker 镜像加速][1] 一节介绍了如何更换到国内镜像。
 
 ## 概念
 
@@ -50,47 +54,19 @@ docker 为应用创建了独立可视化的环境，随着代码和架构像滚�
 
 这个时候 docker 站了出来，docker 可以为各个应用分配虚拟环境，让应用仅保持一个 I/O 进行通信，可能是 tcp/ip，又或者是应用层的 http。docker 还为环境的更新做出了完善的支持，不同开发端之间的冲突和依赖得到了分离，让开发者对本身所处的环境有了清楚的认识。
 
-### 镜像
-
-docker 有一个开放的镜像库 [Dockerhub][7]，这里记录了很多官方或第三方的镜像包。例如仅仅是纯净系统的 centos，ubuntu，又或者是含有应用的 mysql，python，nginx，httpd，再或者是集成架构的 lamp，都可以在镜像库中找到。其次，用户还可以为自己的环境构建镜像包，并发布到 Dockerhub，方便拉起部署。
-
-大多数镜像都只做一件事，这样可以有效的降低业务架构的耦合度，比如这么一套环境 ubuntu + python + nginx + nodejs + mysql，虽然可以使用 docker 构建一个 ubuntu 系统进行配置，但是这样回到起点，没有对各部分业务进行解耦，正确的做法是解耦到 4 个容器中，例如 ubuntu + python、ubuntu + nginx、ubuntu + nodejs、ubuntu + mysql，尽管这样做看上去很麻烦，但实际操作却不复杂，并且很好的对架构进行了解耦。为此用户需要构建 4 个镜像并对其进行管理，对各个镜像进行独立的配置。
-
-镜像的来源基本都基于 [Dockerhub][7]，当然也有其他的镜像库，但是官方的肯定要香一些。
-
-Dockerhub 类似 Github，本质是镜像仓库，用户可以对仓库中的镜像进行拉取 pull、推送 push 或查找 search 等操作。
-
-拉取一个镜像很简单，例如使用 `docker pull ubuntu:15.10` 命令拉取 ubuntu 的 15.10 版本：
-
-```shell
-PS > docker pull ubuntu:15.10
-15.10: Pulling from library/ubuntu
-Digest: sha256:02521a2d079595241c6793b2044f02eecf294034f31d6e235ac4b2b54ffc41f3
-Status: Downloaded newer image for ubuntu:15.10
-docker.io/library/ubuntu:15.10
-```
-
-上面的命令将拉取 ubuntu 的 15.10 版本的镜像到本地。其中 Digest 可以理解为镜像的散列值，当镜像内部出现改动时，这个散列值将发生改变。
-
-如果使用命令 `docker pull ubuntu` 会怎么样？这会直接拉取最新版本的 ubuntu 镜像，是 `docker pull ubuntu:latest` 的简写。
-
-如果想要知道本地有哪些镜像，可以使用以下命令：
-
-```shell
-docker images
-```
-
 ### 容器
 
 docker 根据指定的镜像可以构建一个容器，容器是独立的，即使多次指定同一个镜像创建容器，那么各个容器之间也还是独立互不干扰的。
 
-例如：
+创建一个容器：
 
 ```shell
 docker run ubuntu:15.10
 ```
 
-此时你会发现什么都没发生，不过使用以下命令查看容器状态：
+此时你会发现什么都没发生，不过可以使用以下命令查看容器状态：
+
+> 上面命令中，`ubuntu:15.10` 就是一个镜像，如果本地存在此镜像，docker 会直接用来创建一个容器，如果没有，docker 就会从网络镜像仓库中获取此镜像。
 
 ```shell
 docker ps --all
@@ -144,6 +120,101 @@ docker exec --tty --interactive 容器ID /bin/bash
 其中，`/bin/bash` 指定容器的命令，上面的命令访问了指定容器的交互式命令行，并且分配终端保持输入。
 
 容器还有很多命令，比如指定一个容器生成镜像，为容器打标签等等。
+
+> - `--tty` 简写：`-t`
+> - `--interactive` 简写：`-i`
+> - `--detach` 简写：`-d`
+>
+> 多个参数存在简写是，可以组合使用，例如 `-d -i` 可以写作 `-di`
+>
+> docker 不同命令有可能存在相同简写但是意义完全不一样的情况，比如 `docker build -t` 中的 `-t` 是 `--tag` 而非 `--tty`。
+>
+> 个人不是很推荐简写，时间长了 `-it`、`-di` 这种写法都不知道自己在干什么。
+
+### 镜像
+
+docker 有一个开放的镜像库 [Dockerhub][7]，这里记录了很多官方或第三方的镜像包。例如仅仅是纯净系统的 centos，ubuntu，又或者是含有应用的 mysql，python，nginx，httpd，再或者是集成架构的 lamp，都可以在镜像库中找到。其次，用户还可以为自己的环境构建镜像包，并发布到 Dockerhub，方便拉起部署。
+
+大多数镜像都只做一件事，这样可以有效的降低业务架构的耦合度，比如这么一套环境 ubuntu + python + nginx + nodejs + mysql，虽然可以使用 docker 构建一个 ubuntu 系统进行配置，但是这样回到起点，没有对各部分业务进行解耦，正确的做法是解耦到 4 个容器中，例如 ubuntu + python、ubuntu + nginx、ubuntu + nodejs、ubuntu + mysql，尽管这样做看上去很麻烦，但实际操作却不复杂，并且很好的对架构进行了解耦。为此用户需要构建 4 个镜像并对其进行管理，对各个镜像进行独立的配置。
+
+镜像的来源基本都基于 [Dockerhub][7]，当然也有其他的镜像库，但是官方的肯定要香一些。
+
+Dockerhub 类似 Github，本质是镜像仓库，用户可以对仓库中的镜像进行拉取 pull、推送 push 或查找 search 等操作。
+
+拉取一个镜像很简单，例如使用 `docker pull ubuntu:15.10` 命令拉取 ubuntu 的 15.10 版本：
+
+```shell
+PS > docker pull ubuntu:15.10
+15.10: Pulling from library/ubuntu
+Digest: sha256:02521a2d079595241c6793b2044f02eecf294034f31d6e235ac4b2b54ffc41f3
+Status: Downloaded newer image for ubuntu:15.10
+docker.io/library/ubuntu:15.10
+```
+
+上面的命令将拉取 ubuntu 的 15.10 版本的镜像到本地。其中 Digest 可以理解为镜像的散列值，当镜像内部出现改动时，这个散列值将发生改变。
+
+> 如果使用命令 `docker pull ubuntu` 会怎么样？这会直接拉取最新版本的 ubuntu 镜像，是 `docker pull ubuntu:latest` 的简写。
+
+> 实际上 我们并不需要拉取镜像，使用 `docker run` 命令根据镜像创建新容器时，docker 会搜寻本地镜像，如果不存在就会自动拉取网络镜像，所以 `docker pull` 实际上是可以省略的。
+
+如果想要知道本地有哪些镜像，可以使用以下命令：
+
+```shell
+docker images
+```
+
+如果需要查看指定镜像的详细信息，可以使用下列命令：
+
+```shell
+docker image inspect <image-id>
+```
+
+如何更新镜像？
+
+如果要更新一个镜像，必须先有该镜像的容器实例，可以按照 [容器](#容器) 一节中介绍的方式创建指定镜像的容器实例：
+
+```shell
+docker run --tty --interactive ubuntu
+```
+
+> 这行代码会根据 ubuntu 镜像创建一个容器，参见 [容器](#容器) 一节介绍。
+
+因为是一个初始 ubuntu 容器，所以 ping 命令都无法使用。那么我们就对此容器安装 ping 命令（这两行命令在容器中进行）：
+
+```bash
+apt-get update
+apt-get install iputils-ping
+```
+
+上面两行命令将更新软件源并安装 ping 命令，在完成后可以使用 ping 命令测试下是否安装成功。
+
+上述的操作对容器进行了更新，此时容器的状态已经发送了改变。此时执行 `exit` 退出容器并看好容器的 id 或者名字，我们要为此容器的当前状态生成一个新的镜像。
+
+执行以下命令：
+
+```shell
+docker commit --author "your-name" --message "本次提交的信息：更新软件源，安装 ping 命令" <container> commit-ubuntu:v2
+```
+
+使用容器的 id 或者名字代替 `<container>`，`commit-ubuntu` 是生成镜像的名字，`v2` 是生成镜像的 tag 标签。
+
+此时使用 `docker images`，就可以查看到一个名叫 `commit-ubuntu`、tag 为 `v2` 的新镜像了。
+
+如果我们使用这个新镜像生成一个新容器，那么新容器可以直接使用 ping 命令。例如：
+
+```shell
+PS > docker run --interactive --tty commit-ubuntu:v2
+root@9f6f322be48a:/# ping docker.com
+PING docker.com (141.193.213.20) 56(84) bytes of data.
+64 bytes from 141.193.213.20 (141.193.213.20): icmp_seq=1 ttl=37 time=201 ms
+64 bytes from 141.193.213.20 (141.193.213.20): icmp_seq=2 ttl=37 time=198 ms
+^C
+--- docker.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2428ms
+rtt min/avg/max/mdev = 198.179/201.965/206.524/3.450 ms
+root@9f6f322be48a:/# exit
+exit
+```
 
 ### 卷 volume
 
@@ -205,96 +276,191 @@ docker 创建的容器是互不干扰的，默认情况下，他们不在同一�
 
 docker 为此提供了网络模块，用户可以使用 docker 创建可供容器共享的网络，把多个容器圈到同一个内网当中，此时它们就能实现通信。
 
-写到这里
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-1111111111111111111111111111111111111111111111111111111111111111111111111111
-
-## 常用核心命令
-
-**docker 所有命令都可以使用 `--help` 来查看命令含义。** 例如：
+创建一个网络很简单：
 
 ```shell
-docker --help
-docker run --help
-docker ps --help
+docker network create ping-net
 ```
 
-类似于 Git 一样，命令那么多，其实常用的来回也就是 `commit`、`add .`、`push`、`pull`、`branch -d`、`checkout -b`、`merge` 那么几个，所以下面也只概述几个常用命令作为参考，并且仅概述功能不说明使用，具体完整的命令参考 [官网 Reference][6]。
-
-### run
-
-**[docker run](https://docs.docker.com/engine/reference/commandline/run/) 命令指定一个镜像创建新容器并执行命令。**，注意是 **新容器**，多次指定同一个镜像创建的容器互不干扰。
-
-例如根据 ubuntu 镜像创建一个新容器，然后在里面启动一个 python 服务器。
-
-参考这里：[Docker run reference](https://docs.docker.com/engine/reference/run/)
-
-### build
-
-**[docker build](https://docs.docker.com/engine/reference/commandline/build/) 命令指定一个 [Dockfile](https://docs.docker.com/engine/reference/builder/) 文件构建镜像**。在 Dockerfile 文件中，可以为构建镜像做很多准备工作。
-
-docker 生成镜像的方式有很多，最直观的就是自己拉取一个镜像生成容器，然后进行相关的环境搭建后，把更新后容器导出为镜像，或者根据修改创建新的镜像。但是这种方式并不能对多端代码进行整合，各段代码都不是那么独立。这种方式适用于对外提供镜像服务，而非业务逻辑代码的分离。
-
-相反 Dockerfile 仅仅是一个小文件，相比镜像的大小，它完全可以放到代码中进行整合。比如隔离端与端之间的运行环境，前端后端算法都可以在自己的代码中嵌入 Dockerfile 文件，每个端根据 Dockerfile 生成相应的容器，被隔离在各自配置的熟悉的环境中互不干扰且能保持通信。
-
-## 零碎的
-
-### 导入导出镜像
-
-windows：
+上面代码创建了一个叫做 ping-net 的网络，现在这个网络里面什么容器都没有。我们可以在里面添加任意的容器，比如：
 
 ```shell
-#To export:
-docker container export <container_id> -o <image_name>.tar
-#To import
-docker image import <image_name>.tar <custom_image_name>
+docker run --detach --interactive --name test1 --network ping-net ubuntu
 ```
 
-linux/mac 可以使用 `>` 代替 `-o`，这源于 windows 的 bug，参见 [issuse 600][2] 和 [stackoverflow][3]：
+上面代码创建了一个容器，有一个别名 test1，这个容器被加进了网络 ping-net 中。
+
+接着我们可以再创建一个容器：
+
+```shell
+docker run --interactive --tty --network ping-net ubuntu
+```
+
+这个容器也在 ping-net 网络中，并且我们打开了它的终端，为了测试两个容器是否处于同一网络，我们可以使用 ping 命令，首先安装（下面命令在第二个容器中执行）：
 
 ```bash
-#To export:
-docker container export <container_id> > <image_name>.tar
-#To import
-docker image import <image_name>.tar <custom_image_name>
+apt-get update
+apt install iputils-ping
 ```
 
-加载和保存镜像：
+然后我们在容器中执行 ping 命令，目标是第一个容器的名字 test1（下面命令在第二个容器中执行）：
+
+```bash
+ping test1
+```
+
+此时可以看到两个容器互连了，它们被分配到了同一个 docker 的虚拟网络中。
+
+> 当然也可以直接使用 ip 地址去访问，但是这样并不安全，docker 不会每次都分配固定 ip 到容器中，除非你主动设置 ip 地址。主动设置参考 [docker run](https://docs.docker.com/engine/reference/commandline/run/) 的 `--ip` 参数。
+>
+> 除此之外，docker 还支持对容器的 ipv6，dns，mac 等都进行配置。
+
+### 端口映射
+
+不论什么应用，总该要有输入输出，不论是 TCP、UDP，又或者是 http。这些接口都是容器内部的应用提供，docker 提供端口映射来把容器中的服务映射到本机上的实际端口上。
+
+例如运行一个含 nginx 的容器，容器会在它本身的 80 端口上对数据进行分发，但是容器的 80 端口并不是本机的 80 端口，使用端口映射就可以把二者打通。
+
+例如：
+
+```shell
+docker run --volume "$(pwd):/usr/share/nginx/html:ro" --publish 8080:80  --detach nginx
+```
+
+上面命令中：
+
+- `--volume` 把当前文件夹挂载到了容器的 `/usr/share/nginx/html` 路径上，`:ro` 代表该卷只读
+- `--publish` 把容器的 80 端口映射到了本机的 8080 端口上
+- `--detach` 分离模式运行此容器
+- `nginx` 是镜像的名字
+
+在容器启动后，可以在当前文件夹创建一个 `index.html` 的文件写入以下内容：
+
+```html
+<h1>hello world!</h1>
+```
+
+然后在本机使用 `http://localhost:8080` 进行访问，会发现该地址转发了 `index.html` 文件。
+
+> 这节内容其实涵盖的知识点很小，但是却是如何访问容器内服务的关键。
+
+### Dockerfile
+
+生成镜像的另一种方式是使用 [Dockerfile](https://docs.docker.com/engine/reference/builder/) 文件。Dockerfile 文件用来描述需要生成镜像的来源，相关信息，已经容器内部的改变，通过 Dockerfile 文件可以清楚的了解到构建后的镜像是什么样子。
+
+Dockerfile 字如其名，使用它需要先创建一个名为 “Dockerfile” 的文件，注意是没有后缀名的。然后可以简单的键入以下内容：
+
+```Dockerfile
+FROM ubuntu
+```
+
+这是一个最简单的 Dockerfile 文件，`FROM ubuntu` 代表这个镜像将基于 ubuntu 镜像开始构建。如果使用这个 Dockerfile 文件构建一个新的镜像，那么它会和 ubuntu 镜像一模一样。
+
+执行以下命令根据一个 Dockerfile 文件创建镜像：
+
+```shell
+docker build --tag new-name/ubuntu:v1 .
+```
+
+上面的代码创建了一个叫做 `new-name/ubuntu:v1` 的镜像，最后的小点 `.` 代表当前路径，它提供一个上下文路径供给 docker 来查找 Dockerfile 文件，所以这条命令需要在创建 Dockerfile 文件的目录执行。
+
+Dockerfile 支持让你在构建镜像时执行一些命令，比如：
+
+```Dockerfile
+FROM ubuntu
+RUN apt-get update \
+    && apt install iputils-ping -y
+```
+
+上面的命令在会创建一个 ubuntu 的镜像，并且在里面执行命令：
+
+```shell
+apt-get update
+apt install iputils-ping -y
+```
+
+此时构建好的镜像就会直接包含 ping 命令，通过 Dockerfile 文件我们可以清除的知道镜像构建过程中进行了哪些操作。
+
+Dockerfile 文件依赖 `docker build` 命令来创建镜像。
+
+### Docker Compose
+
+[Docker Compose](https://docs.docker.com/compose/compose-file/) 使用 yaml 文件来共享多个容器并帮助我们定义容器的启动。它可以同时管理多个容器的启动和关闭。
+
+> 如果是 linux 系统，陈旧版本的 Docker Compose 是没有与 docker 进行捆绑安装的，linux 系统需要 Docker Compose 进行安装，[查看这里](https://docs.docker.com/compose/install/)。
+
+查看你的 Docker Compose 版本号：
+
+```shell
+docker-compose version # 陈旧版本的 命令
+# or
+docker compose version # 新版本的命令，新版本的 compose 已经集成到 docker 中
+```
+
+在创建一个容器的时候，命令是不可少的。大多数情况下，一个容器的创建都会包含卷 volume、网络，端口映射，启动命令，工作目录，环境变量等等配置，例如创建一个 mysql 的容器：
+
+```shell
+PS> docker run -d `
+  --network todo-app --network-alias mysql `
+  -v todo-mysql-data:/var/lib/mysql `
+  -e MYSQL_ROOT_PASSWORD=secret `
+  -e MYSQL_DATABASE=todos `
+  mysql:5.7
+```
+
+> 上面的命令是在 windows 的 powershell 中运行，如果使用 linux 或者 mac 系统，需要把 “\`” 替换为 “\\”。
+
+上面的命令中，我们启动了一个 mysql 容器，我们为其设置了网络，挂载了数据卷，设置了环境变量，但是这样的命令不方便记录或者保存。Docker Compose 解决了这个问题。
+
+我们可以为上述的容器创建一个 `docker-compose.yml` 文件，我们可以键入以下内容：
+
+```yaml
+version: "3.7"
+
+services:
+  mysqlapp:
+    image: mysql:5.7
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+
+volumes:
+  mysql-data:
+```
+
+> **注意，`version` 标记的不是你的应用或者业务逻辑的版本号，它标记的是 Docker Compose 文件的版本号，就类似于 HTML5 的文件定义 `<!DOCTYPE html>` 一样。**
+
+> 如果本地 volume `mysql-data` 如果没有创建，docker 会创建一个测试 volume 来代替它。不要在生产中使用测试 volume。
+
+此时一个 mysql 服务就被加到了 `docker-compose.yml` 文件中，它在创建容器时的名字是 `mysqlapp`。
+
+也就是说现在我们只需要一个文件，就可配置好我们的 mysql 服务，使用以下命令来开启它：
+
+```shell
+docker compose up --detach
+```
+
+我们可以使用 `docker exec` 来访问这个 mysql 服务，在此之前，你需要使用 `docker ps` 来找到这个容器：
+
+```shell
+docker exec --tty --interactive <contianer> mysql -u root -p
+```
+
+然后输入密码 `secret` 回车即可访问这个 mysql 数据库。
+
+> 这里我们没有使用网络，因为 Docker Compose 会自动创建网络，并把各个服务连接到网络中。如果我们需要添加一个后端，那么只需要为后端的服务配置数据库的主机为 `mysqlapp:3306` 即可访问。
+
+Docker compose 还支持共享，上面的例子中只配置了一个 mysql 服务而已，如果你需要，可以把前端后端都配置到 `docker-compose.yml` 文件的 `services` 下，它们会被共享到一个网路中。
+
+使用以下命令关闭所有服务：
+
+```shell
+docker compose down
+```
+
+> 你可以想普通的容器一样管理 Docker Compose 启动的容器，使用 `docker ps` 一样可以查看到 Docker Compose 启动的容器列表。
 
 ## bugs
 
@@ -323,7 +489,7 @@ kernelCommandLine = vsyscall=emulate
 - [docker 中文网教程][4]
 - [docker | 菜鸟教程][5]
 
-- [bug: Docker fails to build image with exit code 139.( docker build 的时候，使用的系统过老，导致和 wsl 不兼容)][b1]
+- [bug: Docker fails to build image with exit code 139.( docker build 的时候，使用的镜像过老，导致和 wsl 不兼容)][b1]
 
 [1]: https://www.runoob.com/docker/docker-mirror-acceleration.html
 [2]: https://github.com/docker/for-win/issues/660
