@@ -478,7 +478,7 @@ kernelCommandLine = vsyscall=emulate
 ## 引用
 
 - [镜像源][1]
-- [docker 中文网教程][4]
+- [docker 官网][4]
 - [docker | 菜鸟教程][5]
 
 - [bug: Docker fails to build image with exit code 139.( docker build 的时候，使用的镜像过老，导致和 wsl 不兼容)][b1]
