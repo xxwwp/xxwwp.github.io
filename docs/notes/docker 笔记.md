@@ -52,11 +52,13 @@ docker 能干啥？
 
 docker 为应用创建了独立可视化的环境，随着代码和架构像滚雪球一样滚大的时候，底层环境也会随之变化，不少的情况下是为了填坑。比如引入了某个库，依赖要求的版本太高，不得不升级，升级带来的 bug，不得不打补丁，但是这些操作很有可能都是遗留性问题，也就是说可以通过更换系统架构来消除，但是因为服务器上构建的应用各不相同，前端、后端、数据库、安全等等全部都挤到一起，很难确定更新的潜在隐患，也很难得到一套完善的处理方案。
 
-这个时候 docker 站了出来，docker 可以为各个应用分配虚拟环境，让应用仅保持一个 I/O 进行通信，可能是 tcp/ip，又或者是应用层的 http。docker 还为环境的更新做出了完善的支持，不同开发端之间的冲突和依赖得到了分离，让开发者对本身所处的环境有了清楚的认识。
+这个时候 docker 站了出来，docker 可以为各个应用分配虚拟环境，互不干扰。
+
+docker 还为环境的更新部署查询等做出了完善的支持，让开发者对所处的环境一目了然。
 
 ### 容器
 
-docker 根据指定的镜像可以构建一个容器，容器是独立的，即使多次指定同一个镜像创建容器，那么各个容器之间也还是独立互不干扰的。
+docker 根据指定的镜像可以构建一个容器，每个容器都是一个独立的虚拟机环境。
 
 创建一个容器：
 
@@ -74,22 +76,21 @@ docker ps --all
 
 此时会看到一个 ubuntu 容器处于退出状态，这就是刚才创建的容器。很不幸，这个容器已经关死了，因为没有启动项，也没有把它保持挂起，docker 启动容器后立马就会关闭。
 
-上面的代码将创建一个 ubuntu 的容器，但是仅此而已，容器创建后什么都不会被运行，类似一个空盒子。
-
-所以我们需要让 docker 为此虚拟机分配一个终端给我们，可以在 `run` 后使用 `--tty` 参数让 docker 分配一个虚拟机的终端。命令将变成：
+现在我们需要让 docker 为此虚拟机分配一个终端给我们，可以在 `run` 后使用 `--tty` 参数让 docker 分配一个虚拟机的终端。命令将变成：
 
 ```shell
-docker run --tty ubuntu:15.10 # 不可用
+docker run --tty ubuntu:15.10
 ```
 
-然后呢，docker 只是分配了一个终端给这个虚拟机并返回给用户？docker 在命令执行结束后并不会关心后续的输入和指令，所以增加还要增加一个 `--interactive` 命令保持标准输入，这样才能使用虚拟机的终端。同时，`--interactive` 也是有另一个功能就是 **保持挂起**，就算不使用 `--tty`，容器也不会立即停止，而是卡着：
+但是此时我们还是不能访问这个容器，因为 docker 只是分配了一个终端给用户，docker 在命令执行结束后并不会关心后续的输入和指令，所以增加还要增加一个 `--interactive` 命令保持标准输入，这样才能和容器的终端交互。
+
+> `--interactive` 也是有另一个功能就是 **保持挂起**，就算不使用 `--tty`，容器也不会立即停止，而是卡着。
+
+保持输入并分配终端：
 
 ```shell
 docker run --tty --interactive ubuntu:15.10
 ```
-
-- `--tty`：分配了一个虚拟机的终端给用户
-- `--interactive`：保持 STDIN（标准输入），相当于挂起容器，同时也能输入数据，配合 `--tty` 就可以实现交互。
 
 如果此时执行 `exit`，那么容器就会关闭，我想没人会希望挂起一个终端来开发，所以此时我们需要使用 `--detach` 来把容器放到后台运行，`--detach` 会以分离模式运行 docker 命令。
 
@@ -114,7 +115,7 @@ docker ps --all
 可以使用以下命令来访问一个分离模式下的容器：
 
 ```shell
-docker exec --tty --interactive 容器ID /bin/bash
+docker exec --tty --interactive 容器 /bin/bash
 ```
 
 其中，`/bin/bash` 指定容器的命令，上面的命令访问了指定容器的交互式命令行，并且分配终端保持输入。
@@ -125,7 +126,7 @@ docker exec --tty --interactive 容器ID /bin/bash
 > - `--interactive` 简写：`-i`
 > - `--detach` 简写：`-d`
 >
-> 多个参数存在简写是，可以组合使用，例如 `-d -i` 可以写作 `-di`
+> docker 的一行命令存在多个简写参数时，可以组合在一起，例如 `-d -i` 可以写作 `-di`
 >
 > docker 不同命令有可能存在相同简写但是意义完全不一样的情况，比如 `docker build -t` 中的 `-t` 是 `--tag` 而非 `--tty`。
 >
@@ -133,9 +134,13 @@ docker exec --tty --interactive 容器ID /bin/bash
 
 ### 镜像
 
-docker 有一个开放的镜像库 [Dockerhub][7]，这里记录了很多官方或第三方的镜像包。例如仅仅是纯净系统的 centos，ubuntu，又或者是含有应用的 mysql，python，nginx，httpd，再或者是集成架构的 lamp，都可以在镜像库中找到。其次，用户还可以为自己的环境构建镜像包，并发布到 Dockerhub，方便拉起部署。
+docker 有一个开放的镜像库 [Dockerhub][7]，这里记录了很多官方或第三方的镜像包。里面有仅仅是纯净系统的 centos，ubuntu，又或者是含有一个应用的 mysql，python，nginx，httpd，再或者是集成架构的 lamp，都可以在镜像库中找到。其次，用户还可以定制自己的镜像包并发布到 Dockerhub，方便拉起部署。
 
-大多数镜像都只做一件事，这样可以有效的降低业务架构的耦合度，比如这么一套环境 ubuntu + python + nginx + nodejs + mysql，虽然可以使用 docker 构建一个 ubuntu 系统进行配置，但是这样回到起点，没有对各部分业务进行解耦，正确的做法是解耦到 4 个容器中，例如 ubuntu + python、ubuntu + nginx、ubuntu + nodejs、ubuntu + mysql，尽管这样做看上去很麻烦，但实际操作却不复杂，并且很好的对架构进行了解耦。为此用户需要构建 4 个镜像并对其进行管理，对各个镜像进行独立的配置。
+大多数镜像都只做一件事，这样可以有效的降低业务架构的耦合度。
+
+比如一个 ubuntu 系统需要包含环境 ubuntu + python + nginx + nodejs + mysql，虽然可以使用 docker 构建一个 ubuntu 系统进行配置，但是这样就又回到了起点，没有对各部分业务进行解耦。
+
+正确的做法是把这些应用解耦到 4 个容器中，把 python、nginx、nodejs、mysql 分别装到 4 个系统中，尽管这样做看上去很麻烦，但却很好的对架构进行了解耦。
 
 镜像的来源基本都基于 [Dockerhub][7]，当然也有其他的镜像库，但是官方的肯定要香一些。
 
@@ -155,7 +160,7 @@ docker.io/library/ubuntu:15.10
 
 > 如果使用命令 `docker pull ubuntu` 会怎么样？这会直接拉取最新版本的 ubuntu 镜像，是 `docker pull ubuntu:latest` 的简写。
 
-> 实际上 我们并不需要拉取镜像，使用 `docker run` 命令根据镜像创建新容器时，docker 会搜寻本地镜像，如果不存在就会自动拉取网络镜像，所以 `docker pull` 实际上是可以省略的。
+> 实际上 我们并不需要拉取镜像，当我们根据一个网络镜像创建容器的时候，docker 会自动从网络中获取镜像并存到本地。
 
 如果想要知道本地有哪些镜像，可以使用以下命令：
 
@@ -171,13 +176,11 @@ docker image inspect <image-id>
 
 如何更新镜像？
 
-如果要更新一个镜像，必须先有该镜像的容器实例，可以按照 [容器](#容器) 一节中介绍的方式创建指定镜像的容器实例：
+如果要更新一个镜像，可以根据一个容器实例的更新来生成新的镜像。先创建一个容器：
 
 ```shell
 docker run --tty --interactive ubuntu
 ```
-
-> 这行代码会根据 ubuntu 镜像创建一个容器，参见 [容器](#容器) 一节介绍。
 
 因为是一个初始 ubuntu 容器，所以 ping 命令都无法使用。那么我们就对此容器安装 ping 命令（这两行命令在容器中进行）：
 
@@ -186,11 +189,9 @@ apt-get update
 apt-get install iputils-ping
 ```
 
-上面两行命令将更新软件源并安装 ping 命令，在完成后可以使用 ping 命令测试下是否安装成功。
+上面两行命令将更新软件源并安装 ping 命令，在完成后可以使用 ping 命令测试下是否安装成功，成功后使用 `exit` 退出容器。
 
-上述的操作对容器进行了更新，此时容器的状态已经发送了改变。此时执行 `exit` 退出容器并看好容器的 id 或者名字，我们要为此容器的当前状态生成一个新的镜像。
-
-执行以下命令：
+执行以下命令根据该容器创建新的镜像：
 
 ```shell
 docker commit --author "your-name" --message "本次提交的信息：更新软件源，安装 ping 命令" <container> commit-ubuntu:v2
@@ -218,21 +219,19 @@ exit
 
 ### 卷 volume
 
-docker 创建容器没啥问题，然是 docker run 操作，每次都会生成一个新的容器，也就是容器之间的数据是不共享的。
+docker 创建容器没啥问题，但是 docker run 操作，每次都会生成一个新的容器，新容器不会使用旧容器的数据。
 
-如果大家基于镜像开发，那么就会生成不同的文件，镜像并没有合并操作，不同的数据只能选择其中一份。所以我们必须把生产的数据提升到本地真实的目录中。这个时候卷 volume 就出来了。
-
-volume 可以把本地环境中真实的文件挂载到容器实例中，就类似 linux 的硬盘挂载一样。
+volume 可以把本地环境中真实的文件挂载到容器实例中。
 
 比较直接的例子：
 
-- _把数据库的数据文件挂载到本地_
+- _把数据库的数据文件挂载到容器中_
 
-  这样不论我们怎么修改容器，数据首先是安全的，不会因为容器的变更，导致新容器的数据为空或者为过时数据。
+  这样不论我们怎么修改容器，容器的数据库文件总是指向本地，不会丢失。
 
-- _把应用程序挂在到本地_
+- _把应用程序挂在到容器中_
 
-  这样只要环境不变，我们每次更新完代码，例如 python、nodejs、rust、php 等，我们只需要把本地代码更新，重新部署容器即可。
+  容器会访问本地文件来运行服务，而不是容器内部的文件来运行。使用场景如前端后端代码挂载。
 
 卷的使用也很简单，例如：
 
@@ -240,13 +239,13 @@ volume 可以把本地环境中真实的文件挂载到容器实例中，就类�
 docker run --volume "$(pwd):/app" ...
 ```
 
-其中 `--volume "$(pwd):/app"` 就是把当前路径挂载到虚拟机中的 `/app` 路径下，假设当前路径就是代码文件，那么我们每次更新完代码，只需要删掉旧容器，启动新容器即可完成项目部署。此时容器本身的环境没有任何变化。
+`--volume "$(pwd):/app"` 就是把当前路径挂载到虚拟机中的 `/app` 路径下，假设当前路径就是代码文件，那么我们每次更新完代码，只需要删掉旧容器，启动新容器即可完成项目部署。此时容器本身的环境没有任何变化。
 
 这种方式针对代码更新很方便，用户清楚的知道容器里，`/app` 指向了真是环境的当前文件夹。
 
-有的时候我们并不关注数据的位置，我们只是需要一个存储数据的地方，例如 mysql 的数据文件，都是一堆格式化二进制文件，这些文件只需要找个地方存就可以了。那么就可以使用到 docker 中的卷 volume。
+有的时候我们并不关注数据的位置，我们只是需要一个存储数据的地方，例如 mysql 的数据文件，都是一堆格式化二进制文件，这些文件只需要找个地方存就可以了。那么就可以使用 docker 来创建一个具名 volume。
 
-**volume 根据关键字在本地环境中映射一个路径**，创建一个 volume 使用以下命令：
+**具名 volume 根据关键字在本地环境中映射一个路径**，创建一个 volume 使用以下命令：
 
 ```shell
 docker volume create mysql-data
@@ -268,13 +267,13 @@ docker volume inspect mysql-data
 docker run --volume mysql-data:/home/data/mysql ...
 ```
 
-`--volume mysql-data:/home/data/mysql` 会把卷 `mysql-data` 映射到容器的 `/home/data/mysql` 路径中，假设你的 mysql 配置此文件夹为数据存放路径，那么数据就会根据映射，存放到卷 `mysql-data` 中，你可以在本机找到对应的数据文件。当下次容器更新时，数据会得到重复使用，而不是创建新的，或者使用容器本身的。
+`--volume mysql-data:/home/data/mysql` 会把卷 `mysql-data` 映射到容器的 `/home/data/mysql` 路径中，假设你的 mysql 配置此文件夹为数据存放路径，那么数据就会根据映射，存放到卷 `mysql-data` 中，你可以在本机找到对应的数据文件。当下次容器更新时，数据会得到重复使用。
 
 ### 网络
 
 docker 创建的容器是互不干扰的，默认情况下，他们不在同一网络中，所以无法进行互相访问，例如算法提供的接口，后端无法访问，前端的 ssr 也不能从后端拿到数据。
 
-docker 为此提供了网络模块，用户可以使用 docker 创建可供容器共享的网络，把多个容器圈到同一个内网当中，此时它们就能实现通信。
+docker 为此提供了网络模块，用户可以使用 docker 创建一个共享网络，多个容器会被圈到同一个内网当中，让彼此可以访问。
 
 创建一个网络很简单：
 
@@ -282,13 +281,13 @@ docker 为此提供了网络模块，用户可以使用 docker 创建可供容�
 docker network create ping-net
 ```
 
-上面代码创建了一个叫做 ping-net 的网络，现在这个网络里面什么容器都没有。我们可以在里面添加任意的容器，比如：
+上面代码创建了一个叫做 `ping-net` 的网络，现在这个网络里面什么容器都没有。我们可以在里面添加任意的容器，比如：
 
 ```shell
 docker run --detach --interactive --name test1 --network ping-net ubuntu
 ```
 
-上面代码创建了一个容器，有一个别名 test1，这个容器被加进了网络 ping-net 中。
+上面代码创建了一个容器，有一个别名 `test1`，这个容器被加进了网络 `ping-net` 中。
 
 接着我们可以再创建一个容器：
 
@@ -296,14 +295,14 @@ docker run --detach --interactive --name test1 --network ping-net ubuntu
 docker run --interactive --tty --network ping-net ubuntu
 ```
 
-这个容器也在 ping-net 网络中，并且我们打开了它的终端，为了测试两个容器是否处于同一网络，我们可以使用 ping 命令，首先安装（下面命令在第二个容器中执行）：
+这个容器也在 `ping-net` 网络中，并且我们打开了它的终端，为了测试两个容器是否处于同一网络，我们可以使用 `ping` 命令，首先安装（下面命令在第二个容器中执行）：
 
 ```bash
 apt-get update
 apt install iputils-ping
 ```
 
-然后我们在容器中执行 ping 命令，目标是第一个容器的名字 test1（下面命令在第二个容器中执行）：
+然后我们在容器中执行 `ping` 命令，目标是第一个容器的名字 `test1`（下面命令在第二个容器中执行）：
 
 ```bash
 ping test1
@@ -311,15 +310,13 @@ ping test1
 
 此时可以看到两个容器互连了，它们被分配到了同一个 docker 的虚拟网络中。
 
-> 当然也可以直接使用 ip 地址去访问，但是这样并不安全，docker 不会每次都分配固定 ip 到容器中，除非你主动设置 ip 地址。主动设置参考 [docker run](https://docs.docker.com/engine/reference/commandline/run/) 的 `--ip` 参数。
+> 当然也可以直接使用 ip 地址去访问，但是这样并不安全，docker 不会每次都分配固定 ip 到容器中，除非你主动设置 ip 地址。主动设置参考 [docker run](https://docs.docker.com/engine/reference/commandline/run/)。
 >
 > 除此之外，docker 还支持对容器的 ipv6，dns，mac 等都进行配置。
 
 ### 端口映射
 
 不论什么应用，总该要有输入输出，不论是 TCP、UDP，又或者是 http。这些接口都是容器内部的应用提供，docker 提供端口映射来把容器中的服务映射到本机上的实际端口上。
-
-例如运行一个含 nginx 的容器，容器会在它本身的 80 端口上对数据进行分发，但是容器的 80 端口并不是本机的 80 端口，使用端口映射就可以把二者打通。
 
 例如：
 
@@ -329,7 +326,7 @@ docker run --volume "$(pwd):/usr/share/nginx/html:ro" --publish 8080:80  --detac
 
 上面命令中：
 
-- `--volume` 把当前文件夹挂载到了容器的 `/usr/share/nginx/html` 路径上，`:ro` 代表该卷只读
+- `--volume` 把当前文件夹挂载到了容器的 `/usr/share/nginx/html` 路径上，`:ro` 代表该卷只读，这是 nginx 镜像默认的静态资源文件夹。
 - `--publish` 把容器的 80 端口映射到了本机的 8080 端口上
 - `--detach` 分离模式运行此容器
 - `nginx` 是镜像的名字
@@ -342,7 +339,7 @@ docker run --volume "$(pwd):/usr/share/nginx/html:ro" --publish 8080:80  --detac
 
 然后在本机使用 `http://localhost:8080` 进行访问，会发现该地址转发了 `index.html` 文件。
 
-> 这节内容其实涵盖的知识点很小，但是却是如何访问容器内服务的关键。
+> 这节内容其实涵盖的知识点很小，但却是如何访问容器内服务的关键。
 
 ### Dockerfile
 
@@ -362,7 +359,7 @@ FROM ubuntu
 docker build --tag new-name/ubuntu:v1 .
 ```
 
-上面的代码创建了一个叫做 `new-name/ubuntu:v1` 的镜像，最后的小点 `.` 代表当前路径，它提供一个上下文路径供给 docker 来查找 Dockerfile 文件，所以这条命令需要在创建 Dockerfile 文件的目录执行。
+上面的代码创建了一个叫做 `new-name/ubuntu:v1` 的镜像，最后的小点 `.` 代表当前路径，它提供一个上下文路径供给 docker 来查找 Dockerfile 文件，所以这条命令需要在创建 Dockerfile 文件的目录执行。这条命令会创建一个新的镜像，它和当前的 ubuntu 镜像完全一致。
 
 Dockerfile 支持让你在构建镜像时执行一些命令，比如：
 
@@ -372,14 +369,9 @@ RUN apt-get update \
     && apt install iputils-ping -y
 ```
 
-上面的命令在会创建一个 ubuntu 的镜像，并且在里面执行命令：
+上面的内容描述了创建新镜像时基于原始镜像执行的命令。
 
-```shell
-apt-get update
-apt install iputils-ping -y
-```
-
-此时构建好的镜像就会直接包含 ping 命令，通过 Dockerfile 文件我们可以清除的知道镜像构建过程中进行了哪些操作。
+此时使用 `docker build` 参考这个 Dockerfile 文件构建的镜像，会直接包含 ping 命令，通过 Dockerfile 文件我们可以清楚的知道新镜像进行了哪些配置。
 
 Dockerfile 文件依赖 `docker build` 命令来创建镜像。
 
@@ -412,7 +404,7 @@ PS> docker run -d `
 
 上面的命令中，我们启动了一个 mysql 容器，我们为其设置了网络，挂载了数据卷，设置了环境变量，但是这样的命令不方便记录或者保存。Docker Compose 解决了这个问题。
 
-我们可以为上述的容器创建一个 `docker-compose.yml` 文件，我们可以键入以下内容：
+我们可以为上述的容器创建一个 `docker-compose.yml` 文件，然后键入以下内容：
 
 ```yaml
 version: "3.7"
@@ -460,7 +452,7 @@ Docker compose 还支持共享，上面的例子中只配置了一个 mysql 服�
 docker compose down
 ```
 
-> 你可以想普通的容器一样管理 Docker Compose 启动的容器，使用 `docker ps` 一样可以查看到 Docker Compose 启动的容器列表。
+> 你可以像普通的容器一样管理 Docker Compose 启动的容器，使用 `docker ps` 一样可以查看到 Docker Compose 启动的容器列表。
 
 ## bugs
 
