@@ -93,7 +93,8 @@ data-styled.g11[id="DocInfo__DocInfoStyle-sc-6e4joe-0"]{content:"jILFOw,"}/*!sc*
 data-styled.g13[id="TOC__Ul-sc-1mapizq-1"]{content:"dTTxMp,"}/*!sc*/
 .fMEzxH{padding-left:10px;}/*!sc*/
 .fMEzxI{padding-left:20px;}/*!sc*/
-data-styled.g14[id="TOC__Li-sc-1mapizq-2"]{content:"fMEzxH,fMEzxI,"}/*!sc*/
+.fMEzxJ{padding-left:30px;}/*!sc*/
+data-styled.g14[id="TOC__Li-sc-1mapizq-2"]{content:"fMEzxH,fMEzxI,fMEzxJ,"}/*!sc*/
 .ccasyM{font-size:14px;line-height:2;color:#666;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
 .ccasyM:hover,.ccasyM:active{color:#10baff;-webkit-filter:brightness(0.8);filter:brightness(0.8);}/*!sc*/
 data-styled.g15[id="TOC__Anchor-sc-1mapizq-3"]{content:"ccasyM,"}/*!sc*/
@@ -106,7 +107,7 @@ data-styled.g18[id="PostRecent__Li-sc-lu6cyc-2"]{content:"SVAou,"}/*!sc*/
 data-styled.g19[id="PostRecent__LinkS-sc-lu6cyc-3"]{content:"cZCoMD,"}/*!sc*/
 .bnNwBb{display:flow-root;}/*!sc*/
 data-styled.g21[id="FrontAndBackPages__Container-sc-15kxpol-0"]{content:"bnNwBb,"}/*!sc*/
-</style><title data-react-helmet="true">rust 笔记</title><link data-react-helmet="true" rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){if(void 0===e.target.dataset.mainImage)return;if(void 0===e.target.dataset.gatsbyImageSsr)return;const t=e.target;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link as="script" rel="preload" href="/webpack-runtime-cb427b8dd5de2643a215.js"/><link as="script" rel="preload" href="/framework-6f368dc52809f5083f6b.js"/><link as="script" rel="preload" href="/app-f8bdc98be092b50dc7b7.js"/><link as="script" rel="preload" href="/344cdabbef2f94435bf46a4c6f419508dc1f3c07-60b18b9c1a35557fcef1.js"/><link as="script" rel="preload" href="/component---src-templates-docs-tsx-e490458d9c309ad51326.js"/><link as="fetch" rel="preload" href="/page-data/docs/notes/rust 笔记/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><header class="Header__Box-sc-hfy1oy-0 dvFHkp"><nav class="Header__Nav-sc-hfy1oy-1 dVoeYn"><a class="Header__Title-sc-hfy1oy-2 hZxUWp" href="/">玄晓乌屋</a><a class="" href="/record">记录</a><a class="" href="/search">检索</a><a class="" href="/draft">草稿</a></nav></header><div class="Post__Layout-sc-14vdp30-0 fCitvE"><div class="Post__AsideBox-sc-14vdp30-1 dRaYlQ"><blockquote style="font-size:.9rem" class="Blockquote__BlockquoteS-sc-1rse84a-0 cIigSi"><p>这是一篇没有正式发布的草稿，不推荐阅读。</p></blockquote><nav><h3 class="TOC__H3-sc-1mapizq-0 fIGPTD">目录</h3><ul class="TOC__Ul-sc-1mapizq-1 dTTxMp"><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#序" class="TOC__Anchor-sc-1mapizq-3 ccasyM">序</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#镜像源" class="TOC__Anchor-sc-1mapizq-3 ccasyM">镜像源</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#基础概念" class="TOC__Anchor-sc-1mapizq-3 ccasyM">基础概念</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#变量可变性" class="TOC__Anchor-sc-1mapizq-3 ccasyM">变量可变性</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#引用" class="TOC__Anchor-sc-1mapizq-3 ccasyM">引用</a></li></ul></nav><nav><h3 class="PostRecent__H3-sc-lu6cyc-0 edztzF">近期文章</h3><ul class="PostRecent__Ul-sc-lu6cyc-1 jETfgU"><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/notes/Symbol 笔记">2022.07.12<!-- -->：<!-- -->Symbol 笔记</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/blogs/react ssr 极简实现">2022.07.01<!-- -->：<!-- -->react ssr 极简实现</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/essay/记录第一次写库">2022.06.24<!-- -->：<!-- -->记录第一次写库</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/note/rollup">2022.03.14<!-- -->：<!-- -->rollup 笔记</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/blogs/70 行代码在 Vue3 中实现网格布局拖放排序">2022.01.14<!-- -->：<!-- -->70 行代码在 Vue3 中实现网格布局拖放排序</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/record">...</a></li></ul></nav></div><main class="Post__Main-sc-14vdp30-2 iiPKMB"><div class="FrontAndBackPages__Container-sc-15kxpol-0 bnNwBb"></div><article class="Markdown__Article-sc-27ab1y-0 dvLXjz"><h1>rust 笔记</h1><hr/><div class="renderAst"><div><h2 id="序"><a href="#序">序</a></h2>
+</style><title data-react-helmet="true">rust 笔记</title><link data-react-helmet="true" rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){if(void 0===e.target.dataset.mainImage)return;if(void 0===e.target.dataset.gatsbyImageSsr)return;const t=e.target;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link as="script" rel="preload" href="/webpack-runtime-cb427b8dd5de2643a215.js"/><link as="script" rel="preload" href="/framework-6f368dc52809f5083f6b.js"/><link as="script" rel="preload" href="/app-f8bdc98be092b50dc7b7.js"/><link as="script" rel="preload" href="/344cdabbef2f94435bf46a4c6f419508dc1f3c07-60b18b9c1a35557fcef1.js"/><link as="script" rel="preload" href="/component---src-templates-docs-tsx-e490458d9c309ad51326.js"/><link as="fetch" rel="preload" href="/page-data/docs/notes/rust 笔记/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><header class="Header__Box-sc-hfy1oy-0 dvFHkp"><nav class="Header__Nav-sc-hfy1oy-1 dVoeYn"><a class="Header__Title-sc-hfy1oy-2 hZxUWp" href="/">玄晓乌屋</a><a class="" href="/record">记录</a><a class="" href="/search">检索</a><a class="" href="/draft">草稿</a></nav></header><div class="Post__Layout-sc-14vdp30-0 fCitvE"><div class="Post__AsideBox-sc-14vdp30-1 dRaYlQ"><blockquote style="font-size:.9rem" class="Blockquote__BlockquoteS-sc-1rse84a-0 cIigSi"><p>这是一篇没有正式发布的草稿，不推荐阅读。</p></blockquote><nav><h3 class="TOC__H3-sc-1mapizq-0 fIGPTD">目录</h3><ul class="TOC__Ul-sc-1mapizq-1 dTTxMp"><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#序" class="TOC__Anchor-sc-1mapizq-3 ccasyM">序</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#镜像源" class="TOC__Anchor-sc-1mapizq-3 ccasyM">镜像源</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#cargo" class="TOC__Anchor-sc-1mapizq-3 ccasyM">cargo</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#零碎记录" class="TOC__Anchor-sc-1mapizq-3 ccasyM">零碎记录</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#留白处理" class="TOC__Anchor-sc-1mapizq-3 ccasyM">留白处理</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#变量属性名任意" class="TOC__Anchor-sc-1mapizq-3 ccasyM">变量属性名任意</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#栈数据" class="TOC__Anchor-sc-1mapizq-3 ccasyM">栈数据</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxJ"><a href="#字符串字面量" class="TOC__Anchor-sc-1mapizq-3 ccasyM">字符串字面量</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#堆数据" class="TOC__Anchor-sc-1mapizq-3 ccasyM">堆数据</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#所有权规则" class="TOC__Anchor-sc-1mapizq-3 ccasyM">所有权规则</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#表达式和代码块" class="TOC__Anchor-sc-1mapizq-3 ccasyM">表达式和代码块</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#match" class="TOC__Anchor-sc-1mapizq-3 ccasyM">match</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#if let 语法糖" class="TOC__Anchor-sc-1mapizq-3 ccasyM">if let 语法糖</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#代码分离" class="TOC__Anchor-sc-1mapizq-3 ccasyM">代码分离</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxJ"><a href="#模块定义" class="TOC__Anchor-sc-1mapizq-3 ccasyM">模块定义</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxJ"><a href="#模块访问" class="TOC__Anchor-sc-1mapizq-3 ccasyM">模块访问</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxJ"><a href="#路径引用" class="TOC__Anchor-sc-1mapizq-3 ccasyM">路径引用</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxJ"><a href="#文件分离" class="TOC__Anchor-sc-1mapizq-3 ccasyM">文件分离</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#常见集合" class="TOC__Anchor-sc-1mapizq-3 ccasyM">常见集合</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#? 运算符" class="TOC__Anchor-sc-1mapizq-3 ccasyM">? 运算符</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxI"><a href="#panic! 宏" class="TOC__Anchor-sc-1mapizq-3 ccasyM">panic! 宏</a></li><li class="TOC__Li-sc-1mapizq-2 fMEzxH"><a href="#引用" class="TOC__Anchor-sc-1mapizq-3 ccasyM">引用</a></li></ul></nav><nav><h3 class="PostRecent__H3-sc-lu6cyc-0 edztzF">近期文章</h3><ul class="PostRecent__Ul-sc-lu6cyc-1 jETfgU"><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/blogs/React 如何根据外部状态进行更新">2022.12.16<!-- -->：<!-- -->React 如何根据外部状态进行更新</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/notes/Symbol 笔记">2022.07.12<!-- -->：<!-- -->Symbol 笔记</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/blogs/react ssr 极简实现">2022.07.01<!-- -->：<!-- -->react ssr 极简实现</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/essay/记录第一次写库">2022.06.24<!-- -->：<!-- -->记录第一次写库</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/docs/note/rollup">2022.03.14<!-- -->：<!-- -->rollup 笔记</a></li><li class="PostRecent__Li-sc-lu6cyc-2 SVAou"><a class="PostRecent__LinkS-sc-lu6cyc-3 cZCoMD" href="/record">...</a></li></ul></nav></div><main class="Post__Main-sc-14vdp30-2 iiPKMB"><div class="FrontAndBackPages__Container-sc-15kxpol-0 bnNwBb"></div><article class="Markdown__Article-sc-27ab1y-0 dvLXjz"><h1>rust 笔记</h1><hr/><div class="renderAst"><div><h2 id="序"><a href="#序">序</a></h2>
 <p>本文为我学习 rust 时的笔记，参考的教材为 <a target="_blank" href="https://github.com/rust-lang/book">The Rust Programming Language</a> 的译本 <a target="_blank" href="https://kaisery.github.io/trpl-zh-cn/title-page.html">Rust 程序设计语言</a>。</p>
 <p>本文不会记录所有教材内容，只对针对性知识进行记录。</p>
 <h2 id="镜像源"><a href="#镜像源">镜像源</a></h2>
@@ -115,21 +116,461 @@ data-styled.g21[id="FrontAndBackPages__Container-sc-15kxpol-0"]{content:"bnNwBb,
 <li><a target="_blank" href="https://www.runoob.com/docker/docker-mirror-acceleration.html">镜像源</a></li>
 <li><a target="_blank" href="https://cloud.tencent.com/developer/article/1620144?from=article.detail.1489386">镜像源 2</a></li>
 </ul>
-<h2 id="基础概念"><a href="#基础概念">基础概念</a></h2>
-<h3 id="变量可变性"><a href="#变量可变性">变量可变性</a></h3>
+<h2 id="cargo"><a href="#cargo">cargo</a></h2>
+<p>cargo 是 rust 的一个服务工具，主要功能是包管理和，构建 rust 程序。</p>
+<p>cargo 跟随 rust 一起安装，使用以下命令查看 cargo 版本号：</p>
+<div class="gatsby-highlight" data-language="shell"><pre style="counter-reset:linenumber NaN" class="language-shell line-numbers"><code class="language-shell">cargo --version</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div>
+<p>一个 rust 的 hello world 程序可以使用 cargo 轻松创建：</p>
+<div class="gatsby-highlight" data-language="shell"><pre style="counter-reset:linenumber NaN" class="language-shell line-numbers"><code class="language-shell">cargo new appname</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div>
+<p>这会创建一个 appname 文件夹，里面初始化了一个 rust 应用。</p>
 <blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
-<p>常量声明使用 <code>const</code></p>
+<p>rust 程序可以单独创建，并使用 <code>rustc</code> 命令对其进行编译打包，这将生成可供系统使用的执行文件。但是一个单独的 rust 文件，没有有效的库标识，编译缓存等，只适合极小的脚本使用。</p>
+<p>使用 cargo 可以对 rust 的库进行依赖，有效缓存编译，提高开发速度，配合编辑器可以提供较好的语法检查。</p>
 </blockquote>
-<p><strong>变量声明使用 <code>let</code>，rust 中，变量默认是不可变的</strong>。let 声明的变量不可以重新赋值，但是可以再次声明，例如下面的式子是就是合法的：</p>
-<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let a = 1;
-let a = a + 1;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div>
-<p>可以使用 <code>mut</code> 关键字标记变量可变，比如：</p>
-<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let mut a = 1;
-a = a + 1;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div>
+<h2 id="零碎记录"><a href="#零碎记录">零碎记录</a></h2>
+<h3 id="留白处理"><a href="#留白处理">留白处理</a></h3>
+<p>rust 代码对留白并不敏感，任意数量的留白只要没有破坏语法结构，都不会影响程序执行。</p>
+<p><strong>但需要注意的是，rust 官方强烈推荐使用 4 个空格来缩进。</strong></p>
+<h3 id="变量属性名任意"><a href="#变量属性名任意">变量属性名任意</a></h3>
+<p>变量和属性的名字不能是一些特殊字符，如 <code>!@#$%^&amp;*()=+-.&gt;/?;:</code> 等，也不可以使用数字开头。但只要是不影响编译的其他任意字符都可以，比如中文也行。</p>
+<h3 id="栈数据"><a href="#栈数据">栈数据</a></h3>
+<ul>
+<li>
+<p>标量类型</p>
+<ul>
+<li>
+<p>整型</p>
+<p>整型在计算时仅保留整数位，不会四舍五入。整型包含很多基础类型，无符号有符号，</p>
+</li>
+<li>
+<p>浮点型</p>
+</li>
+<li>
+<p>布尔型</p>
+</li>
+<li>
+<p>字符类型</p>
+<p>rust 字符类型很特殊，使用一个 4 字节的空间存储，代表一个 Unicode 标量值。所以 Unicode 字符集里面的表情，汉字，等特殊字符在 rust 中都可以使用字符类型表示，并不是局限于 ASCLL 码。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>复合类型</p>
+<ul>
+<li>
+<p>元组</p>
+<p>元组描述了一组固定的数据结构，使用圆括号 <code>()</code> 来包裹，访问符为 <code>.</code>。元组也可以使用圆括号进行解构，例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let a: (i8, u32, u128) = (1, 20, 30);
+let (x, _y, _z) = a;
+
+println!(&quot;{},{}&quot;, a.1, x); // 20,1</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span></span></pre></div>
+</li>
+<li>
+<p>数组</p>
+<p>数组描述了多个 <strong>相同的数据类型</strong>，它的声明、访问、定义、解构都是用方括号 <code>[]</code>，例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let a: [u32; 3] = [10, 20, 100];
+let [x, _y, _z] = a;
+
+println!(&quot;{},{}&quot;, a[1], x); // 20,10</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span></span></pre></div>
+<p>其中，<code>[u32; 3]</code> 表示这是一个 u32 数字共三项的数组。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>标量类型和符合类型数据都会被分配到 <strong>栈</strong> 中，其余类型的数据则将分配到堆中，分配到堆中的类型遵守 <a href="#%E6%89%80%E6%9C%89%E6%9D%83%E8%A7%84%E5%88%99">所有权规则</a>。</p>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>基础类型中是不包含字符串的，尽管 rust 中可以使用字符串字面量，但是这些字面量是被硬编码到 rust 程序中，不可变。</p>
+<p>rust 提供 String 命名空间对字符串进行集中处理，不同于上述的类型，可变字符串被分配到堆中，访问的数独没有上述的基础类型块。</p>
+</blockquote>
+<h4 id="字符串字面量"><a href="#字符串字面量">字符串字面量</a></h4>
+<p>在 rust 中，可以使用双引号包裹一段字符作为字符串字面量，它们属于 <code>&amp;str</code> 类型，这种类型的字符串指向一个固定的文件或内存，只读不可修改，不过可以复制。例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let s : &amp;str = &quot;hello&quot;;
+let s2 : &amp;str = s;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div>
+<p><code>&amp;str</code> 类型也被称为 slice 类型，因为它们有可能指向一段可变字符串的某个区间或者编译后文件内的某段二进制代码，<code>&amp;str</code> 类型是不可变的，它在内存中被放到栈上。</p>
+<h3 id="堆数据"><a href="#堆数据">堆数据</a></h3>
+<ul>
+<li>
+<p><code>String</code> 类型</p>
+<p><code>String</code> 类型为不限制长度的字符串，不同于 <code>&amp;str</code> 类型的是，它被存放在堆中。使用 <code>String::from</code> 来获取实例。</p>
+</li>
+<li>
+<p>结构体</p>
+<p>描述一组固定的数据结构，可以是具名的键值对，也可以是匿名元组，这些数据被称为结构体的 <strong>字段</strong>，甚至没有数据。使用关键字 <code>struct</code> 声明。</p>
+<p>例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">struct Named {
+    name: String,
+    age: i16,
+}
+
+struct Anonymous(String, usize);
+
+struct Nothing;
+
+let name1 = Named {
+    name: String::from(&quot;name1&quot;),
+    age: 19,
+};
+
+let anonymous1 = Anonymous(String::from(&quot;anonymous1&quot;), 20);
+anonymous1.0;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>结构体访问数据的访问符均为一个小数点 <code>.</code>。</p>
+<p>结构体有点类似其他语言中的 <code>class</code> 类，结构体能够实现关联结构体数据的函数，使用 <code>impl</code> 关键字来指定需要实现的函数。这些关联结构体的函数被称作结构体的 <strong>方法</strong>。</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">struct Anonmous(String);
+
+impl Anonmous {
+    fn say(&amp;self, param: &amp;str) {
+        println!(&quot;{}. {}&quot;, self.0, param);
+    }
+}
+
+let foo = Anonmous(String::from(&quot;foo ID&quot;));
+
+foo.say(&quot;123&quot;); // foo ID. 123</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p><code>impl</code> 实现的关联函数中，第一个参数必定是 <code>self</code>，<code>&amp;self</code> 是指向结构体数据的引用。</p>
+</blockquote>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>当使用 <code>mut</code> 进行声明时，整个结构体与其内部结构都是可变的，而不是单指结构体本身，但是不能修改 <code>impl</code> 描述的方法。</p>
+</blockquote>
+</li>
+<li>
+<p>枚举</p>
+<p>枚举类似结构体，使用 <code>enum</code> 关键字声明，主要用来描述同一类型下不同状态的数据。例如性别的男和女，ip 地址中的 ipv4 和 ipv6。枚举类型中描述不同状态的数据被称作 <strong>成员</strong>。不同于结构体的是，枚举不能通过元组的方式来匿名描述成员，成员必须是具名的。</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">enum Sex {
+  男,
+  女
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span></span></pre></div>
+<p>因为成员的状态可能是不同的，所以枚举可以描述成员的类型。例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+let foo = Message::Move { x: 100, y: 100 };
+let bar = Message::ChangeColor(12, 21, 1221);
+let baz = Message::Quit;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>枚举成员的访问使用 <code>::</code>。</p>
+<p>枚举也可以声明关联数据的 <strong>方法</strong>，同结构体语法完全一致，使用 <code>impl</code> 声明，参考结构体。</p>
+</li>
+<li>
+<p><code>Option&lt;T&gt;</code> 类型，空值类型</p>
+<p><code>Option&lt;T&gt;</code> 被用来描述一个可选类型，他允许该类型为空值，它的本质是一个枚举。在原生中大致实现如下：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">enum Option&lt;T&gt; {
+    None,
+    Some(T),
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span></span></pre></div>
+<p><code>Option&lt;T&gt;</code> 的成员 <code>None</code> 与 <code>Some</code> 被暴露在全局，可以直接使用，不需要类似语法 <code>Option&lt;i32&gt;::Some(100)</code>。</p>
+<p>所以你可以按照如下方式直接访问：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let a = Some(100);
+let b : Option&lt;i32&gt; = None;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div>
+<p>rust 中控制 <code>None</code> 实际上是内部一个枚举值而已，rust 没有其他语言意义中的的空值类型。</p>
+</li>
+</ul>
+<h3 id="所有权规则"><a href="#所有权规则">所有权规则</a></h3>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>首先，让我们看一下所有权的规则。当我们通过举例说明时，请谨记这些规则：</p>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<ol>
+<li>
+<p>Rust 中的每一个值都有一个被称为其 <strong>所有者</strong>（owner）的变量。</p>
+</li>
+<li>
+<p>值在任一时刻有且只有一个所有者。</p>
+</li>
+<li>
+<p>当所有者（变量）离开作用域，这个值将被丢弃。</p>
+</li>
+</ol>
+</blockquote>
+</blockquote>
+<p>一般来说，被分配到堆中的数据都将满足所有权规则。一个堆数据只能被一个变量拥有，当把一个堆数据分配给其他变量时，之前的变量将丢失对这个堆数据的所有权，之前的变量将无法访问。</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let s = String::from(&quot;string&quot;); // s 获取一个 String 的所有权
+println!(&quot;{}&quot;, s); // 访问 s 有效
+let s2 = s; // String 数据所有权转移到 s2 ，s 丢失这个数据的所有权
+println!(&quot;{}&quot;, s2); // 访问 s2 有效
+println!(&quot;{}&quot;, s); // error，s 已经没有指向任何数据</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p><strong>数据借用</strong></p>
+<p>可以通过数据借用的方式，不剥夺原始变量对数据的所有权，类似于其他语言中的引用，使用 <code>&amp;</code> 符号来声明借用一个变量或参数。</p>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>使用 <code>*</code> 号来使用被借用的数据，就类似 C 语言的指针一样。不过 rust 支持省略 <code>*</code> 号的使用就可以直接访问借用的数据。</p>
+</blockquote>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let s = String::from(&quot;string&quot;);
+let s2 = &amp;s; // s 对数据的所有权没有转移 ，s2 借用了 s 变量</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div>
+<p>这种行为也被放在函数参数上，例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let s = String::from(&quot;string&quot;);
+foo(&amp;s);
+
+fn foo(bar: &amp;String) { /*...*/
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>如果不使用借用的方式，那么变量会在传递给函数的时候丢失所有权，函数执行结束即刻销毁。</p>
+<h3 id="表达式和代码块"><a href="#表达式和代码块">表达式和代码块</a></h3>
+<p>rust 中使用除了特殊语句例如 <code>let</code>、<code>const</code> 声明，剩余的大部分语句都算作表达式。</p>
+<p>一个最简单的表达式就是字面量，比如数字字面量或者字符串字面量。</p>
+<p>rust 使用 <code>{}</code> 来包裹一段代码，这段代码被视作一个代码块。每个代码块都有自己的作用域，内部声明的数据外部无法访问，反之可以。每个代码块中，最后一行代码如果没有使用分号结尾，那么这行代码的表达式值将作为该代码块的值。所以说，一个代码块也是一个表达式。</p>
+<p>例如下面的用例中，<code>a</code> 的值将变为 <code>3</code>：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let a = {
+    1 + 10;
+    let b = 2 * 5 - 2;
+    1 + 2
+};
+
+println!(&quot;{}&quot;, a); // 3</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>代码块的概念被作用到除去声明的大部分地方，例如 <code>match</code> 语句 <code>if-else</code> 语句，函数语句。所以函数的返回值如果是在最后一行，是不需要写 <code>return</code> 语句的。</p>
+<p>例如 <code>if-else</code> 语句就是表达式，所以 <code>if-else</code> 语句是可以赋值给变量的：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let a = if true { 1 } else { 2 };</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div>
+<h3 id="match"><a href="#match">match</a></h3>
+<p><code>match</code> 是 rust 用来辨别数据的一个语句，它提供对指定值的代码映射，有点类似其他语言中的 <code>switch</code>，但是和 <code>switch</code> 的表达方式并不一样。</p>
+<p>例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let score = 0;
+
+match score {
+    0 =&gt; println!(&quot;恭喜得到零瓜蛋&quot;),
+    100 =&gt; println!(&quot;100 分满分啊&quot;),
+    other =&gt; println!(&quot;拿到了 {} 分&quot;, other),
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>非常显而易见，<code>match</code> 对 <code>score</code> 进行了匹配，特殊的情况是 0 和 100，剩余情况是 <code>other</code> 分支。上面的代码会匹配到 0 的情况。</p>
+<p><code>other</code> 并不是 <code>match</code> 语句的指定的名称，它是一个任意名称 <strong>通配符</strong>，放在 <code>match</code> 语句的最后，并且可以省略。没有匹配成功的时候，被匹配的数据会传递给通配符，在通配符的分支中可以对其进行访问。</p>
+<p><code>match</code> 语句还可以对枚举类型进行匹配。以下是一个官方的示例，对一个可选数字进行递增操作：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
+    match x {
+        None =&gt; None,
+        Some(i) =&gt; Some(i + 1),
+    }
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>如果使用枚举进行匹配，那么必须穷尽枚举的成员，不然不能通过编译。</p>
+</blockquote>
+<p><code>match</code> 语句返回的数据类型必须是相同的，不能返回多种数据类型。当没有返回时，通配符使用 <code>()</code> 表示没有返回，比如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let foo = 1;
+
+match foo {
+    10 =&gt; println!(&quot;{}&quot;, foo),
+    _ =&gt; (),
+};</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<h3 id="if let 语法糖"><a href="#if let 语法糖">if let 语法糖</a></h3>
+<p><code>match</code> 通配符的空返回是比较无用的样板代码，可以使用 <code>if let</code> 来换一种编写方式。例如如下代码：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let config_max = Some(3u8);
+match config_max {
+    Some(max) =&gt; println!(&quot;The maximum is configured to be {}&quot;, max),
+    _ =&gt; (),
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>其中 <code>_ =&gt; ()</code> 是毫无意义的，只是为了遵守 <code>match</code> 语句的穷尽规则，有的时候我们只是对 <code>match</code> 语句进行一个匹配而已，并且没有返回值。那么就可以使用 <code>if let</code> 语句来简写：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let config_max = Some(3u8);
+if let Some(max) = config_max {
+    println!(&quot;The maximum is configured to be {}&quot;, max);
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span></span></pre></div>
+<p>上述代码与前一段代码的行为相同。</p>
+<p>另外 <code>if let</code> 语句还支持增加一个 <code>else</code> 分支，例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">let config_max = Some(3u8);
+if let Some(max) = config_max {
+    println!(&quot;The maximum is configured to be {}&quot;, max);
+} else {
+    println!(&quot;Nothing&quot;);
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<h3 id="代码分离"><a href="#代码分离">代码分离</a></h3>
+<h4 id="模块定义"><a href="#模块定义">模块定义</a></h4>
+<p>rust 使用 <code>mod</code> 关键字来定义一个模块，使用 <code>pub</code> 关键字来公开模块内部的其他模块、函数或数据结构（结构体、枚举等），例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">mod foo {
+    mod bar {
+        fn baz() {
+            println!(&quot;do something&quot;)
+        }
+    }
+
+    mod other_module {}
+
+    pub struct User {
+        pub name: String,
+        age: u8,
+    }
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>添加 <code>pub</code> 关键字的模块、数据或者函数都是对外进行公开的，外部可以直接访问。</p>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>结构体如果在模块内声明，那么内部属性将具有隐私性，需要单独设置私有或公有。创建一个含有私有属性的的结构体，只能在模块内部实现，因为外部模块无法访问私有属性。</p>
+<p>当前作用域内访问结构体将忽略其属性隐私性。</p>
+</blockquote>
+<h4 id="模块访问"><a href="#模块访问">模块访问</a></h4>
+<p>模块访问的方式有两种：</p>
+<ul>
+<li>绝对访问</li>
+<li>相对访问</li>
+</ul>
+<p>绝对访问：</p>
+<p>当前环境下的被引用的模块都会被注册到 <code>crate</code> 中，<code>crate</code> 提供绝对路径来访问这些模块。</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">mod foo {
+    pub mod bar {
+        pub fn baz() {}
+    }
+}
+
+fn main() {
+    crate::foo::bar::baz()
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>相对访问：</p>
+<p>rust 提供 <code>self</code> 和 <code>super</code> 关键字指向当前路径和上一级路径，仅在模块内部使用。<code>self</code> 和 <code>super</code> 类似文件路径的 <code>./</code> 和 <code>../</code>。<code>self</code> 是可以被省略的。</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">mod foo {
+    pub mod bar {
+        pub fn red() -&gt; super::RGB {
+            // `red` 函数属于 `foo::bar` 模块，`self` 关键字将指向此模块
+            // 同上，`super` 关键字在此处指向 `foo` 模块
+            // 下面代码等价于 crate::foo::red();
+            super::RGB(0xff, 0, 0)
+        }
+    }
+
+    pub struct RGB(u8, u8, u8);
+}
+
+fn main() {
+    // 这也是一个相对访问，不过省略了 `self` 关键字。以下代码等价于 self::foo::bar::red();
+    foo::bar::red();
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p><code>super</code> 关键字可以连续使用，比如通过 <code>super::super::super</code> 就可以向上移动三层模块嵌套。</p>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>rust 内置全局数据、函数和宏不支持使用 <code>crate</code> 来访问，比如 <code>std</code>、<code>Option&lt;T&gt;</code>、<code>prinln!()</code> 等。</p>
+</blockquote>
+<h4 id="路径引用"><a href="#路径引用">路径引用</a></h4>
+<p>不论是相对访问还是绝对访问，都有可能因为模块层次问题导致路径过长，如果存在多次调用，样板代码会过多，这依赖于代码设计。使用模块引用可以减少样板代码。</p>
+<p><strong>路径引用使用 <code>use</code> 和 <code>as</code> 关键字把另一个模块引入当前作用域。</strong></p>
+<p>例如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">mod foo {
+    pub mod bar {
+        pub fn reds() -&gt; super::RGB {
+            super::RGB(0xff, 0, 0)
+        }
+    }
+    pub struct RGB(u8, u8, u8);
+}
+
+fn main() {
+    let arr = [
+        foo::bar::reds(),
+        foo::bar::reds(),
+        foo::bar::reds(),
+        foo::bar::reds(),
+        foo::bar::reds(),
+    ];
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>使用 <code>use</code> 关键字，上述代码可简化为：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">mod foo {
+    pub mod bar {
+        // 这里把 super::RGB 引入当前作用域，后续直接使用 RGB 即可调用 super::RGB
+        use super::RGB;
+        pub fn reds() -&gt; RGB {
+            RGB(0xff, 0, 0)
+        }
+    }
+    pub struct RGB(u8, u8, u8);
+}
+
+// 这里把 foo::bar::reds 引入当前作用域，后续直接使用 reds 即可调用 foo::bar::reds
+use foo::bar::reds;
+fn main() {
+    let arr = [reds(), reds(), reds(), reds(), reds()];
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>这种方式减少了很多样板代码。</p>
+<p>对于同一模块下的路径引用，可以使用使用花括号 <code>{}</code> 进行包裹：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">use std::io::{stdin, stdout};</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div>
+<p>可以使用 <code>as</code> 关键字对路径引用的目标功能进行重命名：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">use std::io as i;
+use std::io::{stdin as sin, stdout as sout};</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div>
+<p>也可以使用 <code>self</code> 对模块本身进行引用：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">use std::io::{self as io, stdin as sin, stdout as sout};</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div>
+<p>还可以使用 glob 运算符 <code>*</code> 引入模块下所有功能：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">use std::collections::*;</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div>
+<h4 id="文件分离"><a href="#文件分离">文件分离</a></h4>
+<p>在 <code>.rs</code> 文件中，使用 <code>pub</code> 关键字对功能、模块或路径引用等都可以进行导出。</p>
+<p>新建一个文件，名字如 <code>src/my_module.rs</code>。内容如下：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">pub mod foo {
+    pub mod bar {
+        use super::RGB;
+        pub fn reds() -&gt; RGB {
+            RGB(0xff, 0, 0)
+        }
+    }
+    pub struct RGB(u8, u8, u8);
+}
+
+pub use foo::*;
+
+pub struct User {
+    pub name: String,
+}
+
+pub fn my_method() {}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<p>上述中，在顶级使用 <code>pub</code> 关键字可以导出当前文件的内容。</p>
+<p>我们可以在 <code>src/main.rs</code> 中使用 <code>mod</code> 关键字对文件 <code>src/my_module.rs</code> 进行调用，它的整个文件被视作一个模块：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">// 调用 `my_module.ts` 文件，文件名即模块名，视作模块 my_module
+mod my_module;
+
+// 对模块内容进行路径引用
+use my_module::bar;
+use my_module::my_method;
+use my_module::User;
+
+fn main() {
+    bar::reds();
+    User {
+        name: String::from(&quot;joker&quot;),
+    };
+    my_method();
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>关于文件夹</p>
+<p>rust 无法直接感知文件夹内的模块，例如创建一个文件夹为 <code>src/utils/</code>，那么就必须创建一个 <code>src/utils.rs</code> 文件来对其进行管理。在 <code>src/utils.rs</code> 中，可以使用 <code>mod</code> 来导入同名文件夹下的其他模块。</p>
+</blockquote>
+<h3 id="常见集合"><a href="#常见集合">常见集合</a></h3>
+<ul>
+<li>
+<p><code>Vec</code> 类型。用来描述类似数组的结构。</p>
+</li>
+<li>
+<p><code>String</code> 类型。用来描述字符串结构。</p>
+</li>
+<li>
+<p><code>std::collections::HashMap</code> 类型。用来描述哈希表。</p>
+</li>
+</ul>
+<h3 id="? 运算符"><a href="#? 运算符">? 运算符</a></h3>
+<p>rust 中的 <code>?</code> 运算符用来处理 <code>Option&lt;T&gt;</code> 和 <code>Result&lt;T,E&gt;</code> 类型。</p>
+<p>可以再在 <code>Option&lt;T&gt;</code> 和 <code>Result&lt;T,E&gt;</code> 类型的表达式后面添加 <code>?</code> 来修饰这个表达式：</p>
+<ul>
+<li>
+<p><code>Option&lt;T&gt;?</code></p>
+<ul>
+<li>如果返回一个 <code>Some(data)</code>，<code>?</code> 修饰后会直接得到 <code>data</code> 数据</li>
+<li>如果返回一个 <code>None</code>，<code>?</code> 修饰后会直接执行 <code>return None</code> 停止当前函数</li>
+</ul>
+</li>
+<li>
+<p><code>Result&lt;T,E&gt;?</code></p>
+<ul>
+<li>如果返回一个 <code>Ok(data)</code>，<code>?</code> 修饰后会直接得到 <code>data</code> 数据</li>
+<li>如果返回一个 <code>Err(error)</code>，<code>?</code> 修饰后会直接执行 <code>return Err(error)</code> 停止当前函数</li>
+</ul>
+</li>
+</ul>
+<p>因为 <code>?</code> 修饰会主动返回数据，所以它关联当前函数的返回值类型。因为类型兼容性原因，不同错误的 <code>Result</code> 如果处在同一个函数中，那么不能同时对两个 <code>Result</code> 使用 <code>?</code> 修饰符，因为返回值不能同时兼容两种错误类型。</p>
+<h3 id="panic! 宏"><a href="#panic! 宏">panic! 宏</a></h3>
+<p><code>panic!</code> 宏用来主动抛出一个不可恢复的错误，就类似声明一个数组 <code>[u32; 5]</code> 的数组访问其 100 的索引一样，因为越界，程序会直接停止，并打印执行栈等一系列错误信息。</p>
+<p>使用如：</p>
+<div class="gatsby-highlight" data-language="rs"><pre style="counter-reset:linenumber NaN" class="language-rs line-numbers"><code class="language-rs">use core::panic;
+
+fn main() {
+    panic!(&quot;抛出错误错误&quot;);
+}</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span><span></span><span></span><span></span></span></pre></div>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>这在程序无法进行时，很有用，比如一个编写一个 json 文件解析器，但是启动时不指定 json 文件位置，那么程序就无法进行下去，此时就可以使用 <code>panic</code> 抛出错误。</p>
+</blockquote>
+<blockquote class="Blockquote__BlockquoteS-sc-1rse84a-0 OsjBC">
+<p>在测试场景中，<code>panic</code> 也非常适用。</p>
+</blockquote>
 <h2 id="引用"><a href="#引用">引用</a></h2>
 <ul>
 <li><a target="_blank" href="https://www.runoob.com/docker/docker-mirror-acceleration.html">镜像源</a></li>
 <li><a target="_blank" href="https://cloud.tencent.com/developer/article/1620144?from=article.detail.1489386">镜像源 2</a></li>
 <li><a target="_blank" href="https://github.com/rust-lang/book">The Rust Programming Language</a></li>
 <li><a target="_blank" href="https://kaisery.github.io/trpl-zh-cn/title-page.html">Rust 程序设计语言</a></li>
-</ul></div></div></article><div class="FrontAndBackPages__Container-sc-15kxpol-0 bnNwBb"></div><div class="DocInfo__DocInfoStyle-sc-6e4joe-0 jILFOw"><h2>关于此文档</h2><ul class="info"><li class="right"><a href="https://github.com/xxwwp/xxwwp.github.io/commits/main/docs/notes/rust 笔记.md" target="_blank">更新历史</a> - <a href="https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/notes/rust 笔记.md" target="_blank">编辑此文档</a></li><li>创建于：<!-- -->2022-07-26<!-- --> - 最后更新：<!-- -->2022-07-27</li><li>版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img class="middle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAABGdBTUEAANbY1E9YMgAAAJZQTFRF////7u7u3d3dys7KzMzMyMzIxsrGxcbFur+6u7u7s7iyq7GqqqqqmZmZlJmTj5CPiIiIh4eHhoaGgICAfYJ9d3d3cnZxZ2tnZmZmW15bVVVVS0xLREREQ0NDQkJCQUJBOz07OTs5MzMzMTMxLjAuJygnJCUjIiIiISEhICAgGRkZERERDxAPDg4ODQ4NDQ0NDQ0MAAAADbeuvgAAAMNJREFUeNqtk9sSgiAQQJekslaNLpgZ3exiZWr7/z/XEI6N00spO/DCMocDywJZDiCwGhqIOpYkqiWVB4jOo7WfAQa5qA9RZ0R33hG4v36sOa0Q++tuwEIAT0kxRSkHdUR0Ju88gN5k5j/ABY0gjUHKjPkeyALRHZq8GfCvYUic6arEib6zzBHHg9rwd78vQxVlTPogy6ZhCyCWAryMIqYo6cHm1HjDVsDDzXKVg+e0Bm4vFv4hhjSreLt7106x3cuW4wXCCZ5As6hO5AAAAABJRU5ErkJggg==" alt="署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)" title="署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)"/>署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)</a></li><li>询问或联系作者：<a href="https://juejin.cn/user/3069492197065453" target="_blank"><span class="Icon-sc-1vhu0bn-0 hEmECv"><svg width="82" height="24" viewBox="0 0 82 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><g clip-path="url(#clip1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M38.9416 6.30363V12.0468L40.5851 11.4758V13.812L38.9416 14.383V18.917C38.9416 20.5686 38.5048 22.3503 38.1737 23.4655H36.0101C36.2803 22.6529 36.8796 20.6458 36.8796 18.917V15.0994L35.2524 15.6647V13.3285L36.8796 12.7632V6.30363H35.2524V4.21323H36.8796V0.479248H38.9416V4.21323H40.5831V6.30363H38.9416ZM66.2042 0.530029H67.7582H73.8101H75.3681L75.7033 0.922107C77.4707 3.02673 80.0873 5.15573 81.6272 6.23242V8.79615C80.6703 8.18265 76.5647 5.46451 74.3524 2.64075H73.8101H67.7582H67.222C65.0097 5.46451 60.9041 8.18265 59.9452 8.79615V6.23242C61.4871 5.15573 64.1036 3.02673 65.871 0.922107L66.2042 0.530029ZM63.2401 6.91507H78.3259V9.00141H71.8801V12.7007H80.6907V14.7871H71.8801V21.3123H75.0769L76.3556 16.5037H78.5475L77.2596 21.3123H81.3306V23.3987H60.2377V21.3123H64.3086L63.0188 16.5037H65.2128L66.4915 21.3123H69.6881V14.7871H60.8776V12.7007H69.6881V9.00141H63.2401V6.91507ZM56.9223 0.479248H56.9244V2.56965H56.9223V5.49506H56.9244V7.58546H43.8801V18.9048C43.8876 20.4396 43.7172 21.97 43.3723 23.4655H41.2087C41.6023 21.9776 41.7957 20.4439 41.7836 18.9048V0.479248H43.3601H43.8801H54.8319H56.9223ZM54.8319 5.49506H43.8801V2.56965H54.8319V5.49506ZM50.0558 8.9953H52.008V13.9441H54.5394V9.69418H56.4917V15.746H55.2403V15.7461H52.008V21.6515H54.8319V17.2858H56.7842V23.4554H54.8319V23.4534H47.2585V23.4554H45.3063V17.2858H47.2585V21.6515H50.0558V15.7461H46.5679V15.746H45.6232V9.69418H47.5754V13.9441H50.0558V8.9953Z" fill="#323232"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M15.0737 5.80396H15.0757L18.706 2.91722L15.0757 0.00406298L15.0717 0L11.4475 2.91112L15.0717 5.80193L15.0737 5.80396ZM15.0757 14.9111L15.0778 14.9091L24.4429 7.52057L21.9036 5.48096L15.0778 10.8664L15.0757 10.8685L15.0737 10.8705L8.2479 5.48502L5.71057 7.52463L15.0737 14.9132L15.0757 14.9111ZM15.0716 19.9614L15.0757 19.9593L27.614 10.066L30.1534 12.1056L24.449 16.6053L15.0757 24L0.243779 12.3047L0 12.1117L2.53936 10.0721L15.0716 19.9614Z" fill="#1E80FF"></path></g></g><defs><clipPath id="clip0"><rect width="81.6211" height="24" fill="white"></rect></clipPath><clipPath id="clip1"><rect width="81.6211" height="24" fill="white"></rect></clipPath></defs></svg></span></a></li></ul><ul><li>标签：<a href="/search?keyword=rust">rust<!-- -->  </a><a href="/search?keyword=cargo">cargo<!-- -->  </a></li><li>归档：<a href="/search?keyword=笔记">笔记<!-- -->  </a></li></ul><p>对这篇文档存在疑惑？你可以通过发起<a href="https://github.com/xxwwp/xxwwp.github.io/issues" target="_blank">问题</a>来讨论这篇文档。</p></div></main></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/docs/notes/rust 笔记";window.___webpackCompilationHash="ce459d3a544acb8bfd17";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-742c6432b3506ece291d.js"],"app":["/app-f8bdc98be092b50dc7b7.js"],"component---src-pages-404-js":["/component---src-pages-404-js-5689bf726e2d7e5e4f02.js"],"component---src-pages-index-tsx":["/component---src-pages-index-tsx-c1a4f7672af01f8d9c9d.js"],"component---src-pages-search-tsx":["/component---src-pages-search-tsx-75204e4079b1c2ab10d6.js"],"component---src-templates-docs-tsx":["/component---src-templates-docs-tsx-e490458d9c309ad51326.js"],"component---src-templates-draft-tsx":["/component---src-templates-draft-tsx-29cf70a0864f859bc34f.js"],"component---src-templates-record-tsx":["/component---src-templates-record-tsx-d9604dfbf61a627cc3b1.js"]};/*]]>*/</script><script src="/polyfill-742c6432b3506ece291d.js" nomodule=""></script><script src="/component---src-templates-docs-tsx-e490458d9c309ad51326.js" async=""></script><script src="/344cdabbef2f94435bf46a4c6f419508dc1f3c07-60b18b9c1a35557fcef1.js" async=""></script><script src="/app-f8bdc98be092b50dc7b7.js" async=""></script><script src="/framework-6f368dc52809f5083f6b.js" async=""></script><script src="/webpack-runtime-cb427b8dd5de2643a215.js" async=""></script></body></html>
+</ul></div></div></article><div class="FrontAndBackPages__Container-sc-15kxpol-0 bnNwBb"></div><div class="DocInfo__DocInfoStyle-sc-6e4joe-0 jILFOw"><h2>关于此文档</h2><ul class="info"><li class="right"><a href="https://github.com/xxwwp/xxwwp.github.io/commits/main/docs/notes/rust 笔记.md" target="_blank">更新历史</a> - <a href="https://github.com/xxwwp/xxwwp.github.io/blob/main/docs/notes/rust 笔记.md" target="_blank">编辑此文档</a></li><li>创建于：<!-- -->2022-07-26<!-- --> - 最后更新：<!-- -->2022-08-26</li><li>版权声明：<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img class="middle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAABGdBTUEAANbY1E9YMgAAAJZQTFRF////7u7u3d3dys7KzMzMyMzIxsrGxcbFur+6u7u7s7iyq7GqqqqqmZmZlJmTj5CPiIiIh4eHhoaGgICAfYJ9d3d3cnZxZ2tnZmZmW15bVVVVS0xLREREQ0NDQkJCQUJBOz07OTs5MzMzMTMxLjAuJygnJCUjIiIiISEhICAgGRkZERERDxAPDg4ODQ4NDQ0NDQ0MAAAADbeuvgAAAMNJREFUeNqtk9sSgiAQQJekslaNLpgZ3exiZWr7/z/XEI6N00spO/DCMocDywJZDiCwGhqIOpYkqiWVB4jOo7WfAQa5qA9RZ0R33hG4v36sOa0Q++tuwEIAT0kxRSkHdUR0Ju88gN5k5j/ABY0gjUHKjPkeyALRHZq8GfCvYUic6arEib6zzBHHg9rwd78vQxVlTPogy6ZhCyCWAryMIqYo6cHm1HjDVsDDzXKVg+e0Bm4vFv4hhjSreLt7106x3cuW4wXCCZ5As6hO5AAAAABJRU5ErkJggg==" alt="署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)" title="署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)"/>署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)</a></li><li>询问或联系作者：<a href="https://juejin.cn/user/3069492197065453" target="_blank"><span class="Icon-sc-1vhu0bn-0 hEmECv"><svg width="82" height="24" viewBox="0 0 82 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><g clip-path="url(#clip1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M38.9416 6.30363V12.0468L40.5851 11.4758V13.812L38.9416 14.383V18.917C38.9416 20.5686 38.5048 22.3503 38.1737 23.4655H36.0101C36.2803 22.6529 36.8796 20.6458 36.8796 18.917V15.0994L35.2524 15.6647V13.3285L36.8796 12.7632V6.30363H35.2524V4.21323H36.8796V0.479248H38.9416V4.21323H40.5831V6.30363H38.9416ZM66.2042 0.530029H67.7582H73.8101H75.3681L75.7033 0.922107C77.4707 3.02673 80.0873 5.15573 81.6272 6.23242V8.79615C80.6703 8.18265 76.5647 5.46451 74.3524 2.64075H73.8101H67.7582H67.222C65.0097 5.46451 60.9041 8.18265 59.9452 8.79615V6.23242C61.4871 5.15573 64.1036 3.02673 65.871 0.922107L66.2042 0.530029ZM63.2401 6.91507H78.3259V9.00141H71.8801V12.7007H80.6907V14.7871H71.8801V21.3123H75.0769L76.3556 16.5037H78.5475L77.2596 21.3123H81.3306V23.3987H60.2377V21.3123H64.3086L63.0188 16.5037H65.2128L66.4915 21.3123H69.6881V14.7871H60.8776V12.7007H69.6881V9.00141H63.2401V6.91507ZM56.9223 0.479248H56.9244V2.56965H56.9223V5.49506H56.9244V7.58546H43.8801V18.9048C43.8876 20.4396 43.7172 21.97 43.3723 23.4655H41.2087C41.6023 21.9776 41.7957 20.4439 41.7836 18.9048V0.479248H43.3601H43.8801H54.8319H56.9223ZM54.8319 5.49506H43.8801V2.56965H54.8319V5.49506ZM50.0558 8.9953H52.008V13.9441H54.5394V9.69418H56.4917V15.746H55.2403V15.7461H52.008V21.6515H54.8319V17.2858H56.7842V23.4554H54.8319V23.4534H47.2585V23.4554H45.3063V17.2858H47.2585V21.6515H50.0558V15.7461H46.5679V15.746H45.6232V9.69418H47.5754V13.9441H50.0558V8.9953Z" fill="#323232"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M15.0737 5.80396H15.0757L18.706 2.91722L15.0757 0.00406298L15.0717 0L11.4475 2.91112L15.0717 5.80193L15.0737 5.80396ZM15.0757 14.9111L15.0778 14.9091L24.4429 7.52057L21.9036 5.48096L15.0778 10.8664L15.0757 10.8685L15.0737 10.8705L8.2479 5.48502L5.71057 7.52463L15.0737 14.9132L15.0757 14.9111ZM15.0716 19.9614L15.0757 19.9593L27.614 10.066L30.1534 12.1056L24.449 16.6053L15.0757 24L0.243779 12.3047L0 12.1117L2.53936 10.0721L15.0716 19.9614Z" fill="#1E80FF"></path></g></g><defs><clipPath id="clip0"><rect width="81.6211" height="24" fill="white"></rect></clipPath><clipPath id="clip1"><rect width="81.6211" height="24" fill="white"></rect></clipPath></defs></svg></span></a></li></ul><ul><li>标签：<a href="/search?keyword=rust">rust<!-- -->  </a><a href="/search?keyword=cargo">cargo<!-- -->  </a></li><li>归档：<a href="/search?keyword=笔记">笔记<!-- -->  </a></li></ul><p>对这篇文档存在疑惑？你可以通过发起<a href="https://github.com/xxwwp/xxwwp.github.io/issues" target="_blank">问题</a>来讨论这篇文档。</p></div></main></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/docs/notes/rust 笔记";window.___webpackCompilationHash="ce459d3a544acb8bfd17";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-742c6432b3506ece291d.js"],"app":["/app-f8bdc98be092b50dc7b7.js"],"component---src-pages-404-js":["/component---src-pages-404-js-5689bf726e2d7e5e4f02.js"],"component---src-pages-index-tsx":["/component---src-pages-index-tsx-c1a4f7672af01f8d9c9d.js"],"component---src-pages-search-tsx":["/component---src-pages-search-tsx-75204e4079b1c2ab10d6.js"],"component---src-templates-docs-tsx":["/component---src-templates-docs-tsx-e490458d9c309ad51326.js"],"component---src-templates-draft-tsx":["/component---src-templates-draft-tsx-29cf70a0864f859bc34f.js"],"component---src-templates-record-tsx":["/component---src-templates-record-tsx-d9604dfbf61a627cc3b1.js"]};/*]]>*/</script><script src="/polyfill-742c6432b3506ece291d.js" nomodule=""></script><script src="/component---src-templates-docs-tsx-e490458d9c309ad51326.js" async=""></script><script src="/344cdabbef2f94435bf46a4c6f419508dc1f3c07-60b18b9c1a35557fcef1.js" async=""></script><script src="/app-f8bdc98be092b50dc7b7.js" async=""></script><script src="/framework-6f368dc52809f5083f6b.js" async=""></script><script src="/webpack-runtime-cb427b8dd5de2643a215.js" async=""></script></body></html>
