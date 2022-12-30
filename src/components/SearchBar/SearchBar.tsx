@@ -10,6 +10,7 @@ const Fieldset = styled.fieldset`
   padding: 10px 20px;
 
   display: flex;
+  flex-wrap: nowrap;
 
   transition: box-shadow 0.2s;
 
@@ -22,7 +23,7 @@ function SearchIcon() {
   const { colors } = useTheme();
   return (
     <Icon
-      style={{ margin: "0 10px" }}
+      style={{ marginRight: "10px" }}
       vertical="middle"
       size="20px"
       fill={colors.secondary.main}
@@ -42,12 +43,20 @@ const Input = styled.input`
 `;
 
 interface SearchIconProps extends ComponentPropsWithoutRef<"form"> {
+  /** 检索值 */
   value?: string;
+  /** 检索值更新事件 */
   onSearchInput?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
+
+/** 搜索栏 */
 export default function SearchBar({ value, onSearchInput, ...rest }: SearchIconProps) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
   return (
-    <form {...rest}>
+    <form {...rest} onSubmit={handleSubmit}>
       <Fieldset>
         <SearchIcon />
         <Input autoFocus type="search" defaultValue={value} onChange={onSearchInput} placeholder="search...." />

@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import Icon from "../Icon";
 import Juejin from "../Icon/Juejin";
 import { Link } from "gatsby";
+import IconEMail from "../Icon/EMail";
 
 const DocInfoStyle = styled.div`
   ${({ theme: { colors: c } }) => css`
@@ -97,8 +98,13 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
         </li>
         <li>
           询问或联系作者：
-          <a href="https://juejin.cn/user/3069492197065453" target="_blank">
-            <Icon size="52px" vertical="middle" children={<Juejin />} />
+          <a href="mailto:842925337@qq.com" target="_blank">
+            <Icon size="32px" fill="blue" vertical="middle" children={<IconEMail color="#0096d3" />} />
+            <span>842925337@qq.com</span>
+          </a>
+          ，
+          <a href="https://blog.csdn.net/qq_42881675" target="_blank">
+            <span>csdn</span>
           </a>
         </li>
       </ul>

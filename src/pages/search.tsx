@@ -143,10 +143,12 @@ export default function Search({ data, location }: PageData) {
   const [renderLi, setRenderLi] = useState<ReturnType<typeof matchList>>([]);
   const keyword = (qs.parse(location.search).keyword as string) ?? "";
 
+  // 根据关键字更新匹配列表
   useEffect(() => {
     setRenderLi(matchList(nodes, keyword, 0));
   }, [nodes, keyword]);
 
+  // 防抖路由
   const handleKeyword = useDebounce(function (e: ChangeEvent<HTMLInputElement>) {
     navigate(`?${qs.stringify({ keyword: e.target.value })}`, { replace: true });
   }, 250);

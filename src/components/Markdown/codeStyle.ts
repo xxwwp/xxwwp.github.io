@@ -3,7 +3,7 @@ import { css } from "styled-components";
 const codeStyle = css`
   pre[class*="language-"] {
     overflow: auto;
-    background: #fcfcfc;
+    background: #122;
   }
   pre[class*="language-"] > code[class*="language-"] {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -24,7 +24,7 @@ const codeStyle = css`
     -ms-hyphens: none;
     hyphens: none;
 
-    color: #424242;
+    color: ${(p) => p.theme.colors.primary.main};
     background: inherit;
   }
 
@@ -44,24 +44,34 @@ const codeStyle = css`
   }
 
   .token.punctuation {
-    color: #999;
+    color: #cfb500;
   }
 
   .token.namespace {
     opacity: 0.7;
   }
 
-  .token.property,
-  .token.tag,
+  .token.property {
+    color: ${(p) => p.theme.colors.secondary.refer};
+  }
+
   .token.boolean,
   .token.number,
   .token.constant,
   .token.symbol,
   .token.class-name {
-    color: ${(p) => p.theme.colors.link.main};
+    color: ${(p) => p.theme.colors.green.main};
   }
 
-  .token.selector,
+  .token.tag > .token.tag,
+  .token.tag > .punctuation {
+    color: ${(p) => p.theme.colors.link.refer};
+  }
+
+  .token.selector {
+    color: ${(p) => p.theme.colors.yellow.refer};
+  }
+
   .token.string {
     color: ${(p) => p.theme.colors.yellow.main};
   }
@@ -72,7 +82,10 @@ const codeStyle = css`
     color: ${(p) => p.theme.colors.primary.main};
   }
 
-  /* .token.operator, */
+  .token.operator {
+    color: #eee;
+  }
+
   .token.entity,
   .token.url,
   .language-css .token.string,
@@ -112,7 +125,7 @@ const codeStyle = css`
   }
 
   .token.function {
-    color: ${(p) => p.theme.colors.yellow.main};
+    color: ${(p) => p.theme.colors.yellow.refer};
   }
 `;
 
