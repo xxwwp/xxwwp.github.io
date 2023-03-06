@@ -3,6 +3,7 @@ title: "markdown 编写规范"
 slug: /docs/Markdown_writing_specification
 createAt: 2021-09-10
 publish: false
+obsolete: false
 archives:
   - 文章
 ---
@@ -44,6 +45,10 @@ meta: 元数据
 - _publish ::= boolean 默认 false_
 
   是否发布，仅在设置为 true 时文章会被发布。（默认不会发布文章）
+
+- _obsolete ::= boolean_
+
+  是否废弃，仅在设置为 true 时文章被废弃。
 
 - _tags ::= string[]_
 

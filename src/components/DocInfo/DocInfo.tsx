@@ -7,6 +7,13 @@ import { Link } from "gatsby";
 import IconEMail from "../Icon/EMail";
 
 const DocInfoStyle = styled.div`
+  @media print {
+    .issues,
+    .right {
+      display: none;
+    }
+  }
+
   ${({ theme: { colors: c } }) => css`
     margin: 70px 0;
     padding: 1em;
@@ -112,7 +119,7 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
         {tagsLink?.length > 0 && <li key="label">标签：{tagsLink}</li>}
         {archivesLink?.length > 0 && <li key="archives">归档：{archivesLink}</li>}
       </ul>
-      <p>
+      <p className="issues">
         对这篇文档存在疑惑？你可以通过发起
         <a href="https://github.com/xxwwp/xxwwp.github.io/issues" target="_blank">
           问题

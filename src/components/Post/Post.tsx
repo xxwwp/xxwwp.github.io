@@ -22,6 +22,13 @@ const Layout = styled.div`
   @media screen and (max-width: ${miniWidth}) {
     display: block;
   }
+
+  @media print {
+    display: block;
+  }
+  @page {
+    margin: 1cm;
+  }
 `;
 
 const AsideBox = styled.div`
@@ -32,6 +39,10 @@ const AsideBox = styled.div`
   padding: 0px 25px 100px 20px;
   max-height: 100vh;
   overflow: auto;
+
+  @media print {
+    display: none;
+  }
 
   // 小屏幕关闭侧边栏粘性布局
   @media screen and (max-width: ${miniWidth}) {

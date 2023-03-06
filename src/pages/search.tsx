@@ -121,7 +121,10 @@ function matchList(list: DData["allMarkdownRemark"]["nodes"], keyword: string, d
 
 export const query = graphql`
   query SearchQuery {
-    allMarkdownRemark(sort: { fields: frontmatter___createAt, order: DESC }) {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: frontmatter___createAt }
+      filter: { frontmatter: { obsolete: { ne: true } } }
+    ) {
       nodes {
         excerpt
         fields {

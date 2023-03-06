@@ -6,6 +6,10 @@ import { page } from "../../constants/conf";
 import { WindowLocation } from "@reach/router";
 
 const Box = styled.header`
+  @media print {
+    display: none;
+  }
+
   ${({ theme: { colors: c } }) => css`
     /* background: linear-gradient(to bottom right, ${c.secondary.main}, ${c.primary.main}); */
     /* background: ${c.secondary.main}; */
@@ -81,6 +85,9 @@ export default function Header({ location }: HeaderProps) {
             {v.name}
           </Link>
         ))}
+        <a href="https://xxwwp.github.io/jnet-basic/" target="_blank" referrerPolicy="no-referrer">
+          # jnet basic
+        </a>
       </Nav>
     </Box>
   );

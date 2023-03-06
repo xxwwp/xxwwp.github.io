@@ -94,7 +94,7 @@ const recordPage = mdPagination(
       allMarkdownRemark(
         sort: { fields: frontmatter___createAt, order: DESC }
         filter: {
-          frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { eq: true } }
+          frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { eq: true }, obsolete: { ne: true } }
         }
       ) {
         nodes {
@@ -113,7 +113,7 @@ const DraftPage = mdPagination(
       allMarkdownRemark(
         sort: { fields: frontmatter___createAt, order: DESC }
         filter: {
-          frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { ne: true } }
+          frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { ne: true }, obsolete: { ne: true } }
         }
       ) {
         nodes {
