@@ -29,6 +29,15 @@ function UnCommitTip() {
   );
 }
 
+function NoLongerValid() {
+  const c = useTheme().colors;
+  return (
+    <Blockquote style={{ fontSize: ".9rem" }} baseColor={c.yellow.refer} bgColor={c.bg.refer}>
+      <p>这篇文章已经废弃或过时，不再有效。</p>
+    </Blockquote>
+  );
+}
+
 export const query = graphql`
   query ($slug: String!) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
@@ -44,6 +53,7 @@ export const query = graphql`
         nextPage
         prevPage
         tags
+        obsolete
       }
       headings {
         depth
@@ -51,6 +61,7 @@ export const query = graphql`
       }
       fields {
         gitinfo
+        path
       }
       parent {
         ... on File {
@@ -73,15 +84,22 @@ export const query = graphql`
         }
       }
     }
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
   }
 `;
 
 export default function Docs({ data, location }: PageData) {
   const fm = data.markdownRemark.frontmatter;
+  const site = data.site;
   const { latest }: DGitinfo = JSON.parse(data.markdownRemark.fields.gitinfo);
 
   const unPublish = fm.publish !== true && <UnPublishTip />;
   const unCommit = latest === null ? <UnCommitTip /> : "";
+  const noLongerValid = fm.obsolete === true ? <NoLongerValid /> : "";
 
   const active = useCurrentHeading();
 
@@ -96,6 +114,7 @@ export default function Docs({ data, location }: PageData) {
         <>
           {unPublish}
           {unCommit}
+          {noLongerValid}
           <TOC deepRender={4} toc={data.markdownRemark.headings} active={active.name}></TOC>
           <PostRecent list={recentPosts}></PostRecent>
         </>
@@ -113,6 +132,7 @@ export default function Docs({ data, location }: PageData) {
         archives={fm.archives}
         historyLink={`https://github.com/xxwwp/xxwwp.github.io/commits/main/docs/${data.markdownRemark.parent.relativePath}`}
         createAt={data.markdownRemark.frontmatter.createAt}
+        path={[site.siteMetadata.siteUrl, data.markdownRemark.fields.path].join("")}
       />
     </Post>
   );
@@ -138,10 +158,12 @@ interface DMdx {
     prevPage?: string;
     tags?: string[];
     archives?: string[];
+    obsolete?: boolean;
   };
   headings: DHeading[];
   fields: {
     gitinfo: string;
+    path: string;
   };
   parent: {
     relativePath: string;
@@ -177,6 +199,11 @@ interface PageData extends PageProps {
           path: string;
         };
       }[];
+    };
+    site: {
+      siteMetadata: {
+        siteUrl: string;
+      };
     };
   };
 }

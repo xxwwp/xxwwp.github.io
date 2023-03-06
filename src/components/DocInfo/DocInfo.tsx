@@ -9,7 +9,8 @@ import IconEMail from "../Icon/EMail";
 const DocInfoStyle = styled.div`
   @media print {
     .issues,
-    .right {
+    .right,
+    .connect {
       display: none;
     }
   }
@@ -63,9 +64,11 @@ export interface DocInfoProps {
   historyLink?: string;
   // 创建时间
   createAt: string;
+  /** 本文路径 */
+  path: string;
 }
 
-export default function DocInfo({ lastModify, sourceLink, archives, tags, historyLink, createAt }: DocInfoProps) {
+export default function DocInfo({ lastModify, sourceLink, archives, tags, historyLink, createAt, path }: DocInfoProps) {
   const crTip = "署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)";
 
   const tagsLink = tags?.map((v, i) => (
@@ -103,7 +106,7 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
             {crTip}
           </a>
         </li>
-        <li>
+        <li className="connect">
           询问或联系作者：
           <a href="mailto:842925337@qq.com" target="_blank">
             <Icon size="32px" fill="blue" vertical="middle" children={<IconEMail color="#0096d3" />} />
@@ -113,6 +116,9 @@ export default function DocInfo({ lastModify, sourceLink, archives, tags, histor
           <a href="https://blog.csdn.net/qq_42881675" target="_blank">
             <span>csdn</span>
           </a>
+        </li>
+        <li>
+          本文地址：<a href={path}>{path}</a>
         </li>
       </ul>
       <ul>

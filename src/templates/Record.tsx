@@ -10,7 +10,13 @@ export const query = graphql`
       limit: $limit
       skip: $skip
       filter: {
-        frontmatter: { slug: { ne: null }, title: { ne: null }, createAt: { ne: null }, publish: { eq: true } }
+        frontmatter: {
+          slug: { ne: null }
+          title: { ne: null }
+          createAt: { ne: null }
+          publish: { eq: true }
+          obsolete: { ne: true }
+        }
       }
     ) {
       nodes {
