@@ -23,6 +23,8 @@ const Nav = styled.nav`
   max-width: 1200px;
   padding: 10px 20px;
   margin: auto;
+  flex-wrap: wrap;
+
   a {
     color: white;
     margin: 0 10px;
@@ -50,6 +52,10 @@ const Nav = styled.nav`
 const Title = styled(Link)`
   font-size: 1.8rem;
   margin-right: 20px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 `;
 
 const navs = [
