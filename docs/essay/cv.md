@@ -38,9 +38,9 @@ desc:
 
 **完全掌握：**
 
-- 精通 Javascript，ECMAScript、Typescript。熟悉 ES3/5 的原型链，继承、闭包。熟练使用 ES6+，丰富的 Typescript 开发经验。
-- 精通 HTML、对语义化有深刻理解。
-- 精通 CSS、对 CSS 布局有大量实践经验，熟练运用常规流、弹性、网格布局，对各种布局上下文有深刻理解。精通 IFC、BFC。
+- 熟练掌握 Javascript，ECMAScript、Typescript。熟悉 ES3/5 的原型链，继承、闭包。熟练使用 ES6+，丰富的 Typescript 开发经验。
+- 熟练掌握 HTML、对语义化有深刻理解。
+- 熟练掌握 CSS、对 CSS 布局有大量实践经验，熟练运用常规流、弹性、网格布局，对各种布局上下文有深刻理解。熟练掌握 IFC、BFC。
 
 **熟练开发：**
 
@@ -54,7 +54,7 @@ desc:
 
 - 了解 Vue3，使用 Vue3 写过一个后台，熟练编写 Signle-File Components 模式，熟练使用组合式 API。（为什么我只是了解 Vue3，但是熟悉 SFC？因为 React 写多了，迁移无压力。）
 - 有 Nodejs 开发经验，运用 Express 写过个人项目和测试，用 Nodejs 写过大量小脚本，文件处理，数据清理，socket 等，但是目前没有像模像样的开发经历。
-- 系统学习并实践过 Webpack4，多个项目使用 Webpack 进行自定义搭建，但是一个项目配一次用几个月甚至几年，loader 和插件又多，并不敢说精通或熟悉。
+- 系统学习并实践过 Webpack4，多个项目使用 Webpack 进行自定义搭建，但是一个项目配一次用几个月甚至几年，loader 和插件又多，并不敢说熟练掌握。
 - 系统学习并实践过 Rollup，使用 Rollup 编写过开源库，但是没什么 star，看这里：https://www.npmjs.com/package/storage-timing 。
 - 系统学习 Babel、Eslint、Postcss 等，在 Webpack，Rollup 自定义构建的项目中有使用，常用脚手架也经常进行配置。
 - 熟悉 Linux 常用指令，能够在远程服务器开发。
