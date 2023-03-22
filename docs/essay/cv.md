@@ -3,7 +3,7 @@ title: 刘嘉豪的个人简历
 slug: /docs/essay/cv
 createAt: 2023-03-06
 publish: true
-obsolete: false
+obsolete: true
 tags:
   - 工作
 archives:

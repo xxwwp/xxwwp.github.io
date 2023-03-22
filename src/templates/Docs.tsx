@@ -33,7 +33,7 @@ function NoLongerValid() {
   const c = useTheme().colors;
   return (
     <Blockquote style={{ fontSize: ".9rem" }} baseColor={c.yellow.refer} bgColor={c.bg.refer}>
-      <p>这篇文章已经废弃或过时，不再有效。</p>
+      <p>这篇文章已经隐藏，它可能已经废弃或过时，不再有效。</p>
     </Blockquote>
   );
 }
