@@ -45,7 +45,30 @@ background及其缩写（参见CSS Backgrounds 3 § 2.11.2 The Canvas Background
 
 - layout
 
-  - 创建格式化上下文，官方具体没说，测下来类似 BFC，但是实际比 BFC 更独立。
+  layout-containment 的要素特别多，挑几个重点说说：
+
+  - 创建独立格式化上下文。默认就是一个新的 BFC。
+  - 建立一个绝对定位包含块和固定定位包含块。也就是内部元素进行绝对或者固定定位时，会参考 layout-comtainment。
+  - 建立层叠上下文。可以使用 zIndex 了。
+  - **自身没基线**。这点很微妙，inline-block 盒子时，对齐的是 margin 底部边缘，忽略了其内部文本;inline 盒子时，又是对齐其内部文本基线。
+  - 失效情况同 size-contaiment。
+  - ... [更多][2]
+
+- style
+
+  style-containment 会进行样式包裹，内部计数器 `counter` 相关属性会重置
+
+- paint
+
+  paint-containment 会对溢出进行剪裁，但是并不会形成滚动容器。效果类似 `overflow:clip`
+
+  - 创建独立格式化上下文。
+  - 建立一个绝对定位包含块和固定定位包含块。
+  - 建立层叠上下文。
+  - 失效情况同 size-contaiment。
+  - ... [更多][2]
+
+  总结，类似 layout-containment，但是会剪裁溢出部分，同时不像 layout-containment 一样没有基线。
 
 ## content-visibility
 
