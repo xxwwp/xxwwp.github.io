@@ -1,6 +1,6 @@
 ---
 title: overflow clip 和 hidden 的不同
-createAt: 20213-03-27
+createAt: 2023-03-27
 slug: /docs/notes/overflow clip 和 hidden 的不同
 publish: false
 tags:
