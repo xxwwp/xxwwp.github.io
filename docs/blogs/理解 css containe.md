@@ -72,6 +72,48 @@ background及其缩写（参见CSS Backgrounds 3 § 2.11.2 The Canvas Background
 
 ## content-visibility
 
+content-visibility 对盒子的内容渲染显示隐藏进行控制，相比其他显示隐藏元素的方式，content-visibility 节约了渲染成本，提高了交互体验。
+
+- content-visibility: visible
+
+  默认值，正常的渲染
+
+- content-visibility: hidden
+
+  设置为 hidden 时，盒子的内容会被隐藏，元素本身不会隐藏，它的 padding、margin、barder 都还会展示。
+
+  - 隐藏的子节点可以被可以被测量。例如使用 getBoundingClientRect 可以拿到元素展开后的实际位置。
+  - 降低切换成本，比起 `display:none` 或者直接不在页面中展示元素，content-visibility 切换显示隐藏的效率更高，成本更低。
+  - 隐藏后内容被跳过，使用 <kbd>Ctrl</kbd> + <kbd>F</kbd> 搜索不到被隐藏的内容，屏幕阅读器也会跳过隐藏的内容。
+
+- content-visibility: auto
+
+  设置为 `auto` 时情况很复杂，元素会选择适当的时机跳过元素内容，**是跳过不是隐藏**，所以就算跳过，使用屏幕阅读器或者查找页面内容，还是可以查到跳过的内容。
+
+  跳过的内容至于会不会渲染不得而知，W3C 说的不清不楚。不过 W3C 重点强调，这可以用来代替“虚拟列表”技术。说明用户代理会跳过渲染，但不会跳过布局计算。
+
+> 目前的虚拟列表依赖每个项目的高度，也就是说，如果列表的每一项的高度都需要进行精确设置，如果需要自适应，那么开销是非常大的，并且也非常难以完美的实现。但是该技术彻底解决的虚拟列表技术，支持任意的高度且自适应的虚拟列表。
+
+## contentvisibilityautostatechange 事件
+
+contentvisibilityautostatechange 事件监听设置 `content-visibility: auto` 的元素，在元素内容可见性的改变时触发。
+
+该事件携带一个只读布尔属性 **skipped**，表示当前元素是否被跳过，跳过时为 `true`，反之 `false`。
+
+如：
+
+```html
+<div id="foo" style="content-visibility: auto"></div>
+
+<script>
+  const foo = document.getElementById("foo");
+
+  foo.addEventListener("contentvisibilityautostatechange", (e) => {
+    console.log(e.skipped);
+  });
+</script>
+```
+
 ## contain-intrinsic-size
 
 ## 参考
