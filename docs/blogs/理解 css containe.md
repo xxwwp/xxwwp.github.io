@@ -7,6 +7,12 @@ tags:
   - css
   - containe
   - content-visibility
+  - contain-intrinsic-block-size
+  - contain-intrinsic-inline-size
+  - contain-intrinsic-width
+  - contain-intrinsic-height
+  - contain-intrinsic-size
+  - contentvisibilityautostatechange
 archives:
   - 博客
 ---
