@@ -1,4 +1,5 @@
 ---
+id: 971f3446-c798-4828-b675-3dac03aac775
 title: "markdown 编写规范"
 slug: /docs/Markdown_writing_specification
 createAt: 2021-09-10

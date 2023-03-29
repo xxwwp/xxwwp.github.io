@@ -1,4 +1,5 @@
 ---
+id: d3693eb9-01cb-4f91-bb67-d664bb5362e9
 title: svg 泛色 feFlood
 createAt: 2021-08-18
 slug: /docs/svg/filter/泛色

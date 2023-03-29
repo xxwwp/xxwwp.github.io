@@ -1,4 +1,5 @@
 ---
+id: bef88842-b614-43dc-b43f-54d0e6774526
 title: svg 图案 pattern
 createAt: 2021-08-10
 slug: /docs/svg/图案

@@ -1,4 +1,5 @@
 ---
+id: 984bc1b9-c6a2-4a7c-851b-a67a2861933d
 title: vue2 与 vue3 变化总结
 slug: /docs/notes/vue2 与 vue3 变化总结
 createAt: 2021-11-06

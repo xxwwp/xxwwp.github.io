@@ -1,4 +1,5 @@
 ---
+id: 4f6e3927-abdb-4792-8127-eeccff6f505a
 title: svg 移位映射 feDisplacementMap
 createAt: 2021-08-26
 slug: /docs/svg/filter/移位映射

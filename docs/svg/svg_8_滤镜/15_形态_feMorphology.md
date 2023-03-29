@@ -1,4 +1,5 @@
 ---
+id: e33da682-fa8a-4a0b-8395-b7cbc87ccc49
 title: svg 形态 feMorphology
 createAt: 2021-08-27
 slug: /docs/svg/filter/形态

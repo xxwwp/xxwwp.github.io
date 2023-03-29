@@ -1,4 +1,5 @@
 ---
+id: 470b9ae7-1ec3-4c58-9b4a-ce18afd6b142
 title: svg 渐变、linearGradient 与 radialGradient
 createAt: 2021-08-10
 slug: /docs/svg/渐变

@@ -1,4 +1,5 @@
 ---
+id: 3d5e88d0-8e8e-4bc8-9b7c-6c8cfc3ff375
 title: overflow clip 和 hidden 的不同
 createAt: 2023-03-27
 slug: /docs/notes/overflow clip 和 hidden 的不同

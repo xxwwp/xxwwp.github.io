@@ -1,4 +1,5 @@
 ---
+id: 06be1b6f-6854-47bb-af30-0f622fd06ec1
 title: react ssr 极简实现
 slug: /docs/blogs/react ssr 极简实现
 createAt: 2022-07-01

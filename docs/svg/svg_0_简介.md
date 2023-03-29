@@ -1,4 +1,5 @@
 ---
+id: 5b26d92b-babd-44d1-8916-3410eacf453a
 title: svg 简介
 createAt: 2021-08-11
 slug: /docs/svg/简介

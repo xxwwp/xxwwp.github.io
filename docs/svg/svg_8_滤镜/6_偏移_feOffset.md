@@ -1,4 +1,5 @@
 ---
+id: 2c1a3e7e-77ee-424b-9864-7bc81900055b
 title: svg 偏移 feOffset
 createAt: 2021-08-18
 slug: /docs/svg/filter/偏移

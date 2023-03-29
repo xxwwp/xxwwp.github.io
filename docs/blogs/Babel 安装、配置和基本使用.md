@@ -1,4 +1,5 @@
 ---
+id: cefcffd6-9598-493e-9124-fb20f3582b6d
 title: Babel 安装、配置和基本使用
 slug: /docs/blogs/Babel 安装、配置和基本使用
 createAt: 2021-06-22

@@ -1,4 +1,5 @@
 ---
+id: 549a7cba-f8e2-490f-bc33-12ac65e5c27f
 title: React 如何根据外部状态进行更新
 slug: /docs/blogs/React 如何根据外部状态进行更新
 createAt: 2022-12-16

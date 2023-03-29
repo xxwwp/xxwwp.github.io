@@ -1,4 +1,5 @@
 ---
+id: 6d280560-2d9b-428f-9283-871b50693a01
 title: svg 合成 feComposite
 createAt: 2021-08-19
 slug: /docs/svg/filter/合成

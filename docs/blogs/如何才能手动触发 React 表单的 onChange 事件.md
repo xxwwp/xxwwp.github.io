@@ -1,4 +1,5 @@
 ---
+id: 683b8db2-e2e4-430d-b99a-4d2ce1d633b8
 title: 如何才能手动触发 React 表单的 onChange 事件
 slug: /docs/blogs/如何才能手动触发 React 表单的 onChange 事件
 createAt: 2023-01-31

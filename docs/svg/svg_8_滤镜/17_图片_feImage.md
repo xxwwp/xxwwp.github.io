@@ -1,4 +1,5 @@
 ---
+id: 812b8d42-3b81-4b77-97e8-602355b28d38
 title: svg 图片 feImage
 createAt: 2021-08-27
 slug: /docs/svg/filter/图片

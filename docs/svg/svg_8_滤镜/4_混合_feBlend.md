@@ -1,4 +1,5 @@
 ---
+id: 562826ca-3e11-4a9b-8b21-07174b928751
 title: svg 混合 feBlend
 createAt: 2021-08-18
 slug: /docs/svg/filter/混合

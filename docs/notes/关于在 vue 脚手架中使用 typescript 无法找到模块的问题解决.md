@@ -1,4 +1,5 @@
 ---
+id: 38ff0ef0-6d75-4aa0-b0e0-51df380033e7
 title: 关于在 vue 脚手架中使用 typescript 无法找到模块的问题解决
 slug: /docs/notes/关于在 vue 脚手架中使用 typescript 无法找到模块的问题解决
 createAt: 2021-11-06

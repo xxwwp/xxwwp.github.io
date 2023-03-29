@@ -1,4 +1,5 @@
 ---
+id: 5458f1a3-b7ba-4963-8783-62ddd553ac12
 title: 理解 css containe 属性
 slug: /docs/blogs/理解 css containe 属性
 createAt: 2023-03-16

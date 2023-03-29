@@ -1,4 +1,5 @@
 ---
+id: d945c91a-b8fd-4b4f-a843-623e2b13cace
 title: svg 光照滤镜 feDiffuseLighting、feDistantLight、fePointLight、feSpecularLighting、feSpotLight
 createAt: 2021-08-24
 slug: /docs/svg/filter/光照滤镜

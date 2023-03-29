@@ -1,4 +1,5 @@
 ---
+id: 471ce183-e16b-455c-9c23-aaf5f06e918f
 title: svg 卷积矩阵 feConvolveMatrix
 createAt: 2021-08-24
 slug: /docs/svg/filter/卷积矩阵

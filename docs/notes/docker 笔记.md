@@ -1,4 +1,5 @@
 ---
+id: f6ece703-7482-4e74-8f34-b88a161538ff
 title: docker 笔记
 slug: /docs/notes/docker 笔记
 createAt: 2022-07-26

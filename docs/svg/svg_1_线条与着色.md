@@ -1,4 +1,5 @@
 ---
+id: 811c1f5a-1a41-476e-bbc8-372fddf15f14
 title: svg 线条与着色
 createAt: 2021-08-08
 slug: /docs/svg/线条与着色

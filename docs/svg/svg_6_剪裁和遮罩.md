@@ -1,4 +1,5 @@
 ---
+id: ac327c46-3804-42e0-9e26-a6ad201bd1cf
 title: svg 剪裁和遮罩
 createAt: 2021-08-11
 slug: /docs/svg/剪裁和遮罩

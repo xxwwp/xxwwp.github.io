@@ -1,4 +1,5 @@
 ---
+id: ebb211a7-8925-4bbb-85e7-12bd966d4366
 title: svg 高斯模糊 feGaussianBlue
 createAt: 2021-08-18
 slug: /docs/svg/filter/高斯模糊

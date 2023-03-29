@@ -1,4 +1,5 @@
 ---
+id: 235218aa-0fc5-4d17-8355-7c275c4c0bc6
 title: rollup 笔记
 slug: /docs/note/rollup
 createAt: 2022-03-14

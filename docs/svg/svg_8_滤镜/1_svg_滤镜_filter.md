@@ -1,4 +1,5 @@
 ---
+id: 5fa6f63e-05cd-4528-b00b-bda8d0cad5f7
 title: svg 滤镜 filter
 createAt: 2021-08-11
 slug: /docs/svg/滤镜

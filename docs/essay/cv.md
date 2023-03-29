@@ -1,4 +1,5 @@
 ---
+id: 4fb2a00c-b767-41ef-9919-af57a92d29a0
 title: 刘嘉豪的个人简历
 slug: /docs/essay/cv
 createAt: 2023-03-06

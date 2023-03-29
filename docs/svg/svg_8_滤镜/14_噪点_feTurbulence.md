@@ -1,4 +1,5 @@
 ---
+id: b8416d61-4f0b-4316-9711-85bb9b57ede1
 title: svg 噪点 feTurbulence
 createAt: 2021-08-27
 slug: /docs/svg/filter/噪点

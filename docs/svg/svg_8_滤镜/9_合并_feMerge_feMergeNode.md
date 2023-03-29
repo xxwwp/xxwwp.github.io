@@ -1,4 +1,5 @@
 ---
+id: 2d51fd6e-e95f-4f07-b6c2-8268d53949ae
 title: svg 合并 feMerge、feMergeNode
 createAt: 2021-08-19
 slug: /docs/svg/filter/合并

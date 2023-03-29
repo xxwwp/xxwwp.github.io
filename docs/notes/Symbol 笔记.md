@@ -1,4 +1,5 @@
 ---
+id: beab2ddb-de0c-403c-84b9-015888fe2e72
 title: Symbol 笔记
 slug: /docs/notes/Symbol 笔记
 createAt: 2022-07-12

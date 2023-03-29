@@ -42,11 +42,25 @@ const md = {
           nodes {
             frontmatter {
               slug
+              id
             }
+            fileAbsolutePath
           }
         }
       }
     `);
+
+    // id 检查
+    const idMap = new Map();
+    result.data.allMarkdownRemark.nodes.forEach((node) => {
+      const { fileAbsolutePath } = node;
+      const { id } = node.frontmatter;
+      if (idMap.has(id))
+        throw new Error(
+          `id ${id} 重复：\n目标 fileAbsolutePath：${fileAbsolutePath}；\n当前 fileAbsolutePath：${idMap.get(id)}`
+        );
+      idMap.set(id, fileAbsolutePath);
+    });
 
     result.data.allMarkdownRemark.nodes.forEach((node) => {
       createPage({

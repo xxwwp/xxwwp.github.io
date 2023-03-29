@@ -1,4 +1,5 @@
 ---
+id: 70c6668b-71a5-4dfd-b5ec-259c6012a7d3
 title: rust 笔记
 slug: /docs/notes/rust 笔记
 createAt: 2022-07-26

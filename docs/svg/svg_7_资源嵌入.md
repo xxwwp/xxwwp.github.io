@@ -1,4 +1,5 @@
 ---
+id: 78405188-ea15-412d-afce-a6eba34b15e6
 title: svg 资源嵌入
 createAt: 2021-08-11
 slug: /docs/svg/资源嵌入

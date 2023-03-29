@@ -1,4 +1,5 @@
 ---
+id: 51870bb9-a907-4b89-8757-88301e16abdc
 title: typescript_与_webpack_alias_混用
 createAt: 2021-09-28
 slug: /docs/blogs/typescript_与_webpack_alias_混用

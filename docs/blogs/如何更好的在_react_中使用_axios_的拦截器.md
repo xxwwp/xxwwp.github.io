@@ -1,4 +1,5 @@
 ---
+id: c8830c85-5852-40e2-8d16-b1e38aa6d6a7
 title: 如何更好的在 react 中使用 axios 的拦截器
 createAt: 2021-09-28
 slug: /docs/blogs/如何更好的在 react 中使用 axios 的拦截器

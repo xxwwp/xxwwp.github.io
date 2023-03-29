@@ -10,6 +10,7 @@ import TOC from "../components/TOC";
 import { useCurrentHeading } from "../components/Markdown/H1_6";
 import PostRecent from "../components/PostRecent";
 import FrontAndBackPages from "../components/FrontAndBackPages/FrontAndBackPages";
+import { Disqus } from "gatsby-plugin-disqus";
 
 function UnPublishTip() {
   const c = useTheme().colors;
@@ -44,6 +45,7 @@ export const query = graphql`
       htmlAst
       excerpt
       frontmatter {
+        id
         slug
         title
         createAt(formatString: "yyyy-MM-DD")
@@ -134,6 +136,16 @@ export default function Docs({ data, location }: PageData) {
         createAt={data.markdownRemark.frontmatter.createAt}
         path={[site.siteMetadata.siteUrl, data.markdownRemark.fields.path].join("")}
       />
+      <Disqus
+        config={{
+          /* Replace PAGE_URL with your post's canonical URL variable */
+          url: site.siteMetadata.siteUrl + fm.slug,
+          /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+          identifier: fm.id,
+          /* Replace PAGE_TITLE with the title of the page */
+          title: fm.title,
+        }}
+      />
     </Post>
   );
 }
@@ -149,6 +161,7 @@ interface DMdx {
   htmlAst: object;
   excerpt: string;
   frontmatter: {
+    id: string;
     slug: string;
     title: string;
     createAt: string;

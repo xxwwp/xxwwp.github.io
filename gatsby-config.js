@@ -59,5 +59,11 @@ module.exports = {
         showSpinner: false,
       },
     },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `xxwwp-github-io`,
+      },
+    },
   ],
 };
