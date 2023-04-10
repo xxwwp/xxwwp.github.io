@@ -72,7 +72,7 @@ export const query = graphql`
       }
     }
     allMarkdownRemark(
-      filter: { frontmatter: { publish: { eq: true } } }
+      filter: { frontmatter: { publish: { eq: true }, obsolete: { ne: true } } }
       sort: { fields: frontmatter___createAt, order: DESC }
       limit: 5
     ) {
