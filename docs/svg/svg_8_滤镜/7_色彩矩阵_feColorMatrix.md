@@ -46,29 +46,28 @@ archives:
 色彩矩阵中的颜色遵循以下计算方式：
 
 $$
-\begin{vmatrix}
+\begin{bmatrix}
 	R' \\
 	G' \\
 	B' \\
 	A' \\
 	1
-\end{vmatrix}
+\end{bmatrix}
 =
-\begin{vmatrix}
+\begin{bmatrix}
 	r_1 && r_2 && r_3 && r_4 && r_5 \\
 	g_1 && g_2 && g_3 && g_4 && g_5 \\
 	b_1 && b_2 && b_3 && b_4 && b_5 \\
 	a_1 && a_2 && a_3 && a_4 && a_5 \\
 	0 && 0 && 0 && 0 && 1 \\
-\end{vmatrix}
-\cdot
-\begin{vmatrix}
+\end{bmatrix}
+\begin{bmatrix}
 	R \\
 	G \\
 	B \\
 	A \\
 	1
-\end{vmatrix}
+\end{bmatrix}
 $$
 
 最后计算得到的结果是：
@@ -192,25 +191,25 @@ $$
 - 原色：
 
 $$
-\begin{vmatrix}
+\begin{bmatrix}
 	1 && 0 && 0 && 0 && 0 \\
 	0 && 1 && 0 && 0 && 0 \\
 	0 && 0 && 1 && 0 && 0 \\
 	0 && 0 && 0 && 1 && 0 \\
 	0 && 0 && 0 && 0 && 0 \\
-\end{vmatrix}
+\end{bmatrix}
 $$
 
 - 黑白（会稍微偏黑一点）：
 
 $$
-\begin{vmatrix}
+\begin{bmatrix}
 	0.3 && 0.3 && 0.3 && 0 && 0 \\
 	0.3 && 0.3 && 0.3 && 0 && 0 \\
 	0.3 && 0.3 && 0.3 && 0 && 0 \\
 	0 && 0 && 0 && 1 && 0 \\
 	0 && 0 && 0 && 0 && 0 \\
-\end{vmatrix}
+\end{bmatrix}
 $$
 
 上面的矩阵之所以能让图案变得黑白，是因为新颜色的 rgb 三种色彩比重是相同的，但是 (0.3 + 0.3 + 0.3) = 0.9，丢失了 0.1 的色彩的总值，导致色彩最后偏向 `#000`，所以会稍微黑一点
