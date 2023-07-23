@@ -29,6 +29,12 @@ const Layout = styled.div`
   @page {
     margin: 1cm;
   }
+
+  @media print {
+    #disqus_thread {
+      display: none;
+    }
+  }
 `;
 
 const AsideBox = styled.div`
