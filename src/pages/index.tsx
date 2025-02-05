@@ -23,10 +23,9 @@ export default function Index({ location }: IndexProps) {
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
-          width="500"
-          height="500"
+          width="0"
+          height="0"
           viewBox="0 0 10 10"
-          style={{ display: "none" }}
         >
           <defs>
             <filter id="feTurbulence">
