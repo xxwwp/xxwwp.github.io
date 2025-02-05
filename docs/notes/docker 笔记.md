@@ -33,6 +33,40 @@ docker --version
 
 安装并不是非常麻烦，但是我使用 docker 的时候非常慢，下载一些包直接半小时起步，所以需要镜像加持。[菜鸟教程 | Docker 镜像加速][1] 一节介绍了如何更换到国内镜像。
 
+在 [docker 门户快速开始][b2] 和 [docker 文档][b3] 都有下载地址。如果不是 windows 系统，安装会非常简单，不赘述。
+
+**如果是 windows 系统，需要前置安装 wsl 以支持 linux 虚拟机。[wsl][6] 文档在此。**
+
+windows 下安装 wsl 不是很复杂，打开 powershell，执行下面命令：
+
+```
+wsl --install
+```
+
+如果控制台返回如下信息，那么就安装成功了：
+
+```shell
+正在安装: 虚拟机平台
+已安装 虚拟机平台。
+正在安装: 适用于 Linux 的 Windows 子系统
+已安装 适用于 Linux 的 Windows 子系统。
+正在安装: 适用于 Linux 的 Windows 子系统
+已安装 适用于 Linux 的 Windows 子系统。
+正在安装: Ubuntu
+已安装 Ubuntu。
+请求的操作成功。直到重新启动系统前更改将不会生效。
+PS C:\Users\xxx> wsl --version
+WSL 版本： 2.1.5.0
+内核版本： 5.15.146.1-2
+WSLg 版本： 1.0.60
+MSRDC 版本： 1.2.5105
+Direct3D 版本： 1.611.1-81528511
+DXCore 版本： 10.0.25131.1002-220531-1700.rs-onecore-base2-hyp
+Windows 版本： 10.0.19045.4412
+```
+
+记住需要重启系统。
+
 ## 概念
 
 哲学三问：docker 是什么？用在哪儿？能干啥？
@@ -481,6 +515,7 @@ kernelCommandLine = vsyscall=emulate
 - [镜像源][1]
 - [docker 官网][4]
 - [docker | 菜鸟教程][5]
+- [wsl][6]
 
 - [bug: Docker fails to build image with exit code 139.( docker build 的时候，使用的镜像过老，导致和 wsl 不兼容)][b1]
 
@@ -491,4 +526,7 @@ kernelCommandLine = vsyscall=emulate
 [5]: https://www.runoob.com/docker/docker-tutorial.html
 [6]: https://docs.docker.com/engine/reference/run/
 [7]: https://hub.docker.com/
+[8]: https://learn.microsoft.com/en-us/windows/wsl/
 [b1]: https://stackoverflow.com/questions/65429435/docker-fails-to-build-image-with-exit-code-139
+[b2]: https://www.docker.com/get-started/
+[b3]: https://docs.docker.com/get-docker/
