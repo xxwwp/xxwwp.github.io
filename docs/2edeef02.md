@@ -1,5 +1,5 @@
 ---
-id: 2edeef02-1ba8-43c7-9507-6988c8d5775f
+id: 2edeef02
 title: 线性代数基向量
 slug: /docs/线性代数/线性代数基向量
 createAt: 2023-05-27
