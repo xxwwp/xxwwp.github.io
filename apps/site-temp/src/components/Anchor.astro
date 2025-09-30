@@ -1,0 +1,20 @@
+---
+interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+const { ...props } = Astro.props;
+---
+
+<a class={`anchor ${props.class}`} {...props}>
+  <slot />
+</a>
+<style>
+  @layer components {
+    .anchor {
+      text-decoration: none;
+      color: var(--color-cyan-500);
+      transition: all 0.2s ease;
+      &:hover {
+        color: var(--color-cyan-400);
+      }
+    }
+  }
+</style>

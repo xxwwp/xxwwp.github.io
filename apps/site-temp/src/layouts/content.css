@@ -1,0 +1,41 @@
+.prose {
+  /* 普通链接颜色 */
+  --link-color: var(--color-cyan-500);
+  --link-hover-color: var(--color-cyan-400);
+
+  /* 链接标题颜色 */
+  --hd-link-color: var(--color-gray-950);
+  --hd-link-hover-color: var(--color-gray-600);
+}
+
+.prose .hd-link {
+  text-decoration: none;
+  transition: all 0.2s ease;
+  color: var(--hd-link-color);
+}
+.prose .hd-link:hover {
+  color: var(--hd-link-hover-color);
+}
+.prose .hd-link:hover::after {
+  content: " #";
+}
+
+.prose a:not(.hd-link) {
+  text-decoration: none;
+  transition: all 0.2s ease;
+  color: var(--link-color);
+}
+.prose a:not(.hd-link):hover {
+  color: var(--link-hover-color);
+}
+
+.prose :not(pre) > code {
+  color: var(--color-violet-800);
+  background-color: var(--color-violet-100);
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}

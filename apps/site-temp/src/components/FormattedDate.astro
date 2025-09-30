@@ -1,0 +1,11 @@
+---
+interface Props extends astroHTML.JSX.TimeHTMLAttributes {
+  date: Date;
+}
+
+const { date, ...props } = Astro.props;
+---
+
+<time datetime={date.toISOString()} {...props}>
+  {date.toISOString().replace("T", " ").slice(0, 10)}
+</time>
