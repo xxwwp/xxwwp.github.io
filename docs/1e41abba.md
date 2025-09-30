@@ -2,7 +2,7 @@
 id: 1e41abba
 title: svg 基础变形
 createAt: 2021-08-11
-slug: /docs/svg/基础变形
+slug: svg/基础变形
 publish: true
 tags:
   - svg

@@ -1,7 +1,7 @@
 ---
 id: cefcffd6
 title: Babel 安装、配置和基本使用
-slug: /docs/blogs/Babel 安装、配置和基本使用
+slug: blogs/Babel 安装、配置和基本使用
 createAt: 2021-06-22
 publish: true
 tags:

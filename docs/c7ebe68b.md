@@ -2,7 +2,7 @@
 id: c7ebe68b
 title: postcss - helloworld
 createAt: 2021-12-29
-slug: /docs/notes/postcss - helloworld
+slug: notes/postcss - helloworld
 publish: true
 tags:
   - postcss

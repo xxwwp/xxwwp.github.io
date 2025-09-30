@@ -1,7 +1,7 @@
 ---
 id: beab2ddb
 title: Symbol 笔记
-slug: /docs/notes/Symbol 笔记
+slug: notes/Symbol 笔记
 createAt: 2022-07-12
 publish: true
 tags:

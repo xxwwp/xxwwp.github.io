@@ -1,7 +1,7 @@
 ---
 id: 2edeef02
 title: 线性代数基向量
-slug: /docs/线性代数/线性代数基向量
+slug: 线性代数/线性代数基向量
 createAt: 2023-05-27
 publish: true
 tags:

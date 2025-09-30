@@ -1,7 +1,7 @@
 ---
 id: 0af0ebca
 title: 编译原理 笔记
-slug: /docs/编译原理 笔记
+slug: 编译原理 笔记
 createAt: 2022-08-09
 publish: false
 tags:
