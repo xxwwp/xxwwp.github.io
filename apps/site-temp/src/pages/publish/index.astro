@@ -1,0 +1,25 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<html lang='zh-CN'>
+  <head>
+    <BaseHead title='发布' description='发布' />
+  </head>
+  <body>
+    <Header />
+    <main class='p-50 flex flex-col gap-8 items-center'>
+      <div>
+        <label for='git-key' class='text-2xl font-bold'>git-key：</label>
+        <input id='git-key' class='border border-solid border-blue-500 p-2 rounded-md w-50' />
+        <button id='publish-button' class='bg-blue-500 text-white p-2 rounded-md w-30'>发布</button>
+      </div>
+      <pre id='result'></pre>
+    </main>
+    <Footer />
+
+    <script src='./publish.ts'></script>
+  </body>
+</html>

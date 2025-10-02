@@ -4,14 +4,14 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
-import { ccby } from "../assets/ccby";
 import "./content.css";
 import { GIT_REPO_URL } from "../consts";
 import IconHistory from "../components/icon-history.astro";
 import IconEdit from "../components/icon-edit.astro";
 import Anchor from "../components/Anchor.astro";
 import type { MarkdownHeading } from "astro";
-
+import Aside from "../components/Aside.astro";
+import AbortDoc from "../components/AbortDoc.astro";
 type Props = CollectionEntry<"docs">["data"] & {
   headings: MarkdownHeading[];
 };
@@ -32,36 +32,21 @@ const { title, desc, createAt, heroImage, tags = [], archives = [], headings } =
   <body>
     <Header />
 
-    <main class='relative'>
-      <aside class='absolute top-0 left-0 h-full border-r border-gray-200 flow-root'>
-        <ul class='m-4'>
-          {
-            headings.map(heading => (
-              <li
-                class:list={[
-                  {
-                    "ml-2": heading.depth === 3,
-                    "ml-4": heading.depth === 4,
-                    "ml-6": heading.depth === 5,
-                    "ml-8": heading.depth === 6,
-                  },
-                  "text-sm text-gray-500 leading-6",
-                ]}
-              >
-                <a href={`#${heading.slug}`}>{heading.text}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </aside>
+    <main class='relative flex flex-col sm:flex-row justify-center gap-4'>
+      <Aside headings={headings} />
 
-      <article class='max-w-4xl mx-auto p-4 prose'>
+      <article data-id='article' class='max-w-4xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-8xl p-4 prose'>
         {heroImage && <img width={1020} src={heroImage} alt='' />}
         <h1>{title}</h1>
         <div class='flex items-center gap-2 text-gray-500 text-xs my-2'>
           <span class='mr-auto'>创建：<FormattedDate date={createAt} /></span>
 
-          <Anchor class='flex items-center gap-1'>
+          <Anchor
+            href={`${GIT_REPO_URL}/edit/temp/docs/${Astro.props.id}.md`}
+            target='_blank'
+            class='flex items-center gap-1'
+            rel='noopener noreferrer'
+          >
             <IconEdit class='w-4 h-4' />
             <span>编辑</span>
           </Anchor>
@@ -81,26 +66,12 @@ const { title, desc, createAt, heroImage, tags = [], archives = [], headings } =
         <hr class='mt-1 mb-8' />
 
         <slot />
-      </article>
 
-      <section
-        class='max-w-4xl mx-auto mt-20 break-all text-sm
-               border border-gray-200 rounded-md p-4
-               bg-gray-50 footer-info'
-      >
-        <div class='text-2xl font-bold mb-4'>关于此文档</div>
-        <div>
-          <span>版权声明：</span>
-          <img src={ccby} class='inline-block' alt='' />
-          <Anchor href='https://creativecommons.org/licenses/by-nc-nd/4.0/' target='_blank' rel='noopener noreferrer'>
-            署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)
-          </Anchor>
-        </div>
-        <div>本文地址：<Anchor href={Astro.url}>{decodeURIComponent(Astro.url.toString())}</Anchor></div>
-        <div>标签：{tags.join(", ")}</div>
-        <div>归档：{archives.join(", ")}</div>
-      </section>
+        <AbortDoc tags={tags} archives={archives} />
+      </article>
     </main>
     <Footer />
   </body>
 </html>
+
+<script src='./blog-post.ts'></script>

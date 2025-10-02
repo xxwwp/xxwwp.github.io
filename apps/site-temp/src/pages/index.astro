@@ -10,8 +10,85 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body>
+  <body class='min-h-[100vh]'>
     <Header />
+
+    <main class='flex flex-col gap-5 items-center pt-20'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='hidden' viewBox='0 0 100 100'>
+        <defs>
+          <g id='circle'>
+            <circle r='45' cx='50' cy='50' fill='#a3e4ff' stroke='#10baff' stroke-width='5'></circle>
+            <path d='M20 20 c55 0,30 50,60 60 c-55 0,-30 -50,-60 -60' fill='white'></path>
+            <path d='M10 60 Q40 35 ,90 40 Q 60 65,10 60' fill='#10baff'></path><text
+              x='50'
+              y='50'
+              text-anchor='middle'
+              fill='#10baff'
+              stroke-width='1'
+              stroke='white'
+              font-weight='bold'
+              dominant-baseline='middle'
+              font-size='14'>玄</text
+            >
+          </g>
+        </defs>
+      </svg>
+
+      <svg
+        class='w-50 h-50'
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:xlink='http://www.w3.org/1999/xlink'
+        width='100'
+        height='100'
+        viewBox='0 0 100 100'
+      >
+        <use href='#circle'></use>
+      </svg>
+
+      <svg
+        style='filter: url(#feTurbulence);'
+        class='w-50 h-50'
+        xmlns='http://www.w3.org/2000/svg'
+        width='100'
+        height='100'
+        viewBox='0 0 100 100'
+      >
+        <use href='#circle'></use>
+      </svg>
+
+      <svg
+        version='1.1'
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:xlink='http://www.w3.org/1999/xlink'
+        width='0'
+        height='0'
+        viewBox='0 0 10 10'
+        ><defs
+          ><filter id='feTurbulence'
+            ><feTurbulence
+              baseFrequency='0.03'
+              numOctaves='1'
+              seed='7'
+              stitchTiles='noStitch'
+              type='fractalNoise'
+              result='turbulenceResult'></feTurbulence><feColorMatrix
+              in='turbulenceResult'
+              type='hueRotate'
+              values='0'
+              result='hueRotateResult'
+              ><animate attributeName='values' from='0' to='360' dur='6s' repeatCount='indefinite'
+              ></animate></feColorMatrix
+            ><feDisplacementMap
+              in='SourceGraphic'
+              in2='hueRotateResult'
+              scale='50'
+              xChannelSelector='R'
+              yChannelSelector='R'
+              result='dispResult'></feDisplacementMap><feOffset in='dispResult' dx='-0.3' dy='-0.3'></feOffset></filter
+          ></defs
+        ></svg
+      >
+    </main>
 
     <Footer />
   </body>

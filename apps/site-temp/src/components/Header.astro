@@ -3,10 +3,10 @@ import { GIT_REPO_URL, SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header>
-  <nav class='flex justify-between items-center p-4 border-b border-gray-200'>
+<header class='sticky top-0 left-0 z-10 bg-white border-b border-gray-200'>
+  <nav class='flex items-center h-16 px-4 gap-8'>
     <h2 class='text-2xl font-bold'><a href='/'>{SITE_TITLE}</a></h2>
-    <div class='flex gap-4'>
+    <div class='flex gap-4 mr-auto'>
       <HeaderLink href='/' class='header-link'>主页</HeaderLink>
       <HeaderLink href='/docs' class='header-link'>记录</HeaderLink>
     </div>
